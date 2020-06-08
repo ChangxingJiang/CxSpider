@@ -31,3 +31,8 @@ if "ChromeDriver" in setting and setting["ChromeDriver"] is not None:
 MYSQL_INFO = dict()
 if "MySQL" in setting and setting["MySQL"] is not None:
     MYSQL_INFO = setting["MySQL"]
+
+# 读取爬虫相关数据
+DATA = dict()
+if "Data" in setting and setting["Data"] is not None:
+    DATA = setting["Data"]

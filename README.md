@@ -1,9 +1,9 @@
 # CxSpider
-ChangXing爬虫包
+长行的爬虫合集，包括：微博热搜榜实时爬虫、
 
 ## 爬虫列表
 
-### 1. 微博热搜榜实时爬虫
+### 1. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
@@ -13,19 +13,43 @@ ChangXing爬虫包
 >
 > **@revise** 2020.06.08
 
-##### 数据说明
-
-数据表：weibo_hot_ranking
-
-数据结构：fetch_time=采集时间、ranking=热搜排名、keyword=热搜关键词、heat=热搜热度、icon=热搜标志
-
-##### 采集说明
+定时采集微博热搜榜。
 
 * 采集信息：每5分钟采集1次，每次约50条记录→每天约14400条记录
 * 数据清洗：热搜榜置顶热搜（固定第1条）和广告热搜（标注推荐）
-* 无需使用代理IP、无需使用Selenium
+* 应用配置：无需使用代理IP、无需使用Selenium
 
+| 字段名     | 字段内容   |
+| ---------- | ---------- |
+| fetch_time | 采集时间   |
+| ranking    | 热搜排名   |
+| keyword    | 热搜关键词 |
+| heat       | 热搜热度   |
+| icon       | 热搜标志   |
 
+### 2. Twitter用户推文爬虫(twitter.user_tweet)
+
+> **@author** ChangXing
+>
+> **@version** 1.1
+>
+> **@create** 2020.06.07
+>
+> **@revise** 2020.06.08
+
+采集指定Twitter用户在指定时间范围内的推文列表。
+
+* 采集信息：使用Twitter搜索页面进行采集，单一用户的单次采集可追溯数量有限，不宜单次采集过长的时间跨度，可分为多次采集
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+| 字段名   | 字段内容           |
+| -------- | ------------------ |
+| tweet_id | 推文ID             |
+| time     | 推文发布时间       |
+| text     | 推文内容文本       |
+| replies  | 推文回复数         |
+| retweets | 推文转推数         |
+| likes    | 推文喜欢数(点赞数) |
 
 ## 环境变量
 
@@ -59,6 +83,8 @@ ChangXing爬虫包
   * setuptools
 * mysql-connector >= 2.2.9
 * lxml >= 4.5.0
+* selenium >= 3.141.0
+* * urllib3 >= 1.25.9
 
 
 

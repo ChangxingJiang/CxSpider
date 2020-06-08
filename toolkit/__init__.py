@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from toolkit.mysql import connect as mysql_connect  # MySQL数据库连接对象
+from toolkit.chromedriver import open_chrome  # [函数]打开Selenium控制的Chrome浏览器
+from toolkit.mysql import connect as mysql_connect  # [函数]构造MySQL数据库连接对象
 
 
 def console(sign: str, sentence: str):
