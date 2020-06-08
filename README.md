@@ -303,8 +303,6 @@
 
 ### Python/Pip环境
 
-##### 必备环境
-
 * **Python >= 3.8.0**
 * requests >= 2.23.0
   * idna >= 2.9
@@ -321,15 +319,9 @@
   * setuptools
 * mysql-connector >= 2.2.9
 * lxml >= 4.5.0
-
-##### Selenium相关环境
-
-* selenium >= 3.141.0
+* selenium >= 3.141.0 (用于Selenium爬虫)
   * urllib3 >= 1.25.9
-
-##### Twitter用户信息爬虫
-
-* twitter-scraper >= 0.4.1
+* twitter-scraper >= 0.4.1 (用于Twitter用户信息爬虫)
   * requests-html >= 0.10.0
   * MachanicalSoup >= 0.12.0
 
