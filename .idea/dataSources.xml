@@ -22,5 +22,12 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cnki</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Barrage" uuid="d754375a-d5a9-4dbf-acb9-024829d5fe70">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>弹幕爬虫数据</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/live_barrage</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -54,6 +54,19 @@ class MySQL:
         except mysql.connector.errors.ProgrammingError:
             return False
 
+    def create(self, sql: str):
+        """
+        [CREATE]创建数据表到MySQL数据库
+
+        :param sql: <str> 创建数据表的SQL语句
+        """
+        try:
+            mysql_cursor = self.connect.cursor()
+            mysql_cursor.execute(sql)
+            return True
+        except mysql.connector.errors.ProgrammingError:
+            return False
+
     def __str__(self):
         return str({
             "Host": self.host,
