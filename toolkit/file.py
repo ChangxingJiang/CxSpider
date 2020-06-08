@@ -3,6 +3,23 @@ import os
 from json import JSONDecodeError
 
 
+def load_as_string(path, encoding="UTF-8"):
+    """
+    加载文件内容为Json格式
+
+    :param path: <str> 要加载的文件的地址路径
+    :param encoding: <str> 读取文件时使用的编码格式
+    :return: <str> 读取完成的文件数据
+    """
+    try:
+        with open(path, encoding=encoding) as fr:
+            return fr.read()
+    except FileNotFoundError:
+        print("[Warning] 未找到Json文件(" + path + ")")
+    except JSONDecodeError:
+        print("[Warning] 目标文件不是Json文件(" + path + ")")
+
+
 def load_as_json(path, encoding="UTF-8"):
     """读取文件内容为Json格式
 
