@@ -92,7 +92,21 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 4. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 4. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+
+> **@author** ChangXing
+>
+> **@version** 1.1
+>
+> **@create** 2020.04.20
+>
+> **@revise** 2020.06.08
+
+采集WanPlus中每场英雄联盟比赛包含的具体场次列表。
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+### 5. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >

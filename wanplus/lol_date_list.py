@@ -16,7 +16,7 @@ import requests
 import environment as env
 import toolkit as tool
 
-# 日期列表请求信息
+# 请求信息
 date_list_url = "https://www.wanplus.com/ajax/schedule/list"  # 列表请求的url
 date_list_headers = {
     "accept": "application/json, text/javascript, */*; q=0.01",
@@ -43,8 +43,6 @@ date_list_data = {
 
 
 def crawler():
-    print("开始运行:日期列表爬虫......")
-
     start_date = datetime.datetime.today() + datetime.timedelta(days=-365)  # 抓取开始日期
     end_date = (datetime.datetime.today() + datetime.timedelta(days=-1)).strftime("%Y%m%d")  # 抓取结束日期
 
