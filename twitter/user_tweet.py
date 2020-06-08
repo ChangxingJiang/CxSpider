@@ -2,7 +2,7 @@
 Twitter用户推文爬虫
 
 @author: ChangXing
-@version: 1.1
+@version: 4.0
 @create: 2020.06.07
 @revise: 2020.06.08
 """
@@ -27,7 +27,19 @@ SELECTOR_CONTENT = "article > div > div:nth-child(2) > div:nth-child(2) > div:nt
 SELECTOR_FEEDBACK = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div[role='group']"
 
 
-def twitter_user_tweet(driver, user_name, tweet_item, since=None, until=None):
+def twitter_user_tweet(driver, user_name, template, since=None, until=None):
+    """
+    抓取Twitter用户推文
+    填写数据模板中的tweet_id、time、text、replies、retweets、likes属性
+
+    :param driver: <selenium.webdriver.chrome.webdriver.WebDriver> Chrome浏览器对象
+    :param user_name: <str> Twitter用户名
+    :param template: <dict> 返回值数据模板
+    :param since: <datetime> 开始抓取推文的日期(包含)
+    :param until: <datetime> 结束抓取推文的日期(不包含)
+    :return: <list:dict> 指定Twitter用户在指定时间范围内的推文列表
+    """
+
     tweet_list = list()
 
     # 生成请求的Url
@@ -125,7 +137,7 @@ def twitter_user_tweet(driver, user_name, tweet_item, since=None, until=None):
                     print("未找到推文反馈数据标签(StaleElementReferenceException)")
                     continue
 
-                tweet_info = copy.deepcopy(tweet_item)
+                tweet_info = copy.deepcopy(template)
                 tweet_info["tweet_id"] = tweet_id
                 tweet_info["time"] = tweet_time
                 tweet_info["text"] = tweet_content
@@ -150,10 +162,10 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            if media_item[0] <= 80:
-                continue
+            # if media_item[0] > 80:
+            #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
-            tweet_item = {
+            tweet_template = {
                 "media_id": media_item[0],
                 "media_name": media_item[1],
                 "tweet_id": None,
@@ -164,12 +176,11 @@ if __name__ == "__main__":
                 "retweets": None,
                 "likes": None
             }
-            tweets = twitter_user_tweet(selenium, media_item[2], tweet_item,
+            tweets = twitter_user_tweet(selenium, media_item[2], tweet_template,
                                         since=dt.date(2020, 6, 6), until=dt.date(2020, 6, 7))
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2006", tweets)
             print("写入记录数:", record_num)
-
-            time.sleep(1)
+            time.sleep(tool.get_scope_random(1))
     else:
         print("榜单媒体名录不存在")

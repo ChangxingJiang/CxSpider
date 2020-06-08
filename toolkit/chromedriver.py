@@ -1,19 +1,27 @@
+# coding=utf-8
+
+"""
+Selenium相关工具类
+"""
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 import environment as env
 
 
-def open_chrome():
+def open_chrome(use_user_dir: bool = True):
     """ 启动Chrome浏览器
 
+    :param use_user_dir: <bool> 是否使用本地Chrome浏览器中已登录的Google账号(默认使用)
     :return <selenium.webdriver.chrome.webdriver.WebDriver> Chrome浏览器对象
     """
 
     chrome_options = Options()  # 启动Chrome浏览器设置对象
 
     # 设置Chrome用户文件信息(使用Chrome浏览器中已登录的Google账号打开Selenium控制的Chrome浏览器)
-    chrome_options.add_argument("user-data-dir=" + env.CHROME_USERDATA_PATH)
+    if use_user_dir:
+        chrome_options.add_argument("user-data-dir=" + env.CHROME_USERDATA_PATH)
 
     # 设置Chrome浏览器可执行文件路径(如果Selenium控制的Chrome浏览器启动报错则取消这行的注释)
     # chrome_options.binary_location = env.CHROME_LOCATION

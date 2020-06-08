@@ -1,3 +1,9 @@
+# coding=utf-8
+
+"""
+MySQL相关工具类
+"""
+
 import re
 
 import mysql.connector
@@ -106,7 +112,6 @@ def sql_insert_pure(table: str, datas: list):
         value_list.append(val_item)
 
     return "INSERT INTO " + table + " (" + column_part + ") VALUES " + ",".join(value_list)  # 拼接SQL语句
-
 
 
 if __name__ == "__main__":

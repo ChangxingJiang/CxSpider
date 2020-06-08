@@ -8,5 +8,12 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cxspider</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="HuaBang" uuid="c0ee2a96-d0ff-4699-9474-1e56c93c9d8f">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>华榜项目组数据库</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cmr</jdbc-url>
+    </data-source>
   </component>
 </project>
