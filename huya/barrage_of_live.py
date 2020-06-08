@@ -22,7 +22,6 @@ import toolkit as tool
 
 
 def crawler(live_name, live_url, mysql):
-    setting = tool.file.load_as_json("Huya_barrage.json")  # 加载设置信息
     browser = tool.open_chrome(use_user_dir=False)
     browser.get(live_url)  # 访问目标虎牙主播的直播间
 
@@ -49,7 +48,7 @@ def crawler(live_name, live_url, mysql):
     total_num = 0
 
     data_id_max = 0
-    for num in range(int(setting["crawler_time"] / setting["crawler_frequency"])):
+    for num in range(int(36000 / 0.5)):
 
         start_time = time.time()
 
@@ -114,17 +113,14 @@ def crawler(live_name, live_url, mysql):
                 barrage_info.update(type="OT", other="弹幕名称" + category)
             barrage_list.append(barrage_info)
 
-        try:
-            mysql.insert(table_name, barrage_list)
-        except ProgrammingError:
-            print("数据写入数据库异常")
+        mysql.insert(table_name, barrage_list)
 
         total_num += 1
         total_time += 1000 * (time.time() - start_time)
 
-        wait_time = setting["crawler_frequency"]
+        wait_time = 0.5
         if wait_time > (time.time() - start_time):
-            time.sleep(setting["crawler_frequency"] - (time.time() - start_time))
+            time.sleep(0.5 - (time.time() - start_time))
 
         print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", data_id_max, ")", "|",
               "运行时间:", round(total_time / total_num), "毫秒", "(", round(total_time), "/", total_num, ")")

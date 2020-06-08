@@ -11,6 +11,8 @@
 | WanPlus  | 英雄联盟场次详细信息爬虫     | wanplus.lol_match_info |
 | 中国知网 | 中国知网期刊包含刊期列表爬虫 | cnki.issue_list        |
 | 中国知网 | 英雄联盟比赛包含场次列表爬虫 | cnki.article_list      |
+| 虎牙     | 虎牙直播弹幕爬虫             | huya.barrage_of_live   |
+| 斗鱼     | 斗鱼直播弹幕爬虫             | douyu.barrage_of_live  |
 
 本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负。
 
@@ -135,7 +137,31 @@
 | gift_num   | 赠送礼物弹幕的礼物数量                                 |
 | other      | 弹幕的其他信息                                         |
 
-### 6. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+### 6. 斗鱼直播弹幕爬虫(douyu.barrage_of_live)
+
+> @author: ChangXing
+>
+> @version: 1.2
+>
+> @create: 2019.11.24
+>
+> @revise: 2020.06.08
+
+使用Selenium模拟浏览器，采集斗鱼直播间中的弹幕。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+| 字段名     | 字段内容                                               |
+| ---------- | ------------------------------------------------------ |
+| bid        | 弹幕ID                                                 |
+| type       | 弹幕类型                                               |
+| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
+| user_name  | 弹幕发布者名称                                         |
+| user_level | 弹幕发布者等级                                         |
+| content    | 弹幕内容                                               |
+| text       | 弹幕其他信息                                           |
+
+### 7. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
 > **@author** ChangXing
 >
@@ -164,7 +190,7 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 7. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+### 8. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
 
 > **@author** ChangXing
 >
@@ -179,7 +205,7 @@
 * 目标Url：https://www.wanplus.com/schedule/58822.html
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 8. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+### 9. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
 
 > **@author** ChangXing
 >
@@ -194,7 +220,7 @@
 * 目标Url(实际请求的Ajax)：https://www.wanplus.com/ajax/matchdetail/65029?_gtk=345357323
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 9. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 10. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
