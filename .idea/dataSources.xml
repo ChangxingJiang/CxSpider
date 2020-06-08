@@ -15,5 +15,12 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cmr</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Cnki" uuid="28490f86-75bb-4eea-9f1c-6ccadc72d3b1">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>中国知网爬虫数据库</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cnki</jdbc-url>
+    </data-source>
   </component>
 </project>

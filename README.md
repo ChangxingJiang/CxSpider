@@ -65,7 +65,22 @@
 | retweets | 推文转推数         |
 | likes    | 推文喜欢数(点赞数) |
 
-### 3. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+### 3. 知网期刊包含刊期列表爬虫(cnki.issue_list)
+
+> @author: ChangXing
+> 
+> @version: 1.1
+> 
+> @create: 2019.11.02
+> 
+> @revise: 2020.06.08
+
+采集中国知网中指定期刊所有刊期的列表，刊期包括年份和在该年的序号。
+
+* 采集参数：需要指定期刊的pcode、pykm两个属性作为参数才可以采集
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### 4. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
 > **@author** ChangXing
 >
@@ -77,6 +92,8 @@
 
 采集WanPlus中每天英雄联盟的比赛列表。
 
+* 目标Url：https://www.wanplus.com/lol/schedule
+* 实际请求的Ajax：https://www.wanplus.com/ajax/schedule/list
 * 应用配置：无需使用代理IP、无需使用Selenium
 
 | 字段名           | 字段内容                             |
@@ -92,7 +109,7 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 4. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+### 5. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
 
 > **@author** ChangXing
 >
@@ -104,9 +121,10 @@
 
 采集WanPlus中每场英雄联盟比赛包含的具体场次(一局游戏)列表。
 
+* 目标Url：https://www.wanplus.com/schedule/58822.html
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 5. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+### 6. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
 
 > **@author** ChangXing
 >
@@ -118,9 +136,10 @@
 
 采集WanPlus中每场英雄联盟场次(一局游戏)包含的具体详细信息。
 
+* 目标Url(实际请求的Ajax)：https://www.wanplus.com/ajax/matchdetail/65029?_gtk=345357323
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 6. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 7. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
