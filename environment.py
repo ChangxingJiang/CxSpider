@@ -36,3 +36,8 @@ if "MySQL" in setting and setting["MySQL"] is not None:
 DATA = dict()
 if "Data" in setting and setting["Data"] is not None:
     DATA = setting["Data"]
+
+# 读取路径相关数据
+PATH = dict()
+if "Path" in setting and setting["Path"] is not None:
+    PATH = setting["Path"]

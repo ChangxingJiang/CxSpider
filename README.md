@@ -1,7 +1,17 @@
 # CxSpider
-长行的爬虫合集，包括：微博热搜榜实时爬虫、
+长行编写的爬虫的合集。包括如下爬虫：
 
-## 爬虫列表
+| 网站    | 爬虫                     | 爬虫路径              |
+| ------- | ------------------------ | --------------------- |
+| 微博    | 微博热搜榜实时爬虫       | weibo.hot_ranking     |
+| Twitter | Twitter用户信息爬虫      | twitter.user_info     |
+| Twitter | Twitter用户推文爬虫      | twitter.user_tweet    |
+| WanPlus | 英雄联盟每日比赛列表爬虫 | wanplus.lol_date_list |
+|         |                          |                       |
+
+本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负。
+
+## 爬虫详情
 
 ### 1. Twitter用户信息爬虫(twitter.user_info)
 
@@ -55,7 +65,34 @@
 | retweets | 推文转推数         |
 | likes    | 推文喜欢数(点赞数) |
 
-### 3. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 3. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+
+> **@author** ChangXing
+>
+> **@version** 1.1
+>
+> **@create** 2020.04.20
+>
+> **@revise** 2020.06.08
+
+采集WanPlus中每天英雄联盟的比赛列表。
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+| 字段名           | 字段内容                             |
+| ---------------- | ------------------------------------ |
+| race_id          | WanPlus中LOL比赛的ID                 |
+| team_a_name      | LOL比赛的第1个参赛队伍的名字         |
+| team_b_name      | LOL比赛的第2个参赛队伍的名字         |
+| start_time       | LOL比赛的开始时间                    |
+| team_a_score     | LOL比赛的第1个参赛队伍的小场得分     |
+| team_b_score     | LOL比赛的第2个参赛队伍的小场得分     |
+| contest_name     | 比赛的全名                           |
+| match_name       | 比赛的简称                           |
+| team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
+| team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
+
+### 4. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >

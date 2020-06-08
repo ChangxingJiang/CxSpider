@@ -27,7 +27,7 @@ SELECTOR_CONTENT = "article > div > div:nth-child(2) > div:nth-child(2) > div:nt
 SELECTOR_FEEDBACK = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div[role='group']"
 
 
-def twitter_user_tweet(driver, user_name, template, since=None, until=None):
+def crawler(driver, user_name, template, since=None, until=None):
     """
     抓取Twitter用户推文
     填写数据模板中的tweet_id、time、text、replies、retweets、likes属性
@@ -176,8 +176,8 @@ if __name__ == "__main__":
                 "retweets": None,
                 "likes": None
             }
-            tweets = twitter_user_tweet(selenium, media_item[2], tweet_template,
-                                        since=dt.date(2020, 6, 6), until=dt.date(2020, 6, 7))
+            tweets = crawler(selenium, media_item[2], tweet_template,
+                             since=dt.date(2020, 6, 6), until=dt.date(2020, 6, 7))
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2006", tweets)
             print("写入记录数:", record_num)

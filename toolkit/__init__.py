@@ -5,6 +5,7 @@ from datetime import datetime
 
 from toolkit import clear  # [函数组]数据清洗相关工具函数
 from toolkit import fetch  # [函数组]数据提取相关工具函数
+from toolkit import file  # [函数组]文件读写相关工具函数
 from toolkit.chromedriver import open_chrome  # [函数]打开Selenium控制的Chrome浏览器
 from toolkit.mysql import connect as mysql_connect  # [函数]构造MySQL数据库连接对象
 

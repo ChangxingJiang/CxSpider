@@ -25,7 +25,7 @@ XPATH_FOLLOWERS_COUNT = [
 ]
 
 
-def crawler_item(driver, user_name: str, template):
+def crawler(driver, user_name: str, template):
     """
     抓取Twitter用户信息
     填写数据模板中的name、username、birthday、biography、website、profile_photo、likes_count、tweets_count、followers_count、following_count属性
@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 "followers_count": None,
                 "following_count": None,
             }
-            user_info = crawler_item(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
+            user_info = crawler(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
             record_num = mySQL.insert("twitter_user_2020_06", [user_info])
             time.sleep(tool.get_scope_random(1))
     else:
