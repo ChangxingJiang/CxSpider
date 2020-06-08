@@ -79,6 +79,6 @@ def crawler(journal, pcode, pykm, year, issue):
 
 
 if __name__ == "__main__":
-    for journal_item in env.DATA["Cnki"]["新闻与传播学"]:
+    for journal_item in env.DATA["Cnki"]["CSSCI"]["新闻与传播学"]:
         print(journal_item[0], ":", crawler(journal_item[0], journal_item[1], journal_item[2], "2020", "04"))
         break
