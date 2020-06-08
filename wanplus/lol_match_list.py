@@ -1,5 +1,5 @@
 """
-WanPlus英雄联盟每日比赛列表爬虫
+WanPlus英雄联盟比赛包含场次列表爬虫
 
 @author: ChangXing
 @version: 1.1

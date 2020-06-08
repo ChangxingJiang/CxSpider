@@ -102,11 +102,25 @@
 >
 > **@revise** 2020.06.08
 
-采集WanPlus中每场英雄联盟比赛包含的具体场次列表。
+采集WanPlus中每场英雄联盟比赛包含的具体场次(一局游戏)列表。
 
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 5. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 5. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+
+> **@author** ChangXing
+>
+> **@version** 1.1
+>
+> **@create** 2020.04.20
+>
+> **@revise** 2020.06.08
+
+采集WanPlus中每场英雄联盟场次(一局游戏)包含的具体详细信息。
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+### 6. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
