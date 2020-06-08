@@ -2,7 +2,7 @@
 微博热搜榜爬虫
 
 @author: ChangXing
-@version: 0.1.1
+@version: 1.1
 @create: 2020.05.29
 @revise: 2020.06.08
 """

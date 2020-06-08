@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from toolkit.mysql import connect as mysql_connect  # 连接到MySQL数据库
+from toolkit.mysql import connect as mysql_connect  # MySQL数据库连接对象
 
 
 def console(sign: str, sentence: str):
