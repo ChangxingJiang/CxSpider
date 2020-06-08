@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="CxSpider" uuid="eae3a97c-626b-4de4-91c6-307365b556f4">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>微博热搜</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-m5e63zf8ii67j7uq1zo.mysql.rds.aliyuncs.com:3306/cxspider</jdbc-url>
+    </data-source>
+  </component>
+</project>
