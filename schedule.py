@@ -1,7 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 import toolkit as tool
-from weibo_hot_ranking.crawler import weibo_hot_ranking
+from weibo_hot_ranking.crawling_ranking import crawler as weibo_hot_ranking
 
 if __name__ == "__main__":
     # 启动MySQL数据库连接

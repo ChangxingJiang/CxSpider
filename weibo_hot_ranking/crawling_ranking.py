@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import toolkit as tool
 
 
-def weibo_hot_ranking(mysql, table_name="weibo_hot_ranking", test=False):
+def crawler(mysql, table_name="weibo_hot_ranking", test=False):
     # 执行网页请求
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -95,4 +95,4 @@ def weibo_hot_ranking(mysql, table_name="weibo_hot_ranking", test=False):
 
 
 if __name__ == "__main__":
-    weibo_hot_ranking(test=True, mysql=tool.mysql_connect("CxSpider"), table_name="weibo_hot_ranking")
+    crawler(test=True, mysql=tool.mysql_connect("CxSpider"), table_name="weibo_hot_ranking")
