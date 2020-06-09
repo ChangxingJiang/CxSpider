@@ -1,21 +1,21 @@
 # CxSpider
 长行编写的爬虫的合集。包括如下爬虫：
 
-| 网站              | 爬虫                         | 爬虫路径                     |
-| ----------------- | ---------------------------- | ---------------------------- |
-| 微博              | 微博热搜榜实时爬虫           | weibo.hot_ranking            |
-| Twitter           | Twitter用户信息爬虫          | twitter.user_info            |
-| Twitter           | Twitter用户推文爬虫          | twitter.user_tweet           |
-| WanPlus(玩加电竞) | 英雄联盟每日比赛列表爬虫     | wanplus.lol_date_list        |
-| WanPlus(玩加电竞) | 英雄联盟比赛包含场次列表爬虫 | wanplus.lol_match_list       |
-| WanPlus(玩加电竞) | 英雄联盟场次详细信息爬虫     | wanplus.lol_match_info       |
-| 中国知网          | 中国知网期刊包含刊期列表爬虫 | cnki.issue_list              |
-| 中国知网          | 英雄联盟比赛包含场次列表爬虫 | cnki.article_list            |
-| 虎牙              | 虎牙直播弹幕爬虫             | huya.barrage_of_live         |
-| 斗鱼              | 斗鱼直播弹幕爬虫             | douyu.barrage_of_live        |
-| 斗鱼              | 斗鱼直播间订阅数爬虫         | douyu.subscribe_of_live      |
-| Bilibili(B站)     | Bilibili直播弹幕爬虫         | bilibili.barrage_of_live     |
-| 安居客            | 安居客各地房源数量爬虫       | anjuke.housing_resources_num |
+| 网站              | 爬虫                         | 爬虫路径                 |
+| ----------------- | ---------------------------- | ------------------------ |
+| 微博              | 微博热搜榜实时爬虫           | weibo.hot_ranking        |
+| Twitter           | Twitter用户信息爬虫          | twitter.user_info        |
+| Twitter           | Twitter用户推文爬虫          | twitter.user_tweet       |
+| WanPlus(玩加电竞) | 英雄联盟每日比赛列表爬虫     | wanplus.lol_date_list    |
+| WanPlus(玩加电竞) | 英雄联盟比赛包含场次列表爬虫 | wanplus.lol_match_list   |
+| WanPlus(玩加电竞) | 英雄联盟场次详细信息爬虫     | wanplus.lol_match_info   |
+| 中国知网          | 中国知网期刊包含刊期列表爬虫 | cnki.issue_list          |
+| 中国知网          | 英雄联盟比赛包含场次列表爬虫 | cnki.article_list        |
+| 虎牙              | 虎牙直播弹幕爬虫             | huya.barrage_of_live     |
+| 斗鱼              | 斗鱼直播弹幕爬虫             | douyu.barrage_of_live    |
+| 斗鱼              | 斗鱼直播间订阅数爬虫         | douyu.subscribe_of_live  |
+| Bilibili(B站)     | Bilibili直播弹幕爬虫         | bilibili.barrage_of_live |
+| 安居客            | 安居客各地房源数量爬虫       | anjuke.housing_          |
 
 本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负。
 
@@ -73,7 +73,37 @@
 | retweets | 推文转推数         |
 | likes    | 推文喜欢数(点赞数) |
 
-### 3. 知网期刊包含刊期列表爬虫(cnki.issue_list)
+### 3. Facebook用户推文爬虫(facebook.user_tweet)
+
+> **@author** ChangXing
+>
+> **@version** 4.1
+>
+> **@create** 2017.12.30
+>
+> **@revise** 2020.06.08
+
+采集指定Facebook用户在指定时间范围内的推文列表。
+
+* 采集信息：使用Twitter搜索页面进行采集，单一用户的单次采集可追溯数量有限，不宜单次采集过长的时间跨度，可分为多次采集
+* 目标Url：https://www.facebook.com/pg/news.ebc/posts/?ref=page_internal
+* 推文Url：https://www.facebook.com/news.ebc/posts/2983092458392492
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+| 字段名    | 字段内容                   |
+| --------- | -------------------------- |
+| tweet_id  | 推文ID                     |
+| tweet_url | 推文Url                    |
+| is_sticky | 推文是否为置顶状态         |
+| is_share  | 推文是否为分享             |
+| author    | 推文发布者名称             |
+| time      | 推文发布时间戳（单位：秒） |
+| content   | 推文内容                   |
+| reaction  | 推文互动数（即点赞数）     |
+| comment   | 推文评论数                 |
+| share     | 推文分享数                 |
+
+### 4. 知网期刊包含刊期列表爬虫(cnki.issue_list)
 
 > @author: ChangXing
 > 
@@ -88,7 +118,7 @@
 * 采集参数：需要指定期刊的pcode、pykm共2个属性作为参数才可以采集
 * 应用配置：无需使用代理IP，无需使用Selenium
 
-### 4. 知网刊期包含论文列表爬虫(cnki.article_list)
+### 5. 知网刊期包含论文列表爬虫(cnki.article_list)
 
 > @author: ChangXing
 >
@@ -114,7 +144,7 @@
 | team_b_score | LOL比赛的第2个参赛队伍的小场得分 |
 | contest_name | 比赛的全名                       |
 
-### 5. 虎牙直播弹幕爬虫(huya.barrage_of_live)
+### 6. 虎牙直播弹幕爬虫(huya.barrage_of_live)
 
 > @author: ChangXing
 >
@@ -140,7 +170,7 @@
 | gift_num   | 赠送礼物弹幕的礼物数量                                 |
 | other      | 弹幕的其他信息                                         |
 
-### 6. 斗鱼直播弹幕爬虫(douyu.barrage_of_live)
+### 7. 斗鱼直播弹幕爬虫(douyu.barrage_of_live)
 
 > @author: ChangXing
 >
@@ -164,7 +194,7 @@
 | content    | 弹幕内容                                               |
 | text       | 弹幕其他信息                                           |
 
-### 7. Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
+### 8. Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
 
 > @author: ChangXing
 >
@@ -187,7 +217,7 @@
 | user_id    | 弹幕发布者ID                                           |
 | content    | 弹幕内容                                               |
 
-### 8. 斗鱼直播间订阅数爬虫(douyu.subscribe_of_live)
+### 9. 斗鱼直播间订阅数爬虫(douyu.subscribe_of_live)
 
 >**!!!暂停使用(斗鱼增加字符集反爬，当前抓取结果有误)!!!**
 >
@@ -203,7 +233,7 @@
 
 * 应用配置：无需使用代理IP，需要使用Selenium
 
-### 9. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
+### 10. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
 
 > @author: ChangXing
 >
@@ -218,7 +248,7 @@
 
 * 应用配置：无需使用代理IP，需要使用Selenium
 
-### 10. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+### 11. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
 > **@author** ChangXing
 >
@@ -247,7 +277,7 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 11. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+### 12. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
 
 > **@author** ChangXing
 >
@@ -262,7 +292,7 @@
 * 目标Url：https://www.wanplus.com/schedule/58822.html
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 12. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+### 13. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
 
 > **@author** ChangXing
 >
@@ -277,7 +307,7 @@
 * 目标Url(实际请求的Ajax)：https://www.wanplus.com/ajax/matchdetail/65029?_gtk=345357323
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 13 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 14. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >

@@ -67,6 +67,27 @@ class MySQL:
         except mysql.connector.errors.ProgrammingError:
             return False
 
+    def select(self, table_name: str, column_list: list, sql_where: str = ""):
+        """ SELECT读取MySQL数据库的数据
+        :param table_name: <str> 需要读取的MySQL数据表名称
+        :param column_list: <list:str> 需要读取的字段名称列表
+        :param sql_where: <str> 在执行SELECT语句时是否添加WHERE子句(默认为空,如添加应以WHERE开头)
+        :return: <list> 读取的数据结果
+        """
+        mysql_cursor = self.connect.cursor()
+        mysql_cursor.execute(sql_select(table_name, column_list, sql_where))  # 生成并执行SELECT语句
+        mysql_results = mysql_cursor.fetchall()  # 获取SQL语句执行的返回多行记录的结果
+        select_result = []
+        for mysql_result in mysql_results:  # 遍历:SQL语句检索的各行记录
+            if len(column_list) > 1:  # 处理读取字段数超过1个的情况
+                select_item = []
+                for i in range(len(column_list)):
+                    select_item.append(mysql_result[i])
+                select_result.append(select_item)
+            elif len(column_list) == 1:  # 处理读取字段数为1个的情况
+                select_result.append(mysql_result[0])
+        return select_result
+
     def __str__(self):
         return str({
             "Host": self.host,
@@ -89,26 +110,28 @@ def connect(name):
                  database=env.MYSQL_INFO[name]["Database"])
 
 
-def sql_insert_pure(table: str, datas: list):
-    """ [生成SQL语句]INSERT语句(纯粹SQL语句,部分sql和val)
-    :param table: <str> 需要写入的MySQL数据表名称
-    :param datas: <list:list> 需要写入的多条记录(所有记录的字段名与第一条记录的字段名统一)
+def sql_insert_pure(table_name: str, data_list: list):
+    """
+    [生成SQL语句]INSERT语句(纯粹SQL语句,部分sql和val)
+
+    :param table_name: <str> 需要写入的MySQL数据表名称
+    :param data_list: <list:list> 需要写入的多条记录(所有记录的字段名与第一条记录的字段名统一)
     :return: <str> SQL语句部分
     """
-    if len(datas) == 0:
+    if len(data_list) == 0:
         return None
 
     # 生成SQL语句
     column_list = []
     column_part = ""  # SQL语句列名部分
-    for column in datas[0]:
-        column_list.append([column, type(datas[0][column])])
+    for column in data_list[0]:
+        column_list.append([column, type(data_list[0][column])])
         column_part += "`" + column + "`,"
     column_part = re.sub(",$", "", column_part)
 
     # 生成写入数据
     value_list = []
-    for data in datas:
+    for data in data_list:
         val_item = "("
         for column in column_list:
             if column[0] in data and data[column[0]] is not None:
@@ -124,7 +147,22 @@ def sql_insert_pure(table: str, datas: list):
         val_item = re.sub(",$", ")", val_item)
         value_list.append(val_item)
 
-    return "INSERT INTO " + table + " (" + column_part + ") VALUES " + ",".join(value_list)  # 拼接SQL语句
+    return "INSERT INTO " + table_name + " (" + column_part + ") VALUES " + ",".join(value_list)  # 拼接SQL语句
+
+
+def sql_select(table_name: str, column_list: list, sql_where: str = ""):
+    """
+    [生成SQL语句]SELECT语句
+
+    :param table_name: <str> 需要SELECT的表单名称
+    :param column_list: <list:str> 需要读取的字段名称列表
+    :param sql_where: <str> 在SELECT时执行的WHERE子句(默认为空,如添加应以WHERE开头)
+    :return: <str> 生成完成的SELECT(MySQL)语句
+    """
+    sql = "SELECT "
+    for column in column_list:
+        sql += column + ","
+    return re.sub(",$", " FROM " + table_name + " " + sql_where, sql)
 
 
 if __name__ == "__main__":

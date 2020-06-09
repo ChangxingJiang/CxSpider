@@ -14,6 +14,11 @@ if "Proxy IP" in setting and setting["Proxy IP"] is not None:
     if "Ajax Url" in setting["Proxy IP"]:
         PROXY_API = setting["Proxy IP"]["Ajax Url"]
 
+# 读取VPN相关设置
+VPN_PROXY = None  # VPN的代理IP
+if "Vpn Proxy" in setting and setting["Vpn Proxy"] is not None:
+    VPN_PROXY = setting["Vpn Proxy"]
+
 # 读取Selenium相关设置
 CHROMEDRIVER_PATH = None  # ChromeDriver可执行文件路径
 CHROME_LOCATION = None  # Chrome浏览器可执行文件路径
