@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            if media_item[0] <= 80:
+            if media_item[0] > 80:
                 continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             tweet_template = {
@@ -177,7 +177,7 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 6, 7), until=dt.date(2020, 6, 8))
+                             since=dt.date(2020, 6, 8), until=dt.date(2020, 6, 9))
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2006", tweets)
             print("写入记录数:", record_num)
