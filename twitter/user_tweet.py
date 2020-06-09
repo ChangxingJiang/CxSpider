@@ -162,8 +162,8 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            if media_item[0] > 80:
-                continue
+            # if media_item[0] > 80:
+            #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             tweet_template = {
                 "media_id": media_item[0],
