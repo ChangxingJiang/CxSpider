@@ -1,25 +1,26 @@
 # CxSpider
 长行编写的爬虫的合集。包括如下爬虫：
 
-| 网站               | 爬虫                                   | 爬虫路径                     |
-| ------------------ | -------------------------------------- | ---------------------------- |
-| 微博               | 微博热搜榜实时爬虫                     | weibo.hot_ranking            |
-| Twitter            | Twitter用户信息爬虫                    | twitter.user_info            |
-| Twitter            | Twitter用户推文爬虫                    | twitter.user_tweet           |
-| Facebook           | Twitter用户推文爬虫                    | facebook.user_tweet          |
-| WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫               | wanplus.lol_date_list        |
-| WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫           | wanplus.lol_match_list       |
-| WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫               | wanplus.lol_match_info       |
-| 中国知网           | 中国知网期刊包含刊期列表爬虫           | cnki.issue_list              |
-| 中国知网           | 英雄联盟比赛包含场次列表爬虫           | cnki.article_list            |
-| 虎牙               | 虎牙直播弹幕爬虫                       | huya.barrage_of_live         |
-| 虎牙               | 虎牙直播间订阅数爬虫                   | huya.subscribe_of_live       |
-| 斗鱼               | 斗鱼直播弹幕爬虫                       | douyu.barrage_of_live        |
-| 斗鱼               | 斗鱼直播间订阅数爬虫                   | douyu.subscribe_of_live      |
-| Bilibili           | Bilibili直播弹幕爬虫                   | bilibili.barrage_of_live     |
-| 安居客             | 安居客各地房源数量爬虫                 | anjuke.housing_resources_num |
-| 居理新房           | 居理新房城市页面列表爬虫               | julive.city_url_list         |
-| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表 | wegame.tft_summoner_list     |
+| 网站               | 爬虫                                     | 爬虫路径                     |
+| ------------------ | ---------------------------------------- | ---------------------------- |
+| 微博               | 微博热搜榜实时爬虫                       | weibo.hot_ranking            |
+| Twitter            | Twitter用户信息爬虫                      | twitter.user_info            |
+| Twitter            | Twitter用户推文爬虫                      | twitter.user_tweet           |
+| Facebook           | Twitter用户推文爬虫                      | facebook.user_tweet          |
+| WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫                 | wanplus.lol_date_list        |
+| WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫             | wanplus.lol_match_list       |
+| WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫                 | wanplus.lol_match_info       |
+| 中国知网           | 中国知网期刊包含刊期列表爬虫             | cnki.issue_list              |
+| 中国知网           | 英雄联盟比赛包含场次列表爬虫             | cnki.article_list            |
+| 虎牙               | 虎牙直播弹幕爬虫                         | huya.barrage_of_live         |
+| 虎牙               | 虎牙直播间订阅数爬虫                     | huya.subscribe_of_live       |
+| 斗鱼               | 斗鱼直播弹幕爬虫                         | douyu.barrage_of_live        |
+| 斗鱼               | 斗鱼直播间订阅数爬虫                     | douyu.subscribe_of_live      |
+| Bilibili           | Bilibili直播弹幕爬虫                     | bilibili.barrage_of_live     |
+| 安居客             | 安居客各地房源数量爬虫                   | anjuke.housing_resources_num |
+| 居理新房           | 居理新房城市页面列表爬虫                 | julive.city_url_list         |
+| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
+| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      |
 
 **本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负！！！**
 
@@ -264,8 +265,23 @@
 使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于采集高分段召唤师列表。
 
 * 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+* 应用配置：无需使用代理IP，无需使用Selenium
 
-* 应用配置：无需使用代理IP，需要使用Selenium
+### 12. WeGame云顶之弈比赛记录爬虫：游戏场次列表(wegame.tft_exploit_list)
+
+> **@author** ChangXing
+>
+> **@version** 2.1
+>
+> **@create** 2019.12.10
+>
+> **@revise** 2020.06.09
+
+使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据召唤师列表采集召唤师游戏场次列表。
+
+* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+
+* 应用配置：无需使用代理IP，无需使用Selenium
 
 ### 10. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
 
