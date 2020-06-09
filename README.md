@@ -11,7 +11,7 @@
 | WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫             | wanplus.lol_match_list       |
 | WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫                 | wanplus.lol_match_info       |
 | 中国知网           | 中国知网期刊包含刊期列表爬虫             | cnki.issue_list              |
-| 中国知网           | 英雄联盟比赛包含场次列表爬虫             | cnki.article_list            |
+| 中国知网           | 中国知网刊期包含论文列表爬虫             | cnki.article_list            |
 | 虎牙               | 虎牙直播弹幕爬虫                         | huya.barrage_of_live         |
 | 虎牙               | 虎牙直播间订阅数爬虫                     | huya.subscribe_of_live       |
 | 斗鱼               | 斗鱼直播弹幕爬虫                         | douyu.barrage_of_live        |
@@ -22,7 +22,8 @@
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    |
-| 猫眼               | 网播热度爬虫【Demo】                     | maoyan.web_heat              |
+| 猫眼               | 猫眼网播热度爬虫【Demo】                 | maoyan.web_heat              |
+| 豆瓣               | 豆瓣电影TOP250爬虫                       | douban.movie_top_250         |
 
 **本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负！！！**
 
@@ -403,7 +404,19 @@
 * 目标Url：http://piaofang.maoyan.com/dashboard/web-heat
 * 应用配置：无需使用代理IP、需要使用Selenium
 
-### 19. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 20. 豆瓣电影TOP250爬虫(douban.movie_top_250)
+
+> **@author** ChangXing
+>
+> **@version** 1.0
+>
+> **@create** 2020.05.28
+
+采集猫眼网播热度并输出到Json文件。
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+### 21. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
