@@ -22,6 +22,7 @@
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    |
+| 猫眼               | 网播热度爬虫【Demo】                     | maoyan.web_heat              |
 
 **本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负！！！**
 
@@ -301,7 +302,7 @@
 
 * 应用配置：无需使用代理IP，无需使用Selenium
 
-### 10. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
+### 14. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
 
 > @author: ChangXing
 >
@@ -316,7 +317,7 @@
 
 * 应用配置：无需使用代理IP，需要使用Selenium
 
-### 10. 居理新房城市页面列表爬虫(julive.city_url_list)
+### 15. 居理新房城市页面列表爬虫(julive.city_url_list)
 
 > @author: ChangXing
 >
@@ -330,7 +331,7 @@
 
 * 应用配置：无需使用代理IP，需要使用Selenium
 
-### 11. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+### 16. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
 > **@author** ChangXing
 >
@@ -359,7 +360,7 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 12. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+### 17. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
 
 > **@author** ChangXing
 >
@@ -374,7 +375,7 @@
 * 目标Url：https://www.wanplus.com/schedule/58822.html
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 13. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+### 18. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
 
 > **@author** ChangXing
 >
@@ -389,7 +390,20 @@
 * 目标Url(实际请求的Ajax)：https://www.wanplus.com/ajax/matchdetail/65029?_gtk=345357323
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 14. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 19. 猫眼网播热度(maoyan.web_heat)
+
+> **@author** ChangXing
+>
+> **@version** 1.0
+>
+> **@create** 2020.05.26
+
+【Demo】使用Selenium采集猫眼网播热度并输出到控制台。
+
+* 目标Url：http://piaofang.maoyan.com/dashboard/web-heat
+* 应用配置：无需使用代理IP、需要使用Selenium
+
+### 19. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
