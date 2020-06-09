@@ -21,6 +21,7 @@
 | 居理新房           | 居理新房城市页面列表爬虫                 | julive.city_url_list         |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      |
+| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    |
 
 **本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负！！！**
 
@@ -278,6 +279,23 @@
 > **@revise** 2020.06.09
 
 使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据召唤师列表采集召唤师游戏场次列表。
+
+* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### 13. WeGame云顶之弈比赛记录爬虫：游戏场次详情(wegame.tft_exploit_detail)
+
+> **!!!WeGame数据结构改版，爬虫解析部分可能存在问题!!!**
+>
+> **@author** ChangXing
+>
+> **@version** 2.1
+>
+> **@create** 2019.12.10
+>
+> **@revise** 2020.06.09
+
+使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据游戏场次列表采集游戏场次详情。
 
 * 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
 
