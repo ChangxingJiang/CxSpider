@@ -6,6 +6,7 @@
 | 微博              | 微博热搜榜实时爬虫           | weibo.hot_ranking        |
 | Twitter           | Twitter用户信息爬虫          | twitter.user_info        |
 | Twitter           | Twitter用户推文爬虫          | twitter.user_tweet       |
+| Facebook          | Twitter用户推文爬虫          | facebook.user_tweet      |
 | WanPlus(玩加电竞) | 英雄联盟每日比赛列表爬虫     | wanplus.lol_date_list    |
 | WanPlus(玩加电竞) | 英雄联盟比赛包含场次列表爬虫 | wanplus.lol_match_list   |
 | WanPlus(玩加电竞) | 英雄联盟场次详细信息爬虫     | wanplus.lol_match_info   |
@@ -229,7 +230,21 @@
 >
 >**@revise** 2020.06.08
 
-依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台）。
+依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+### 10. 虎牙直播间订阅数爬虫(huya.subscribe_of_live)
+
+>**@author** ChangXing
+>
+>**@version** 1.2
+>
+>**@create** 2019.11.24
+>
+>**@revise** 2020.06.08
+
+依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
 
 * 应用配置：无需使用代理IP，需要使用Selenium
 
