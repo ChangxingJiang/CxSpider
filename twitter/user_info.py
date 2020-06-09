@@ -3,7 +3,7 @@ Twitter用户信息爬虫
 
 @author: ChangXing
 @version: 4.1
-@create: 2020.04.23
+@create: 2017.12.25
 @revise: 2020.06.08
 """
 
