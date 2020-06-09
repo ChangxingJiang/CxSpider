@@ -17,6 +17,7 @@
 | 斗鱼               | 斗鱼直播弹幕爬虫                         | douyu.barrage_of_live        |
 | 斗鱼               | 斗鱼直播间订阅数爬虫                     | douyu.subscribe_of_live      |
 | Bilibili           | Bilibili直播弹幕爬虫                     | bilibili.barrage_of_live     |
+| Bilibili           | B站UP主发布视频列表爬虫【Demo】          | bilibili.user_video_list     |
 | 安居客             | 安居客各地房源数量爬虫                   | anjuke.housing_resources_num |
 | 居理新房           | 居理新房城市页面列表爬虫                 | julive.city_url_list         |
 | WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
@@ -416,7 +417,19 @@
 
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 21. 微博热搜榜实时爬虫(weibo.hot_ranking)
+### 21. B站UP主发布视频列表爬虫(bilibili.user_video_list)
+
+> **@author** ChangXing
+>
+> **@version** 1.0
+>
+> **@create** 2020.05.29
+
+【Demo】采集B站UP主发布视频列表，并输出到控制台。
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+### 22. 微博热搜榜实时爬虫(weibo.hot_ranking)
 
 > **@author** ChangXing
 >
