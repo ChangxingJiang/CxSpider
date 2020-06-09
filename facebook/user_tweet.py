@@ -6,7 +6,7 @@ Facebook推文爬虫
 @author: ChangXing
 @version: 4.1
 @create: 2017.12.30
-@revise: 2020.06.08
+@revise: 2020.06.09
 """
 
 import copy
