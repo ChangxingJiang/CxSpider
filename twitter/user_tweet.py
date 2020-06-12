@@ -177,7 +177,7 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 6, 8), until=dt.date(2020, 6, 9))
+                             since=dt.date(2020, 6, 10), until=dt.date(2020, 6, 11))
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2006", tweets)
             print("写入记录数:", record_num)
