@@ -21,10 +21,10 @@ import toolkit as tool
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div > div"
-SELECTOR_ID = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a"
-SELECTOR_TIME = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a > time"
-SELECTOR_CONTENT = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
-SELECTOR_FEEDBACK = "article > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div[role='group']"
+SELECTOR_ID = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a"
+SELECTOR_TIME = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a > time"
+SELECTOR_CONTENT = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
+SELECTOR_FEEDBACK = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div[role='group']"
 
 
 def crawler(driver, user_name, template, since=None, until=None):
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            # if media_item[0] > 80:
+            # if media_item[0] < 139:
             #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             tweet_template = {
@@ -177,9 +177,9 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 6, 10), until=dt.date(2020, 6, 11))
+                             since=dt.date(2020, 7, 18), until=dt.date(2020, 7, 20))
             print("共抓取推文:", len(tweets))
-            record_num = mySQL.insert("twitter_tweet_2006", tweets)
+            record_num = mySQL.insert("twitter_tweet_2007", tweets)
             print("写入记录数:", record_num)
             time.sleep(tool.get_scope_random(1))
     else:

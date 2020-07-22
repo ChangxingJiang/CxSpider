@@ -40,7 +40,7 @@ def crawler(driver, user_name: str, template):
         profile = Profile(user_name).to_dict()
     except:
         print("账号不存在!")
-        return
+        return None
 
     print(profile)
 
@@ -62,12 +62,21 @@ def crawler(driver, user_name: str, template):
             return template
 
     # 依据Selenium爬虫结果修正抓取结果
-    if abs(template["following_count"] - following_count) > 1000:
-        print("修正正在关注数量:", template["following_count"], "→", following_count)
-        template["following_count"] = following_count
-    if abs(template["followers_count"] - followers_count) > 1000:
-        print("修正关注者数量:", template["followers_count"], "→", followers_count)
-        template["followers_count"] = followers_count
+    try:
+        if "following_count" not in template or template["following_count"] is None:
+            template["following_count"] = 0
+        if "followers_count" not in template or template["followers_count"] is None:
+            template["followers_count"] = 0
+        if abs(template["following_count"] - following_count) > 1000 \
+                or (abs(template["following_count"] - following_count) > 0 and template["following_count"] < 10000):
+            print("修正正在关注数量:", template["following_count"], "→", following_count)
+            template["following_count"] = following_count
+        if abs(template["followers_count"] - followers_count) > 1000 \
+                or (abs(template["followers_count"] - followers_count) > 0 and template["followers_count"] < 10000):
+            print("修正关注者数量:", template["followers_count"], "→", followers_count)
+            template["followers_count"] = followers_count
+    except TypeError:
+        print("修改正在关注、关注者数量失败，最终取值：正在关注 =", template["following_count"], "、关注数 =", template["followers_count"])
 
     return template
 
@@ -78,6 +87,8 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
+            if media_item[0] < 133:
+                continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             user_template = {
                 "media_id": media_item[0],
@@ -94,7 +105,8 @@ if __name__ == "__main__":
                 "following_count": None,
             }
             user_info = crawler(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
-            record_num = mySQL.insert("twitter_user_2020_06", [user_info])
+            if user_info is not None:
+                record_num = mySQL.insert("twitter_user_2020_06", [user_info])
             time.sleep(tool.get_scope_random(1))
     else:
         print("榜单媒体名录不存在")
