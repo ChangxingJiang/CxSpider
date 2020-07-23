@@ -62,7 +62,7 @@
 
 > **@author** ChangXing
 >
-> **@version** 5.0
+> **@version** 4.1 / 5.1
 >
 > **@create** 2017.12.30
 >

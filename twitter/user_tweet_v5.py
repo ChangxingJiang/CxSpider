@@ -2,7 +2,7 @@
 Twitter用户推文爬虫
 
 @author: ChangXing
-@version: 5.0
+@version: 5.1
 @create: 2017.12.30
 @revise: 2020.07.22
 """
@@ -149,22 +149,22 @@ def crawler(driver, user_name, template, since=None, until=None):
                         label_from_user = label_tweet.find_element_by_css_selector(SELECTOR_FROM_USER)
                         tweet_from_user = label_from_user.text
                     except NoSuchElementException:
-                        print("未找到原推文作者标签(NoSuchElementException)")
-                        continue
+                        print("不是转发推文或未找到原推文作者标签(NoSuchElementException)")
+                        # continue
                     except StaleElementReferenceException:
-                        print("未找到原推文作者标签(StaleElementReferenceException)")
-                        continue
+                        print("不是转发推文或未找到原推文作者标签(StaleElementReferenceException)")
+                        # continue
 
                     # 解析转推原推文内容
                     try:
                         label_from_content = label_tweet.find_element_by_css_selector(SELECTOR_FROM_CONTENT)
                         tweet_from_content = label_from_content.text
                     except NoSuchElementException:
-                        print("未找到原推文内容标签(NoSuchElementException)")
-                        continue
+                        print("不是转发推文或未找到原推文内容标签(NoSuchElementException)")
+                        # continue
                     except StaleElementReferenceException:
-                        print("未找到原推文内容标签(StaleElementReferenceException)")
-                        continue
+                        print("不是转发推文或未找到原推文内容标签(StaleElementReferenceException)")
+                        # continue
 
                 tweet_info = copy.deepcopy(template)
                 tweet_info["tweet_id"] = tweet_id
@@ -189,5 +189,6 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 if __name__ == "__main__":
     selenium = tool.open_chrome()  # 打开Selenium控制的Chrome浏览器
-    tweets = crawler(selenium, "realDonaldTrump", {}, since=dt.date(2020, 7, 18), until=dt.date(2020, 7, 20))
+    # tweets = crawler(selenium, "realDonaldTrump", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
+    tweets = crawler(selenium, "appledaily_hk", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
     print(tweets)
