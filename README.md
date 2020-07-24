@@ -1,36 +1,68 @@
 # CxSpider
-长行编写的Python爬虫的合集（PyCharm项目）。包括如下爬虫：
+长行的Python爬虫合集，主要包括如下爬虫：
 
-| 网站               | 爬虫                                     | 爬虫路径                     |
-| ------------------ | ---------------------------------------- | ---------------------------- |
-| 微博               | 微博热搜榜实时爬虫                       | weibo.hot_ranking            |
-| Twitter            | Twitter用户信息爬虫                      | twitter.user_info            |
-| Twitter            | Twitter用户推文爬虫                      | twitter.user_tweet           |
-| Facebook           | Twitter用户推文爬虫                      | facebook.user_tweet          |
-| WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫                 | wanplus.lol_date_list        |
-| WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫             | wanplus.lol_match_list       |
-| WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫                 | wanplus.lol_match_info       |
-| 中国知网           | 中国知网期刊包含刊期列表爬虫             | cnki.issue_list              |
-| 中国知网           | 中国知网刊期包含论文列表爬虫             | cnki.article_list            |
-| 虎牙               | 虎牙直播弹幕爬虫                         | huya.barrage_of_live         |
-| 虎牙               | 虎牙直播间订阅数爬虫                     | huya.subscribe_of_live       |
-| 斗鱼               | 斗鱼直播弹幕爬虫                         | douyu.barrage_of_live        |
-| 斗鱼               | 斗鱼直播间订阅数爬虫                     | douyu.subscribe_of_live      |
-| Bilibili           | Bilibili直播弹幕爬虫                     | bilibili.barrage_of_live     |
-| Bilibili           | B站UP主发布视频列表爬虫【Demo】          | bilibili.user_video_list     |
-| 安居客             | 安居客各地房源数量爬虫                   | anjuke.housing_resources_num |
-| 居理新房           | 居理新房城市页面列表爬虫                 | julive.city_url_list         |
-| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     |
-| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      |
-| WeGame(安卓客户端) | WeGame云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    |
-| 猫眼               | 猫眼网播热度爬虫【Demo】                 | maoyan.web_heat              |
-| 豆瓣               | 豆瓣电影TOP250爬虫                       | douban.movie_top_250         |
+* 社交媒体：微博(S-01)、Twitter(S-02)、Facebook：Facebook用户推文爬虫(S-03-1)
+* 视频网站：Bilibili(V-01)
+* 游戏数据：WanPlus-玩加电竞(G-01)、WeGame(G-02)
+* 网络直播：虎牙(L-01)、斗鱼(L-02)、Bilibili(L-03)
+* 其他爬虫：安居客(O-01)、居理新房(O-02)、中国知网(O-03)、猫眼(O-04)、豆瓣(O-05)
+
+## 爬虫列表
+
+| ID     | 网站               | 爬虫                               | 爬虫路径                     | 状态   |
+| ------ | ------------------ | ---------------------------------- | ---------------------------- | ------ |
+| S-01-1 | 微博               | 微博热搜榜实时爬虫                 | weibo.hot_ranking            | 正常   |
+| S-02-1 | Twitter            | Twitter用户推文爬虫                | twitter.user_tweet           | 待更新 |
+| S-02-2 | Twitter            | Twitter用户信息爬虫                | twitter.user_info            | 正常   |
+| S-03-1 | Facebook           | Facebook用户推文爬虫               | facebook.user_tweet          | 正常   |
+| V-01-1 | Bilibili           | B站UP主发布视频列表爬虫【Demo】    | bilibili.user_video_list     | 正常   |
+| G-01-1 | WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫           | wanplus.lol_date_list        | 正常   |
+| G-01-2 | WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫       | wanplus.lol_match_list       | 正常   |
+| G-01-3 | WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫           | wanplus.lol_match_info       | 正常   |
+| G-02-1 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     | 正常   |
+| G-02-2 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      | 正常   |
+| G-02-3 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    | 正常   |
+| L-01-1 | 虎牙               | 直播弹幕爬虫                       | huya.barrage_of_live         | 正常   |
+| L-01-2 | 虎牙               | 直播间订阅数爬虫                   | huya.subscribe_of_live       | 正常   |
+| L-02-1 | 斗鱼               | 直播弹幕爬虫                       | douyu.barrage_of_live        | 正常   |
+| L-02-2 | 斗鱼               | 直播间订阅数爬虫                   | douyu.subscribe_of_live      | 待修复 |
+| L-03-1 | Bilibili           | 直播弹幕爬虫                       | bilibili.barrage_of_live     | 正常   |
+| O-01-1 | 安居客             | 安居客各地房源数量爬虫             | anjuke.housing_resources_num | 正常   |
+| O-02-1 | 居理新房           | 居理新房城市页面列表爬虫           | julive.city_url_list         | 正常   |
+| O-03-1 | 中国知网           | 期刊包含刊期列表爬虫               | cnki.issue_list              | 正常   |
+| O-03-4 | 中国知网           | 刊期包含论文列表爬虫               | cnki.article_list            | 正常   |
+| O-04-1 | 猫眼               | 猫眼网播热度爬虫【Demo】           | maoyan.web_heat              | 正常   |
+| O-05-1 | 豆瓣               | 豆瓣电影TOP250爬虫                 | douban.movie_top_250         | 正常   |
 
 **本合集中所有爬虫仅可用于学习、研究用途，不允许用于任何商业用途。如使将本合集中的任意爬虫用于商业用途，后果自负！！！**
 
 ## 爬虫详情
 
-### 1. Twitter用户信息爬虫(twitter.user_info)
+### [S-01-1] 微博热搜榜实时爬虫(weibo.hot_ranking)
+
+> **@author** ChangXing
+>
+> **@Version** 1.1
+>
+> **@create** 2020.05.29
+>
+> **@revise** 2020.06.08
+
+定时采集微博热搜榜。
+
+* 采集信息：每5分钟采集1次，每次约50条记录→每天约14400条记录
+* 数据清洗：热搜榜置顶热搜（固定第1条）和广告热搜（标注推荐）
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+| 字段名     | 字段内容   |
+| ---------- | ---------- |
+| fetch_time | 采集时间   |
+| ranking    | 热搜排名   |
+| keyword    | 热搜关键词 |
+| heat       | 热搜热度   |
+| icon       | 热搜标志   |
+
+### [S-02-1] Twitter用户信息爬虫(twitter.user_info)
 
 > **@author** ChangXing
 >
@@ -58,7 +90,7 @@
 | followers_count | Twitter用户的粉丝数(关注数:被多少人关注)     |
 | following_count | Twitter用户的关注数(正在关注数:关注了多少人) |
 
-### 2. Twitter用户推文爬虫(twitter.user_tweet)
+### [S-02-2] Twitter用户推文爬虫(twitter.user_tweet)
 
 > **@author** ChangXing
 >
@@ -101,7 +133,7 @@
 | from_user    | 【转推推文】原推文的推文发布者(若非转推推文则为None) |
 | from_content | 【转推推文】原推文的推文内容(若非转推推文则为None)   |
 
-### 3. Facebook用户推文爬虫(facebook.user_tweet)
+### [S-03-1] Facebook用户推文爬虫(facebook.user_tweet)
 
 > **@author** ChangXing
 >
@@ -131,228 +163,19 @@
 | comment   | 推文评论数                 |
 | share     | 推文分享数                 |
 
-### 4. 知网期刊包含刊期列表爬虫(cnki.issue_list)
-
-> @author: ChangXing
-> 
-> @version: 1.1
-> 
-> @create: 2019.11.02
-> 
-> @revise: 2020.06.08
-
-采集中国知网中指定期刊所有刊期的列表，刊期包括年份和在该年的序号。
-
-* 采集参数：需要指定期刊的pcode、pykm共2个属性作为参数才可以采集
-* 应用配置：无需使用代理IP，无需使用Selenium
-
-### 5. 知网刊期包含论文列表爬虫(cnki.article_list)
-
-> @author: ChangXing
->
-> @version: 1.1
->
-> @create: 2019.11.02
->
-> @revise: 2020.06.08
-
-采集中国知网中指定刊期所有论文的列表。
-
-* 采集参数：需要指定刊期的pcode、pykm、年份、年序号共4个属性作为参数才可以采集
-* 应用配置：无需使用代理IP，无需使用Selenium
-
-| 字段名       | 字段内容                         |
-| ------------ | -------------------------------- |
-| title        | 论文标题                         |
-| column       | 论文所在的栏目                   |
-| db_code      | 论文Url的第1个参数               |
-| file_name    | 论文Url的第2个参数               |
-| db_name      | 论文Url的第3个参数               |
-| team_a_score | LOL比赛的第1个参赛队伍的小场得分 |
-| team_b_score | LOL比赛的第2个参赛队伍的小场得分 |
-| contest_name | 比赛的全名                       |
-
-### 6. 虎牙直播弹幕爬虫(huya.barrage_of_live)
-
-> @author: ChangXing
->
-> @version: 1.2
->
-> @create: 2019.11.24
->
-> @revise: 2020.06.08
-
-使用Selenium模拟浏览器，采集虎牙直播间中的弹幕。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-| 字段名     | 字段内容                                               |
-| ---------- | ------------------------------------------------------ |
-| bid        | 弹幕ID                                                 |
-| type       | 弹幕类型                                               |
-| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
-| user_name  | 弹幕发布者名称                                         |
-| user_noble | 弹幕发布者贵族等级                                     |
-| content    | 弹幕内容                                               |
-| gift_name  | 赠送礼物弹幕的礼物名称                                 |
-| gift_num   | 赠送礼物弹幕的礼物数量                                 |
-| other      | 弹幕的其他信息                                         |
-
-### 7. 斗鱼直播弹幕爬虫(douyu.barrage_of_live)
-
-> @author: ChangXing
->
-> @version: 1.2
->
-> @create: 2019.11.24
->
-> @revise: 2020.06.08
-
-使用Selenium模拟浏览器，采集斗鱼直播间中的弹幕。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-| 字段名     | 字段内容                                               |
-| ---------- | ------------------------------------------------------ |
-| bid        | 弹幕ID                                                 |
-| type       | 弹幕类型                                               |
-| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
-| user_name  | 弹幕发布者名称                                         |
-| user_level | 弹幕发布者等级                                         |
-| content    | 弹幕内容                                               |
-| text       | 弹幕其他信息                                           |
-
-### 8. Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
-
-> @author: ChangXing
->
-> @version: 1.2
->
-> @create: 2019.11.24
->
-> @revise: 2020.06.08
-
-使用Selenium模拟浏览器，采集Bilibili直播间中的弹幕。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-| 字段名     | 字段内容                                               |
-| ---------- | ------------------------------------------------------ |
-| bid        | 弹幕ID                                                 |
-| type       | 弹幕类型                                               |
-| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
-| user_name  | 弹幕发布者名称                                         |
-| user_id    | 弹幕发布者ID                                           |
-| content    | 弹幕内容                                               |
-
-### 9. 斗鱼直播间订阅数爬虫(douyu.subscribe_of_live)
-
->**!!!暂停使用(斗鱼增加字符集反爬，当前抓取结果有误)!!!**
->
->**@author** ChangXing
->
->**@version** 1.2
->
->**@create** 2019.11.24
->
->**@revise** 2020.06.08
-
-依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-### 10. 虎牙直播间订阅数爬虫(huya.subscribe_of_live)
-
->**@author** ChangXing
->
->**@version** 1.2
->
->**@create** 2019.11.24
->
->**@revise** 2020.06.08
-
-依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-### 11. WeGame云顶之弈比赛记录爬虫：召唤师列表(wegame.tft_summoner_list)
+### [V-01-1] B站UP主发布视频列表爬虫(bilibili.user_video_list)
 
 > **@author** ChangXing
 >
-> **@version** 2.1
+> **@version** 1.0
 >
-> **@create** 2019.12.10
->
-> **@revise** 2020.06.09
+> **@create** 2020.05.29
 
-使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于采集高分段召唤师列表。
+【Demo】采集B站UP主发布视频列表，并输出到控制台。
 
-* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
-* 应用配置：无需使用代理IP，无需使用Selenium
+* 应用配置：无需使用代理IP、无需使用Selenium
 
-### 12. WeGame云顶之弈比赛记录爬虫：游戏场次列表(wegame.tft_exploit_list)
-
-> **@author** ChangXing
->
-> **@version** 2.1
->
-> **@create** 2019.12.10
->
-> **@revise** 2020.06.09
-
-使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据召唤师列表采集召唤师游戏场次列表。
-
-* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
-* 应用配置：无需使用代理IP，无需使用Selenium
-
-### 13. WeGame云顶之弈比赛记录爬虫：游戏场次详情(wegame.tft_exploit_detail)
-
-> **!!!WeGame数据结构改版，爬虫解析部分可能存在问题!!!**
->
-> **@author** ChangXing
->
-> **@version** 2.1
->
-> **@create** 2019.12.10
->
-> **@revise** 2020.06.09
-
-使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据游戏场次列表采集游戏场次详情。
-
-* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
-
-* 应用配置：无需使用代理IP，无需使用Selenium
-
-### 14. 安居客各地房源数量爬虫(anjuke.housing_resources_num)
-
-> @author: ChangXing
->
-> @version: 1.1
->
-> @create: 2019.12.17
->
-> @revise: 2020.06.09
->
-
-先采集城市编码列表(crawler_city_list)，再依据城市编码采集城市房源数量(crawler_city_resources)。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-### 15. 居理新房城市页面列表爬虫(julive.city_url_list)
-
-> @author: ChangXing
->
-> @version: 1.1
->
-> @create: 2019.12.17
->
-> @revise: 2020.06.09
-
-采集各个城市页面的Url列表。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-### 16. WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
+### [G-01-1] WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
 > **@author** ChangXing
 >
@@ -381,7 +204,7 @@
 | team_a_score_per | LOL比赛的第1个参赛队伍各个小场的得分 |
 | team_b_score_per | LOL比赛的第2个参赛队伍各个小场的得分 |
 
-### 17. WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
+### [G-01-2] WanPlus英雄联盟比赛包含场次列表爬虫(wanplus.lol_match_list)
 
 > **@author** ChangXing
 >
@@ -396,7 +219,7 @@
 * 目标Url：https://www.wanplus.com/schedule/58822.html
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 18. WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
+### [G-01-3] WanPlus英雄联盟场次详细信息爬虫(wanplus.lol_match_info)
 
 > **@author** ChangXing
 >
@@ -411,7 +234,227 @@
 * 目标Url(实际请求的Ajax)：https://www.wanplus.com/ajax/matchdetail/65029?_gtk=345357323
 * 应用配置：无需使用代理IP、无需使用Selenium
 
-### 19. 猫眼网播热度(maoyan.web_heat)
+### [G-02-1] WeGame云顶之弈比赛记录爬虫：召唤师列表(wegame.tft_summoner_list)
+
+> **@author** ChangXing
+>
+> **@version** 2.1
+>
+> **@create** 2019.12.10
+>
+> **@revise** 2020.06.09
+
+使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于采集高分段召唤师列表。
+
+* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### [G-02-2] WeGame云顶之弈比赛记录爬虫：游戏场次列表(wegame.tft_exploit_list)
+
+> **@author** ChangXing
+>
+> **@version** 2.1
+>
+> **@create** 2019.12.10
+>
+> **@revise** 2020.06.09
+
+使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据召唤师列表采集召唤师游戏场次列表。
+
+* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### [G-02-3] WeGame云顶之弈比赛记录爬虫：游戏场次详情(wegame.tft_exploit_detail)
+
+> **!!!WeGame数据结构改版，爬虫解析部分可能存在问题!!!**
+>
+> **@author** ChangXing
+>
+> **@version** 2.1
+>
+> **@create** 2019.12.10
+>
+> **@revise** 2020.06.09
+
+使用安卓客户端的API采集WeGame中云顶之弈比赛记录，当前爬虫用于依据游戏场次列表采集游戏场次详情。
+
+* 登录状态：需要通过安卓模拟器配合Fiddler抓包获取登录状态（登录状态有24小时左右的有效期）
+
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### [L-01-1] 虎牙直播弹幕爬虫(huya.barrage_of_live)
+
+> @author: ChangXing
+>
+> @version: 1.2
+>
+> @create: 2019.11.24
+>
+> @revise: 2020.06.08
+
+使用Selenium模拟浏览器，采集虎牙直播间中的弹幕。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+| 字段名     | 字段内容                                               |
+| ---------- | ------------------------------------------------------ |
+| bid        | 弹幕ID                                                 |
+| type       | 弹幕类型                                               |
+| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
+| user_name  | 弹幕发布者名称                                         |
+| user_noble | 弹幕发布者贵族等级                                     |
+| content    | 弹幕内容                                               |
+| gift_name  | 赠送礼物弹幕的礼物名称                                 |
+| gift_num   | 赠送礼物弹幕的礼物数量                                 |
+| other      | 弹幕的其他信息                                         |
+
+### [L-01-2] 虎牙直播间订阅数爬虫(huya.subscribe_of_live)
+
+>**@author** ChangXing
+>
+>**@version** 1.2
+>
+>**@create** 2019.11.24
+>
+>**@revise** 2020.06.08
+
+依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+### [L-02-1] 斗鱼直播弹幕爬虫(douyu.barrage_of_live)
+
+> @author: ChangXing
+>
+> @version: 1.2
+>
+> @create: 2019.11.24
+>
+> @revise: 2020.06.08
+
+使用Selenium模拟浏览器，采集斗鱼直播间中的弹幕。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+| 字段名     | 字段内容                                               |
+| ---------- | ------------------------------------------------------ |
+| bid        | 弹幕ID                                                 |
+| type       | 弹幕类型                                               |
+| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
+| user_name  | 弹幕发布者名称                                         |
+| user_level | 弹幕发布者等级                                         |
+| content    | 弹幕内容                                               |
+| text       | 弹幕其他信息                                           |
+
+### [L-02-2] 斗鱼直播间订阅数爬虫(douyu.subscribe_of_live)
+
+>**!!!暂停使用(斗鱼增加字符集反爬，当前抓取结果有误)!!!**
+>
+>**@author** ChangXing
+>
+>**@version** 1.2
+>
+>**@create** 2019.11.24
+>
+>**@revise** 2020.06.08
+
+依据直播间Url列表，采集列表中直播间的订阅数（暂输出到控制台），Url列表文件中一行一个Url。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+### [L-03-1] Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
+
+> @author: ChangXing
+>
+> @version: 1.2
+>
+> @create: 2019.11.24
+>
+> @revise: 2020.06.08
+
+使用Selenium模拟浏览器，采集Bilibili直播间中的弹幕。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+| 字段名     | 字段内容                                               |
+| ---------- | ------------------------------------------------------ |
+| bid        | 弹幕ID                                                 |
+| type       | 弹幕类型                                               |
+| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
+| user_name  | 弹幕发布者名称                                         |
+| user_id    | 弹幕发布者ID                                           |
+| content    | 弹幕内容                                               |
+
+### [O-01-1] 安居客各地房源数量爬虫(anjuke.housing_resources_num)
+
+> @author: ChangXing
+>
+> @version: 1.1
+>
+> @create: 2019.12.17
+>
+> @revise: 2020.06.09
+
+先采集城市编码列表(crawler_city_list)，再依据城市编码采集城市房源数量(crawler_city_resources)。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+### [O-02-1] 居理新房城市页面列表爬虫(julive.city_url_list)
+
+> @author: ChangXing
+>
+> @version: 1.1
+>
+> @create: 2019.12.17
+>
+> @revise: 2020.06.09
+
+采集各个城市页面的Url列表。
+
+* 应用配置：无需使用代理IP，需要使用Selenium
+
+### [O-03-1] 知网期刊包含刊期列表爬虫(cnki.issue_list)
+
+> @author: ChangXing
+> 
+> @version: 1.1
+> 
+> @create: 2019.11.02
+> 
+> @revise: 2020.06.08
+
+采集中国知网中指定期刊所有刊期的列表，刊期包括年份和在该年的序号。
+
+* 采集参数：需要指定期刊的pcode、pykm共2个属性作为参数才可以采集
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+### [O-03-2] 知网刊期包含论文列表爬虫(cnki.article_list)
+
+> @author: ChangXing
+>
+> @version: 1.1
+>
+> @create: 2019.11.02
+>
+> @revise: 2020.06.08
+
+采集中国知网中指定刊期所有论文的列表。
+
+* 采集参数：需要指定刊期的pcode、pykm、年份、年序号共4个属性作为参数才可以采集
+* 应用配置：无需使用代理IP，无需使用Selenium
+
+| 字段名       | 字段内容                         |
+| ------------ | -------------------------------- |
+| title        | 论文标题                         |
+| column       | 论文所在的栏目                   |
+| db_code      | 论文Url的第1个参数               |
+| file_name    | 论文Url的第2个参数               |
+| db_name      | 论文Url的第3个参数               |
+| team_a_score | LOL比赛的第1个参赛队伍的小场得分 |
+| team_b_score | LOL比赛的第2个参赛队伍的小场得分 |
+| contest_name | 比赛的全名                       |
+
+### [O-04-1] 猫眼网播热度(maoyan.web_heat)
 
 > **@author** ChangXing
 >
@@ -424,7 +467,7 @@
 * 目标Url：http://piaofang.maoyan.com/dashboard/web-heat
 * 应用配置：无需使用代理IP、需要使用Selenium
 
-### 20. 豆瓣电影TOP250爬虫(douban.movie_top_250)
+### [O-05-1] 豆瓣电影TOP250爬虫(douban.movie_top_250)
 
 > **@author** ChangXing
 >
@@ -435,42 +478,6 @@
 采集猫眼网播热度并输出到Json文件。
 
 * 应用配置：无需使用代理IP、无需使用Selenium
-
-### 21. B站UP主发布视频列表爬虫(bilibili.user_video_list)
-
-> **@author** ChangXing
->
-> **@version** 1.0
->
-> **@create** 2020.05.29
-
-【Demo】采集B站UP主发布视频列表，并输出到控制台。
-
-* 应用配置：无需使用代理IP、无需使用Selenium
-
-### 22. 微博热搜榜实时爬虫(weibo.hot_ranking)
-
-> **@author** ChangXing
->
-> **@Version** 1.1
->
-> **@create** 2020.05.29
->
-> **@revise** 2020.06.08
-
-定时采集微博热搜榜。
-
-* 采集信息：每5分钟采集1次，每次约50条记录→每天约14400条记录
-* 数据清洗：热搜榜置顶热搜（固定第1条）和广告热搜（标注推荐）
-* 应用配置：无需使用代理IP、无需使用Selenium
-
-| 字段名     | 字段内容   |
-| ---------- | ---------- |
-| fetch_time | 采集时间   |
-| ranking    | 热搜排名   |
-| keyword    | 热搜关键词 |
-| heat       | 热搜热度   |
-| icon       | 热搜标志   |
 
 ## 环境变量
 
