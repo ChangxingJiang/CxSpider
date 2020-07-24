@@ -1,11 +1,5 @@
 # CxSpider
-长行的Python爬虫合集，主要包括如下爬虫：
-
-* 社交媒体：微博(S-01)、Twitter(S-02)、Facebook：Facebook用户推文爬虫(S-03-1)
-* 视频网站：Bilibili(V-01)
-* 游戏数据：WanPlus-玩加电竞(G-01)、WeGame(G-02)
-* 网络直播：虎牙(L-01)、斗鱼(L-02)、Bilibili(L-03)
-* 其他爬虫：安居客(O-01)、居理新房(O-02)、中国知网(O-03)、猫眼(O-04)、豆瓣(O-05)
+长行的Python爬虫合集，主要包括如下爬虫。
 
 ## 爬虫列表
 
@@ -16,6 +10,7 @@
 | S-02-2 | Twitter            | Twitter用户信息爬虫                | twitter.user_info            | 正常   |
 | S-03-1 | Facebook           | Facebook用户推文爬虫               | facebook.user_tweet          | 正常   |
 | V-01-1 | Bilibili           | B站UP主发布视频列表爬虫【Demo】    | bilibili.user_video_list     | 正常   |
+| V-02-1 | AcFun              | AcFun视频信息爬虫（包括下载地址）  | acfun.video                  | 正常   |
 | G-01-1 | WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫           | wanplus.lol_date_list        | 正常   |
 | G-01-2 | WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫       | wanplus.lol_match_list       | 正常   |
 | G-01-3 | WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫           | wanplus.lol_match_info       | 正常   |
@@ -174,6 +169,23 @@
 【Demo】采集B站UP主发布视频列表，并输出到控制台。
 
 * 应用配置：无需使用代理IP、无需使用Selenium
+
+### [V-02-1] AcFun视频信息爬虫(acfun.video)
+
+> **@author** ChangXing
+>
+> **@version** 1.0
+>
+> **@create** 2020.07.24
+
+采集AcFun视频信息
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+| 字段名 | 字段内容     |
+| ------ | ------------ |
+| title  | 视频标题     |
+| videos | 视频下载地址 |
 
 ### [G-01-1] WanPlus英雄联盟每日比赛列表爬虫(wanplus.lol_date_list)
 
