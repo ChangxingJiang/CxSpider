@@ -14,6 +14,7 @@ from twitter_scraper import Profile
 
 import environment as env
 import toolkit as tool
+from toolkit.textCleaner import TextCleaner
 
 XPATH_FOLLOWING_COUNT = [
     "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/a",
@@ -51,12 +52,12 @@ def crawler(driver, user_name: str, template):
     driver.get("https://twitter.com/" + user_name)
     time.sleep(tool.get_scope_random(12))
     try:
-        following_count = tool.fetch.number(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[0]).text)
-        followers_count = tool.fetch.number(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[0]).text)
+        following_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[0]).text).fetch_number()
+        followers_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[0]).text).fetch_number()
     except:
         try:
-            following_count = tool.fetch.number(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[1]).text)
-            followers_count = tool.fetch.number(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[1]).text)
+            following_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[1]).text).fetch_number()
+            followers_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[1]).text).fetch_number()
         except:
             print("Selenium抓取关注数+正在关注失败!")
             return template
@@ -87,8 +88,8 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            if media_item[0] < 133:
-                continue
+            # if media_item[0] < 133:
+            #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             user_template = {
                 "media_id": media_item[0],
@@ -106,7 +107,7 @@ if __name__ == "__main__":
             }
             user_info = crawler(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
             if user_info is not None:
-                record_num = mySQL.insert("twitter_user_2020_06", [user_info])
+                record_num = mySQL.insert("twitter_user_2020_07", [user_info])
             time.sleep(tool.get_scope_random(1))
     else:
         print("榜单媒体名录不存在")

@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import environment as env
-import toolkit as tool
+from toolkit.textCleaner import TextCleaner
 
 
 def crawler(journal, pcode, pykm, year, issue):
@@ -43,7 +43,7 @@ def crawler(journal, pcode, pykm, year, issue):
         if article_label.name == "dt":
             now_column = article_label.get_text()
         elif article_label.name == "dd":
-            title = tool.clear.invisible(article_label.select_one("dd > span > a").text)  # 读取论文标题
+            title = str(TextCleaner(article_label.select_one("dd > span > a").text).clear_empty())  # 读取论文标题
             href = article_label.select_one("dd > span > a")["href"]  # 读取论文链接
             if re.search("(?<=dbCode=)[^&]+(?=&)", href):
                 db_code = re.search("(?<=dbCode=)[^&]+(?=&)", href).group()  # 在论文链接中提取变量值
