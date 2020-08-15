@@ -2,7 +2,7 @@
 Twitter用户推文爬虫
 
 @author: ChangXing
-@version: 4.0
+@version: 4.1
 @create: 2017.12.30
 @revise: 2020.06.08
 """
@@ -20,7 +20,7 @@ import environment as env
 import toolkit as tool
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
-SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div > div"
+SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div"
 SELECTOR_ID = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a"
 SELECTOR_TIME = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > a > time"
 SELECTOR_CONTENT = "article > div > div > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
@@ -55,6 +55,7 @@ def crawler(driver, user_name, template, since=None, until=None):
         "f": "live"
     }
     actual_url = "https://twitter.com/search?" + parse.urlencode(params)
+    print("实际请求Url:",actual_url)
 
     # 打开目标Url
     driver.get(actual_url)
@@ -177,7 +178,7 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 8, 6), until=dt.date(2020, 8, 8))
+                             since=dt.date(2020, 8, 5), until=dt.date(2020, 8, 14))  # 闭开区间
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2008", tweets)
             print("写入记录数:", record_num)
