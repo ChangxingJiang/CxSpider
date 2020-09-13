@@ -2,9 +2,9 @@
 Twitter用户推文爬虫
 
 @author: ChangXing
-@version: 4.1
+@version: 4.2
 @create: 2017.12.30
-@revise: 2020.06.08
+@revise: 2020.09.13
 """
 
 import copy
@@ -55,7 +55,7 @@ def crawler(driver, user_name, template, since=None, until=None):
         "f": "live"
     }
     actual_url = "https://twitter.com/search?" + parse.urlencode(params)
-    print("实际请求Url:",actual_url)
+    print("实际请求Url:", actual_url)
 
     # 打开目标Url
     driver.get(actual_url)
@@ -78,11 +78,8 @@ def crawler(driver, user_name, template, since=None, until=None):
             try:
                 label_id = label_tweet.find_element_by_css_selector(SELECTOR_ID)
                 tweet_id = re.search("[0-9]+$", label_id.get_attribute("href")).group()
-            except NoSuchElementException:
-                print("未找到推文ID标签(NoSuchElementException)")
-                continue
-            except StaleElementReferenceException:
-                print("未找到推文ID标签(StaleElementReferenceException)")
+            except NoSuchElementException or StaleElementReferenceException as e:
+                print("未找到推文ID标签(" + e.__class__.__name__ + ")")
                 continue
 
             # 判断推文是否已被抓取(若未被抓取则解析推文)
@@ -96,22 +93,16 @@ def crawler(driver, user_name, template, since=None, until=None):
                 try:
                     label_time = label_tweet.find_element_by_css_selector(SELECTOR_TIME)
                     tweet_time = label_time.get_attribute("datetime").replace("T", " ").replace(".000Z", "")
-                except NoSuchElementException:
-                    print("未找到推文时间标签(NoSuchElementException)")
-                    continue
-                except StaleElementReferenceException:
-                    print("未找到推文时间标签(StaleElementReferenceException)")
+                except NoSuchElementException or StaleElementReferenceException as e:
+                    print("未找到推文时间标签(" + e.__class__.__name__ + ")")
                     continue
 
                 # 解析推文内容
                 try:
                     label_content = label_tweet.find_element_by_css_selector(SELECTOR_CONTENT)
                     tweet_content = label_content.text
-                except NoSuchElementException:
-                    print("未找到推文内容标签(NoSuchElementException)")
-                    continue
-                except StaleElementReferenceException:
-                    print("未找到推文内容标签(StaleElementReferenceException)")
+                except NoSuchElementException or StaleElementReferenceException as e:
+                    print("未找到推文内容标签(" + e.__class__.__name__ + ")")
                     continue
 
                 tweet_replies = 0  # 推文回复数
@@ -131,11 +122,8 @@ def crawler(driver, user_name, template, since=None, until=None):
                             tweet_retweets = re.search("[0-9]+", feedback_item).group()
                         if "喜欢" in feedback_item:
                             tweet_likes = re.search("[0-9]+", feedback_item).group()
-                except NoSuchElementException:
-                    print("未找到推文反馈数据标签(NoSuchElementException)")
-                    continue
-                except StaleElementReferenceException:
-                    print("未找到推文反馈数据标签(StaleElementReferenceException)")
+                except NoSuchElementException or StaleElementReferenceException as e:
+                    print("未找到推文反馈数据标签(" + e.__class__.__name__ + ")")
                     continue
 
                 tweet_info = copy.deepcopy(template)
@@ -163,7 +151,7 @@ if __name__ == "__main__":
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            # if media_item[0] < 440:
+            # if media_item[0] < 67:
             #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             tweet_template = {
@@ -178,9 +166,9 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 8, 5), until=dt.date(2020, 8, 14))  # 闭开区间
+                             since=dt.date(2020, 9, 10), until=dt.date(2020, 9, 11))  # 闭开区间
             print("共抓取推文:", len(tweets))
-            record_num = mySQL.insert("twitter_tweet_2008", tweets)
+            record_num = mySQL.insert("twitter_tweet_2009", tweets)
             print("写入记录数:", record_num)
             time.sleep(tool.get_scope_random(1))
     else:
