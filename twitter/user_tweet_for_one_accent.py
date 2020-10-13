@@ -16,8 +16,7 @@ from urllib import parse
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
-import environment as env
-import toolkit as tool
+from toolkit.MyChrome import MyChrome
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div"
@@ -78,7 +77,7 @@ def crawler(driver, user_name, template, since=None, until=None):
             try:
                 label_id = label_tweet.find_element_by_css_selector(SELECTOR_ID)
                 tweet_id = re.search("[0-9]+$", label_id.get_attribute("href")).group()
-            except (NoSuchElementException, StaleElementReferenceException) as e:
+            except NoSuchElementException or StaleElementReferenceException as e:
                 print("未找到推文ID标签(" + e.__class__.__name__ + ")")
                 continue
 
@@ -146,30 +145,16 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 
 if __name__ == "__main__":
-    selenium = tool.open_chrome()  # 打开Selenium控制的Chrome浏览器
-    mySQL = tool.mysql_connect("Huabang")  # 构造MySQL数据库连接对象
+    selenium = MyChrome()
 
-    if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
-        for media_item in env.DATA["Huabang"]["Media List"]:
-            # if media_item[0] != 211:
-            #     continue
-            print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
-            tweet_template = {
-                "media_id": media_item[0],
-                "media_name": media_item[1],
-                "tweet_id": None,
-                "is_retweet": 0,
-                "time": None,
-                "text": None,
-                "replies": None,
-                "retweets": None,
-                "likes": None
-            }
-            tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 9, 1), until=dt.date(2020, 9, 29))  # 闭开区间
-            print("共抓取推文:", len(tweets))
-            record_num = mySQL.insert("twitter_tweet_2009", tweets)
-            print("写入记录数:", record_num)
-            time.sleep(tool.get_scope_random(1))
-    else:
-        print("榜单媒体名录不存在")
+    tweet_template = {
+        "tweet_id": None,
+        "is_retweet": 0,
+        "time": None,
+        "text": None,
+        "replies": None,
+        "retweets": None,
+        "likes": None
+    }
+    tweets = crawler(selenium, "realDonaldTrump", tweet_template,
+                     since=dt.date(2020, 9, 10), until=dt.date(2020, 9, 11))  # 闭开区间

@@ -37,20 +37,20 @@ def crawler(driver, user_name: str, template):
     :return: <dict> 填写抓取数据的数据模板
     """
     # 使用twitter-scraper包抓取账户信息(关注数+正在关注数可能错误)
-    try:
-        profile = Profile(user_name).to_dict()
-    except:
-        print("账号不存在!")
-        return None
-
-    print(profile)
-
-    for key, value in profile.items():
-        template[key] = value
+    # try:
+    #     profile = Profile(user_name).to_dict()
+    # except:
+    #     print("账号不存在!")
+    #     return None
+    #
+    # print(profile)
+    #
+    # for key, value in profile.items():
+    #     template[key] = value
 
     # 抓取账户粉丝数和正在关注数(Selenium爬虫)
     driver.get("https://twitter.com/" + user_name)
-    time.sleep(tool.get_scope_random(12))
+    time.sleep(tool.get_scope_random(10))
     try:
         following_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[0]).text).fetch_number()
         followers_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[0]).text).fetch_number()
@@ -107,7 +107,7 @@ if __name__ == "__main__":
             }
             user_info = crawler(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
             if user_info is not None:
-                record_num = mySQL.insert("twitter_user_2020_07", [user_info])
+                record_num = mySQL.insert("twitter_user_2020_09", [user_info])
             time.sleep(tool.get_scope_random(1))
     else:
         print("榜单媒体名录不存在")
