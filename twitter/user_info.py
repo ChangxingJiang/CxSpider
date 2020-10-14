@@ -1,6 +1,9 @@
 """
 Twitter用户信息爬虫
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 4.1
 @create: 2017.12.25
@@ -10,10 +13,11 @@ Twitter用户信息爬虫
 import copy
 import time
 
-from twitter_scraper import Profile
+from Selenium4R import Chrome
 
-import environment as env
 import toolkit as tool
+from toolkit import environment as env
+from toolkit import mysql
 from toolkit.textCleaner import TextCleaner
 
 XPATH_FOLLOWING_COUNT = [
@@ -50,7 +54,7 @@ def crawler(driver, user_name: str, template):
 
     # 抓取账户粉丝数和正在关注数(Selenium爬虫)
     driver.get("https://twitter.com/" + user_name)
-    time.sleep(tool.get_scope_random(10))
+    time.sleep(10)
     try:
         following_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWING_COUNT[0]).text).fetch_number()
         followers_count = TextCleaner(driver.find_element_by_xpath(XPATH_FOLLOWERS_COUNT[0]).text).fetch_number()
@@ -83,8 +87,8 @@ def crawler(driver, user_name: str, template):
 
 
 if __name__ == "__main__":
-    selenium = tool.open_chrome(use_user_dir=False)  # 打开Selenium控制的Chrome浏览器
-    mySQL = tool.mysql_connect("Huabang")  # 构造MySQL数据库连接对象
+    selenium = Chrome(cache_path=r"E:\temp")  # 打开Selenium控制的Chrome浏览器
+    mySQL = mysql.connect("Huabang")  # 构造MySQL数据库连接对象
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
@@ -108,6 +112,6 @@ if __name__ == "__main__":
             user_info = crawler(selenium, user_name=media_item[2], template=copy.deepcopy(user_template))
             if user_info is not None:
                 record_num = mySQL.insert("twitter_user_2020_09", [user_info])
-            time.sleep(tool.get_scope_random(1))
+            time.sleep(1)
     else:
         print("榜单媒体名录不存在")

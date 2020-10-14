@@ -1,6 +1,9 @@
 """
 Twitter用户推文爬虫
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 4.2
 @create: 2017.12.30
@@ -13,11 +16,12 @@ import re
 import time
 from urllib import parse
 
+from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
-import environment as env
-import toolkit as tool
+from toolkit import environment as env
+from toolkit import mysql
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div"
@@ -146,8 +150,8 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 
 if __name__ == "__main__":
-    selenium = tool.open_chrome()  # 打开Selenium控制的Chrome浏览器
-    mySQL = tool.mysql_connect("Huabang")  # 构造MySQL数据库连接对象
+    selenium = Chrome(cache_path=r"E:\temp")  # 打开Selenium控制的Chrome浏览器
+    mySQL = mysql.connect("Huabang")  # 构造MySQL数据库连接对象
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
@@ -170,6 +174,6 @@ if __name__ == "__main__":
             print("共抓取推文:", len(tweets))
             record_num = mySQL.insert("twitter_tweet_2009", tweets)
             print("写入记录数:", record_num)
-            time.sleep(tool.get_scope_random(1))
+            time.sleep(1)
     else:
         print("榜单媒体名录不存在")

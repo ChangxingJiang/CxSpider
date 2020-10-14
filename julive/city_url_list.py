@@ -1,19 +1,24 @@
 """
 居理新房城市页面列表爬虫
 
+需要第三方模块：
+BeautifulSoup4 >= 4.9.0
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 1.1
 @create: 2019.12.17
 @revise: 2020.06.09
 """
 
+from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-import toolkit as tool
+from toolkit import file
 
 
 def crawler():
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\temp")
     browser.get("https://cc.julive.com/project/s")
 
     bs = BeautifulSoup(browser.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
@@ -26,7 +31,7 @@ def crawler():
         city_dict[city_name] = city_url
         print(city_name, city_url)
 
-    tool.file.write_json("julive_city_url_20191217.json", city_dict)
+    file.write_json("julive_city_url_20191217.json", city_dict)
 
 
 if __name__ == "__main__":

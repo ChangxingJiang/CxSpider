@@ -12,9 +12,8 @@ import time
 
 import requests
 
-import environment as env
-import toolkit as tool
-from wegame import setting
+from toolkit import environment as env
+from . import setting
 
 
 def crawler(mysql):
@@ -61,4 +60,4 @@ def crawler(mysql):
 
 
 if __name__ == "__main__":
-    crawler(tool.mysql_connect("TFT"))
+    crawler(mysql.connect("TFT"))

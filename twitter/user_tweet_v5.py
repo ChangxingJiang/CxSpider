@@ -1,6 +1,9 @@
 """
 Twitter用户推文爬虫
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 5.1
 @create: 2017.12.30
@@ -13,10 +16,9 @@ import re
 import time
 from urllib import parse
 
+from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-
-import toolkit as tool
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div > div"
@@ -188,7 +190,7 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 
 if __name__ == "__main__":
-    selenium = tool.open_chrome()  # 打开Selenium控制的Chrome浏览器
+    selenium = Chrome()  # 打开Selenium控制的Chrome浏览器
     # tweets = crawler(selenium, "realDonaldTrump", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
     tweets = crawler(selenium, "appledaily_hk", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
     print(tweets)

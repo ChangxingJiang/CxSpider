@@ -1,6 +1,9 @@
 """
 Twitter用户推文爬虫
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 4.2
 @create: 2017.12.30
@@ -13,10 +16,9 @@ import re
 import time
 from urllib import parse
 
+from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-
-from toolkit.MyChrome import MyChrome
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div"
@@ -145,7 +147,7 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 
 if __name__ == "__main__":
-    selenium = MyChrome()
+    selenium = Chrome(cache_path=r"E:\temp")
 
     tweet_template = {
         "tweet_id": None,

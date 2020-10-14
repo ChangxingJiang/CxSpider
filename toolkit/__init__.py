@@ -3,10 +3,6 @@
 import random
 from datetime import datetime
 
-from toolkit import file  # [函数组]文件读写相关工具函数
-from toolkit.selenium import open_chrome  # [函数]打开Selenium控制的Chrome浏览器
-from toolkit.mysql import connect as mysql_connect  # [函数]构造MySQL数据库连接对象
-
 
 def console(sign: str, sentence: str):
     """
@@ -29,7 +25,3 @@ def get_scope_random(num, scope=0.2):
     if not 0 <= scope <= 1:
         scope = 0.2
     return random.uniform((1 - scope) * float(num), (1 + scope) * float(num))
-
-
-if __name__ == "__main__":
-    pass

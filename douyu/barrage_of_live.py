@@ -1,7 +1,9 @@
-# coding=utf-8
-
 """
 斗鱼弹幕爬虫
+
+需要第三方模块：
+BeautifulSoup4 >= 4.9.0
+Selenium4R >= 0.0.3
 
 @author: ChangXing
 @version: 1.2
@@ -16,13 +18,14 @@
 import re
 import time
 
+from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-import toolkit as tool
+from toolkit import mysql
 
 
 def crawler(live_name, live_url, mysql):
-    browser = tool.open_chrome(use_user_dir=False)  # 打开Chrome浏览器
+    browser = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
     browser.get(live_url)  # 访问目标斗鱼主播的直播间
     time.sleep(10)
 
@@ -125,4 +128,4 @@ def crawler(live_name, live_url, mysql):
 
 
 if __name__ == "__main__":
-    crawler("东北大鹌鹑", "https://www.douyu.com/96291", tool.mysql_connect("Barrage"))
+    crawler("东北大鹌鹑", "https://www.douyu.com/96291", mysql.connect("Barrage"))

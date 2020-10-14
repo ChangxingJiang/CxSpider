@@ -1,7 +1,9 @@
-# coding=utf-8
-
 """
 Bilibili弹幕爬虫
+
+需要第三方模块：
+BeautifulSoup4 >= 4.9.0
+Selenium4R >= 0.0.3
 
 @author: ChangXing
 @version: 1.2
@@ -15,14 +17,15 @@ Bilibili弹幕爬虫
 
 import time
 
+from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-import toolkit as tool
+from toolkit import mysql
 
 
 def crawler(live_name, live_url, mysql):
-    browser = tool.open_chrome(use_user_dir=False)  # 打开Chrome浏览器
-    browser.get(live_url)  # 访问目标Bilibili主播的直播间
+    driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
+    driver.get(live_url)  # 访问目标Bilibili主播的直播间
     time.sleep(10)
 
     time_string = time.strftime("%Y%m%d_%H%M", time.localtime(time.time()))
@@ -51,7 +54,7 @@ def crawler(live_name, live_url, mysql):
 
         start_time = time.time()
 
-        label_html = browser.find_element_by_id("chat-history-list").get_attribute("outerHTML")
+        label_html = driver.find_element_by_id("chat-history-list").get_attribute("outerHTML")
 
         soup = BeautifulSoup(label_html, 'lxml')  # 将网页内容解析为Soup对象
 
@@ -102,4 +105,4 @@ def crawler(live_name, live_url, mysql):
 
 if __name__ == "__main__":
     crawler("20191110_LOL世界赛决赛(FPX vs G2)", "https://live.bilibili.com/blanc/6?liteVersion=true",
-            tool.mysql_connect("Barrage"))
+            mysql.connect("Barrage"))

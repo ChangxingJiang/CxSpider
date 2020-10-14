@@ -1,7 +1,9 @@
-# coding=utf-8
-
 """
 虎牙直播弹幕爬虫
+
+需要第三方模块：
+BeautifulSoup4 >= 4.9.0
+Selenium4R >= 0.0.3
 
 @author: ChangXing
 @version: 1.2
@@ -15,14 +17,14 @@
 
 import time
 
+from Selenium4R import Chrome
 from bs4 import BeautifulSoup
-from mysql.connector.errors import ProgrammingError
 
-import toolkit as tool
+from toolkit import mysql
 
 
 def crawler(live_name, live_url, mysql):
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\temp")
     browser.get(live_url)  # 访问目标虎牙主播的直播间
 
     time_string = time.strftime("%Y%m%d_%H%M", time.localtime(time.time()))
@@ -127,4 +129,4 @@ def crawler(live_name, live_url, mysql):
 
 
 if __name__ == "__main__":
-    crawler("神超", "https://www.huya.com/102411", tool.mysql_connect("Barrage"))
+    crawler("神超", "https://www.huya.com/102411", mysql.connect("Barrage"))

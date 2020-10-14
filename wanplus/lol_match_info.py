@@ -13,8 +13,9 @@ import time
 
 import requests
 
-import environment as env
+from toolkit import environment as env
 import toolkit as tool
+from toolkit import file
 
 match_list_url = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"  # 场次请求的url
 match_list_referer = "https://www.wanplus.com/schedule/%s.html"  # 场次请求的headers中referer参数的值
@@ -34,7 +35,7 @@ match_list_headers = {
 
 
 def crawler():
-    data_race = tool.file.load_as_json(env.PATH["WanPlus"]["Race File"])  # 载入比赛包含场次表
+    data_race = file.load_as_json(env.PATH["WanPlus"]["Race File"])  # 载入比赛包含场次表
     data_list_match = os.listdir(env.PATH["WanPlus"]["Match Path"])  # 载入游戏信息文件列表
 
     # 统计需要抓取的场次ID列表
@@ -55,8 +56,8 @@ def crawler():
         match_list_headers["referer"] = match_list_referer % race_id
         response = requests.get(actual_url, headers=match_list_headers)
         response_json = json.loads(response.content.decode())
-        tool.file.write_json(os.path.join(env.PATH["WanPlus"]["Match Path"], str(match_id) + ".json"), response_json)
-        time.sleep(tool.get_scope_random(5))
+        file.write_json(os.path.join(env.PATH["WanPlus"]["Match Path"], str(match_id) + ".json"), response_json)
+        time.sleep(5)
 
 
 if __name__ == "__main__":

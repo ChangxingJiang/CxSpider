@@ -1,6 +1,9 @@
 """
 猫眼网播热度采集
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 1.0
 @create: 2020.05.26
@@ -9,10 +12,10 @@
 
 import time
 
-from selenium import webdriver
+from Selenium4R import Chrome
 
 if __name__ == "__main__":
-    browser = webdriver.Chrome(executable_path=r"D:\Python38_64\chromedriver_83_0_4103_39.exe")  # ChromeDriver可执行文件的路径
+    browser = Chrome(cache_path=r"E:\temp")  # ChromeDriver可执行文件的路径
     browser.get("http://piaofang.maoyan.com/dashboard/web-heat")
     time.sleep(1)
     for movie_label in browser.find_elements_by_css_selector(

@@ -3,6 +3,9 @@
 依据直播间Url列表，采集列表中直播间的订阅数(输出到控制台)
 列表文件中一行一个Url
 
+需要第三方模块：
+Selenium4R >= 0.0.3
+
 @author: ChangXing
 @version: 1.2
 @create: 2019.11.24
@@ -11,15 +14,16 @@
 
 import time
 
+from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
-import toolkit as tool
+from toolkit import file
 
 
 def crawler():
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\temp")
 
-    account_list = tool.file.load_as_string("huya_account_list.txt")
+    account_list = file.load_as_string("huya_account_list.txt")
     for account_url in account_list.split("\n"):
         browser.get(account_url)
 

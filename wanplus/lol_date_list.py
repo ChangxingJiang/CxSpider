@@ -13,8 +13,9 @@ import time
 
 import requests
 
-import environment as env
 import toolkit as tool
+from toolkit import environment as env
+from toolkit import file
 
 # 请求信息
 date_list_url = "https://www.wanplus.com/ajax/schedule/list"  # 列表请求的url
@@ -46,7 +47,7 @@ def crawler():
     start_date = datetime.datetime.today() + datetime.timedelta(days=-365)  # 抓取开始日期
     end_date = (datetime.datetime.today() + datetime.timedelta(days=-1)).strftime("%Y%m%d")  # 抓取结束日期
 
-    data_date = tool.file.load_as_json(env.PATH["WanPlus"]["Date File"])  # 载入日期比赛表
+    data_date = file.load_as_json(env.PATH["WanPlus"]["Date File"])  # 载入日期比赛表
 
     # 统计需要抓取的日期列表
     all_date_list = list()  # 需要获取的日期列表
@@ -96,8 +97,8 @@ def crawler():
                                 "team_a_score_per": match["oneScore"],
                                 "team_b_score_per": match["twoScore"],
                             })
-            tool.file.write_json(env.PATH["WanPlus"]["Date File"], data_date)  # 存储日期比赛表
-        time.sleep(tool.get_scope_random(5))
+            file.write_json(env.PATH["WanPlus"]["Date File"], data_date)  # 存储日期比赛表
+        time.sleep(5)
 
 
 if __name__ == "__main__":

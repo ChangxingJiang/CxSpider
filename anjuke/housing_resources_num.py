@@ -1,9 +1,15 @@
 """
 安居客各地房源数量爬虫
+
+需要第三方模块：
+BeautifulSoup4 >= 4.9.0
+Selenium4R >= 0.0.3
+
+函数说明：
 crawler_city_list : 采集城市编码列表
 crawler_city_resources : 采集城市房源数量
 
-@author: ChangXing
+@author: 长行
 @version: 1.1
 @create: 2019.12.17
 @revise: 2020.06.09
@@ -11,16 +17,17 @@ crawler_city_resources : 采集城市房源数量
 
 import time
 
+from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-import toolkit as tool
+from toolkit import file
 
 
 def crawler_city_list():
     """
     采集城市编码列表
     """
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\Temp")
     browser.get("https://www.anjuke.com/sy-city.html")
 
     bs = BeautifulSoup(browser.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
@@ -31,19 +38,21 @@ def crawler_city_list():
         city_dict[city_name] = city_code
         print(city_name, city_code)
 
-    tool.file.write_json("anjuke_city_code.json", city_dict)
+    file.write_json("anjuke_city_code.json", city_dict)
+
+    browser.quit()
 
 
 def crawler_city_resources():
     """
     采集城市房源数量
     """
-    cities = tool.file.load_as_json("anjuke_city_code.json")
-    city_infor = tool.file.load_as_json("anjuke_city_infor.json")
+    cities = file.load_as_json("anjuke_city_code.json")
+    city_info = file.load_as_json("anjuke_city_infor.json")
 
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\Temp")
     for city_name in cities:
-        if city_name not in city_infor:
+        if city_name not in city_info:
             city_code = cities[city_name]
             browser.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
             bs = BeautifulSoup(browser.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
@@ -59,11 +68,13 @@ def crawler_city_resources():
                     break
 
             city_num = int(city_num)
-            city_infor[city_name] = city_num
+            city_info[city_name] = city_num
 
-            tool.file.write_json("anjuke_city_infor.json", city_infor)
+            file.write_json("anjuke_city_infor.json", city_info)
 
             time.sleep(2)
+
+    browser.quit()
 
 
 if __name__ == "__main__":
