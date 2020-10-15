@@ -4,6 +4,7 @@
 需要第三方模块：
 BeautifulSoup4 >= 4.9.0
 Selenium4R >= 0.0.3
+Utils4R >= 0.0.2
 
 @author: ChangXing
 @version: 1.2
@@ -18,10 +19,9 @@ Selenium4R >= 0.0.3
 import re
 import time
 
+import Utils4R as Utils
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
-
-from toolkit import mysql
 
 
 def crawler(live_name, live_url, mysql):
@@ -128,4 +128,6 @@ def crawler(live_name, live_url, mysql):
 
 
 if __name__ == "__main__":
-    crawler("东北大鹌鹑", "https://www.douyu.com/96291", mysql.connect("Barrage"))
+    crawler(live_name="东北大鹌鹑",
+            live_url="https://www.douyu.com/96291",
+            mysql=Utils.db.MySQL(host="", user="", password="", database=""))

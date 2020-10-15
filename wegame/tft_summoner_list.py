@@ -1,6 +1,9 @@
 """
 WeGame云顶之弈比赛记录爬虫：召唤师列表
 
+需要第三方模块：
+Utils4R >= 0.0.2
+
 @author: ChangXing
 @version: 2.1
 @create: 2019.12.10
@@ -60,4 +63,4 @@ def crawler(mysql):
 
 
 if __name__ == "__main__":
-    crawler(mysql.connect("TFT"))
+    crawler(Utils.db.MySQL(host="", user="", password="", database=""))

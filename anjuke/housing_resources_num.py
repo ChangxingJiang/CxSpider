@@ -4,6 +4,7 @@
 需要第三方模块：
 BeautifulSoup4 >= 4.9.0
 Selenium4R >= 0.0.3
+Utils4R >= 0.0.2
 
 函数说明：
 crawler_city_list : 采集城市编码列表
@@ -17,10 +18,9 @@ crawler_city_resources : 采集城市房源数量
 
 import time
 
+import Utils4R as Utils
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
-
-import Utils4R as Utils
 
 
 def crawler_city_list():

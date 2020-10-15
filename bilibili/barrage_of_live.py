@@ -4,6 +4,7 @@ Bilibili弹幕爬虫
 需要第三方模块：
 BeautifulSoup4 >= 4.9.0
 Selenium4R >= 0.0.3
+Utils4R >= 0.0.2
 
 @author: ChangXing
 @version: 1.2
@@ -17,10 +18,9 @@ Selenium4R >= 0.0.3
 
 import time
 
+import Utils4R as Utils
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
-
-from toolkit import mysql
 
 
 def crawler(live_name, live_url, mysql):
@@ -88,7 +88,7 @@ def crawler(live_name, live_url, mysql):
                     barrage_info["content"] = label["data-danmaku"]
                     barrage_list.append(barrage_info)
 
-        mysql.insert_pure(table_name, barrage_list)
+        mysql.insert(table_name, barrage_list)
 
         total_num += 1
         total_time += 1000 * (time.time() - start_time)
@@ -104,5 +104,6 @@ def crawler(live_name, live_url, mysql):
 
 
 if __name__ == "__main__":
-    crawler("20191110_LOL世界赛决赛(FPX vs G2)", "https://live.bilibili.com/blanc/6?liteVersion=true",
-            mysql.connect("Barrage"))
+    crawler(live_name="20191110_LOL世界赛决赛(FPX vs G2)",
+            live_url="https://live.bilibili.com/blanc/6?liteVersion=true",
+            mysql=Utils.db.MySQL(host="", user="", password="", database=""))

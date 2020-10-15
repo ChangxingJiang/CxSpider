@@ -1,6 +1,9 @@
 """
 微博热搜榜爬虫
 
+需要第三方模块：
+Utils4R >= 0.0.2
+
 @author: ChangXing
 @version: 1.1
 @create: 2020.05.29
@@ -9,13 +12,12 @@
 
 import re
 
+import Utils4R as Utils
 import requests
 from bs4 import BeautifulSoup
 
-import toolkit as tool
 
-
-def crawler(mysql, table_name="weibo", test=False):
+def crawler(mysql, table_name, test=False):
     # 执行网页请求
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -45,17 +47,17 @@ def crawler(mysql, table_name="weibo", test=False):
             if match_rank := re.search("[0-9]+", label_rank.text):
                 ranking = int(match_rank.group()) - empty_rank
             else:
-                tool.console("报错", "提取的热搜排名不包含数字!")
+                Utils.console("报错", "提取的热搜排名不包含数字!")
                 continue
         else:
-            tool.console("报错", "未提取到热搜排名!")
+            Utils.console("报错", "未提取到热搜排名!")
             continue
 
         # 提取热搜关键词
         if label_keyword := label_item.select_one("tr > td.td-02 > a"):
             keyword = label_keyword.text
         else:
-            tool.console("报错", "未提取到热搜关键词!")
+            Utils.console("报错", "未提取到热搜关键词!")
             continue
 
         # 提取热搜热度
@@ -63,10 +65,10 @@ def crawler(mysql, table_name="weibo", test=False):
             if match_heat := re.search("[0-9]+", label_heat.text):
                 heat = int(match_heat.group())
             else:
-                tool.console("报错", "提取的热搜热度不包含数字!")
+                Utils.console("报错", "提取的热搜热度不包含数字!")
                 continue
         else:
-            tool.console("报错", "未提取到热搜热度!")
+            Utils.console("报错", "未提取到热搜热度!")
             continue
 
         # 提取热搜标注
@@ -76,7 +78,7 @@ def crawler(mysql, table_name="weibo", test=False):
                 empty_rank += 1
                 continue
         else:
-            tool.console("报错", "未提取到热搜标注标签!")
+            Utils.console("报错", "未提取到热搜标注标签!")
             continue
 
         hot_list.append({
@@ -88,11 +90,11 @@ def crawler(mysql, table_name="weibo", test=False):
 
     # 将结果写入到数据库
     if test:
-        tool.console("测试", "准备写入数据:" + str(hot_list))
+        Utils.console("测试", "准备写入数据:" + str(hot_list))
         return True
     else:
         return mysql.insert(table_name=table_name, data=hot_list)
 
 
 if __name__ == "__main__":
-    crawler(test=True, mysql=tool.mysql_connect("CxSpider"), table_name="weibo")
+    crawler(test=True, mysql=Utils.db.MySQL(host="", user="", password="", database=""), table_name="weibo")

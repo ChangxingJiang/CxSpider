@@ -1,6 +1,9 @@
 """
 Facebook推文爬虫
 
+需要第三方模块：
+Utils4R >= 0.0.2
+
 @author: ChangXing
 @version: 4.1
 @create: 2017.12.30
@@ -12,14 +15,13 @@ import json
 import re
 import time
 
+import Utils4R as Utils
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import ProxyError
 from urllib3.exceptions import MaxRetryError
 
 from toolkit import environment as env
-
-import Utils4R as Utils
 
 
 def crawler(posts_url, time_start, time_end, template):
@@ -291,8 +293,8 @@ def get_from_feedback(feedback_dict, item):
 
 
 if __name__ == "__main__":
-    mysql_catalogue = tool.mysql_connect("Huabang(old)")  # 构造MySQL数据库连接对象
-    mysql_saving = tool.mysql_connect("Huabang")  # 构造MySQL数据库连接对象
+    mysql_catalogue = Utils.db.MySQL(host="", user="", password="", database="")
+    mysql_saving = Utils.db.MySQL(host="", user="", password="", database="")
 
     time_start = int(time.mktime(time.strptime("2020-01-29 00:00:00", "%Y-%m-%d %H:%M:%S")))  # 开始时间
     time_end = int(time.mktime(time.strptime("2020-01-29 23:59:59", "%Y-%m-%d %H:%M:%S")))  # 结束时间
@@ -331,7 +333,7 @@ if __name__ == "__main__":
             "share": None  # 推文分享
         }
         tweet_list = crawler(posts_url, time_start, time_end, template)  # 抓取Facebook用户指定时间范围内的所有推文
-        write_num = mysql_saving.insert_pure("facebook_tweet_2020", tweet_list)
+        write_num = mysql_saving.insert("facebook_tweet_2020", tweet_list)
 
         Utils.console("运行", "抓取完成媒体:" + media[1] + "(" + str(media[0]) + ");累计抓取记录数:" + str(write_num))
         time.sleep(5)

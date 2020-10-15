@@ -191,6 +191,5 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 if __name__ == "__main__":
     selenium = Chrome()  # 打开Selenium控制的Chrome浏览器
-    # tweets = crawler(selenium, "realDonaldTrump", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
     tweets = crawler(selenium, "appledaily_hk", {}, since=dt.date(2020, 7, 20), until=dt.date(2020, 7, 24))
     print(tweets)

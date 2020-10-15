@@ -16,12 +16,12 @@ import re
 import time
 from urllib import parse
 
+import Utils4R as Utils
 from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
 from toolkit import environment as env
-from toolkit import mysql
 
 SELECTOR_TEST = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div"
 SELECTOR_OUTER = "main > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > div > section > div > div"
@@ -150,8 +150,16 @@ def crawler(driver, user_name, template, since=None, until=None):
 
 
 if __name__ == "__main__":
+    setting = Utils.io.load_json(r"E:\Github\ChangxingJiang\setting.json")
+
+    mysql = Utils.db.MySQL(
+        host=setting["Huabang"]["host"],
+        user=setting["Huabang"]["user"],
+        password=setting["Huabang"]["password"],
+        database=setting["Huabang"]["database"]
+    )
+
     selenium = Chrome(cache_path=r"E:\temp")  # 打开Selenium控制的Chrome浏览器
-    mySQL = mysql.connect("Huabang")  # 构造MySQL数据库连接对象
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
@@ -172,7 +180,7 @@ if __name__ == "__main__":
             tweets = crawler(selenium, media_item[2], tweet_template,
                              since=dt.date(2020, 9, 1), until=dt.date(2020, 9, 29))  # 闭开区间
             print("共抓取推文:", len(tweets))
-            record_num = mySQL.insert("twitter_tweet_2009", tweets)
+            record_num = mysql.insert("twitter_tweet_2009", tweets)
             print("写入记录数:", record_num)
             time.sleep(1)
     else:
