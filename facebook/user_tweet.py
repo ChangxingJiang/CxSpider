@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 Facebook推文爬虫
 
@@ -19,8 +17,9 @@ from bs4 import BeautifulSoup
 from requests.exceptions import ProxyError
 from urllib3.exceptions import MaxRetryError
 
-import environment as env
-import toolkit as tool
+from toolkit import environment as env
+
+import Utils4R as Utils
 
 
 def crawler(posts_url, time_start, time_end, template):
@@ -38,7 +37,7 @@ def crawler(posts_url, time_start, time_end, template):
             try:
                 response = requests.get(posts_url, proxies=env.VPN_PROXY)
             except OSError or ConnectionResetError or ProxyError or MaxRetryError:
-                tool.console("报错", "请求失败,网络可能出现问题,请检查")
+                Utils.console("报错", "请求失败,网络可能出现问题,请检查")
                 return tweet_list
             if response:
                 bs = BeautifulSoup(response.content.decode(errors="ignore"), 'lxml')  # 将帖子页HTML转换为BeautifulSoup对象
@@ -48,17 +47,17 @@ def crawler(posts_url, time_start, time_end, template):
                 return tweet_list
         else:  # 后续的请求请求
             if ajax_url is None:
-                tool.console("报错", "Ajax的Url为空，结束当前用户的抓取")
+                Utils.console("报错", "Ajax的Url为空，结束当前用户的抓取")
                 return tweet_list
             try:
                 response = requests.get(ajax_url, proxies=env.VPN_PROXY)  # 请求Facebook用户Ajax更新页
             except OSError or ConnectionResetError or ProxyError or MaxRetryError:
-                tool.console("报错", "请求失败,尝试等待20秒后重新请求")
+                Utils.console("报错", "请求失败,尝试等待20秒后重新请求")
                 time.sleep(20)
                 try:
                     response = requests.get(ajax_url, proxies=env.VPN_PROXY)  # 请求Facebook用户Ajax更新页
                 except OSError or ConnectionResetError or ProxyError or MaxRetryError:
-                    tool.console("报错", "尝试等待20秒后请求再次失败,放弃当前媒体抓取")
+                    Utils.console("报错", "尝试等待20秒后请求再次失败,放弃当前媒体抓取")
                     return tweet_list
             if response:
                 ajax_json = json.loads(response.content.decode(errors="ignore").replace("for (;;);", ""))
@@ -71,7 +70,7 @@ def crawler(posts_url, time_start, time_end, template):
             else:
                 return tweet_list
 
-        tool.console("运行", "执行第" + str(i + 1) + "次请求,返回数量: " + str(len(label_list)))
+        Utils.console("运行", "执行第" + str(i + 1) + "次请求,返回数量: " + str(len(label_list)))
 
         # 解析推文标签数据
         for label in label_list:  # 遍历推文标签列表
@@ -117,7 +116,7 @@ def parser_tweet(label, feedback_dict, template):
     item = copy.deepcopy(template)  # 构造Facebook推文的Item对象
     label_wrapper = label.select_one("div._4-u2._4-u8 > div > div > div > div.userContentWrapper")  # 定位到推文外层标签(第2层)
     if label_wrapper is None:
-        tool.console("报错", "推文外层标签定位失败,放弃当前推文抓取")
+        Utils.console("报错", "推文外层标签定位失败,放弃当前推文抓取")
         return None
     label_main = locate_main_label(label_wrapper, item)  # [定位] 定位到推文标题标签(第3层) + [数据] 提取推文正文标签中的数据：推文是否置顶
     if label_main is not None:
@@ -145,7 +144,7 @@ def get_ajax_href(soup):
     # [数据] 提取：Ajax请求Url所在的ajaxify属性
     ajax_href = label["ajaxify"]  # 读取Ajax请求Url所在属性
     if ajax_href.is_empty():
-        tool.console("报错", "获取Ajax请求的Url失败:" + str(label))
+        Utils.console("报错", "获取Ajax请求的Url失败:" + str(label))
         return None
 
     # [数据] 处理：依据ajaxify属性计算Ajax请求的Url
@@ -221,7 +220,7 @@ def get_from_title(title_label, item):
             if re.search("(?<=^/)[^/]+", author_source) is not None:  # 在发布者名称所在属性中检索发布者的主页名称
                 item["author"] = re.search("(?<=^/)[^/]+", author_source).group()
             else:
-                tool.console("警告", "转发推文来源可能不是Facebook用户:" + author)
+                Utils.console("警告", "转发推文来源可能不是Facebook用户:" + author)
     else:
         item["author"] = author  # 若推文不是分享，则填写推文发布者
 
@@ -255,11 +254,11 @@ def parser_feedback_json(feedback_json):
     :return: <dict:str-dict> 推文反馈数据对应表(key=推文ID,value=推文ID对应的推文反馈Json数据) / <None> 推文反馈数据所在Json数据异常
     """
     if feedback_json is None:
-        tool.console("报错", "推文反馈数据的Json格式异常,怀疑用户类型错误")
+        Utils.console("报错", "推文反馈数据的Json格式异常,怀疑用户类型错误")
         return None
 
     if "pre_display_requires" not in feedback_json:
-        tool.console("报错", "推文反馈数据的Json中未找到pre_display_requires属性")
+        Utils.console("报错", "推文反馈数据的Json中未找到pre_display_requires属性")
         return None
 
     feedback_dict = {}  # 定义推文反馈数据对应表
@@ -282,7 +281,7 @@ def get_from_feedback(feedback_dict, item):
     :return: <None> 更新结果于Facebook推文的Item对象
     """
     if item.get("tweet_id") is None or item.get("tweet_id") not in feedback_dict:
-        tool.console("报错", "未能在推文反馈Json数据中找到的推文ID:" + str(item.get("tweet_id")))
+        Utils.console("报错", "未能在推文反馈Json数据中找到的推文ID:" + str(item.get("tweet_id")))
         return None
     feedback_item = feedback_dict[item.get("tweet_id")]
     item["tweet_url"] = feedback_item["result"]["data"]["feedback"]["url"]  # 提取：推文Url
@@ -308,13 +307,13 @@ if __name__ == "__main__":
 
         # 判断媒体主页是否存在异常(或需要登录无法抓取)
         if media[0] in [16, 38, 46, 189, 229, 244, 249, 296, 310, 332, 338, 344, 390, 435, 471, 472, 538, 552, 577]:
-            tool.console("报错", media[1] + "(" + str(media[0]) + ")为页面异常媒体，已跳过该媒体")
+            Utils.console("报错", media[1] + "(" + str(media[0]) + ")为页面异常媒体，已跳过该媒体")
             continue
 
         facebook_name = get_facebook_user_name(media[2])  # 依据Facebook用户主页Url计算用户名称
         posts_url = "https://www.facebook.com/pg/{}/posts/?ref=page_internal".format(facebook_name)  # 依据用户名称计算用户帖子页Url
 
-        tool.console("运行", "开始抓取媒体:" + media[1] + "(" + str(media[0]) + ")")
+        Utils.console("运行", "开始抓取媒体:" + media[1] + "(" + str(media[0]) + ")")
 
         template = {
             "media_id": media[0],  # 媒体ID
@@ -334,5 +333,5 @@ if __name__ == "__main__":
         tweet_list = crawler(posts_url, time_start, time_end, template)  # 抓取Facebook用户指定时间范围内的所有推文
         write_num = mysql_saving.insert_pure("facebook_tweet_2020", tweet_list)
 
-        tool.console("运行", "抓取完成媒体:" + media[1] + "(" + str(media[0]) + ");累计抓取记录数:" + str(write_num))
+        Utils.console("运行", "抓取完成媒体:" + media[1] + "(" + str(media[0]) + ");累计抓取记录数:" + str(write_num))
         time.sleep(5)

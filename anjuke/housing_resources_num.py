@@ -20,7 +20,7 @@ import time
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-from toolkit import file
+import Utils4R as Utils
 
 
 def crawler_city_list():
@@ -30,7 +30,7 @@ def crawler_city_list():
     browser = Chrome(cache_path=r"E:\Temp")
     browser.get("https://www.anjuke.com/sy-city.html")
 
-    bs = BeautifulSoup(browser.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
+    bs = BeautifulSoup(browser.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
     city_dict = dict()
     for city_label in bs.select("body > div.content > div > div.letter_city > ul > li > div > a"):
         city_name = city_label.get_text()
@@ -38,8 +38,7 @@ def crawler_city_list():
         city_dict[city_name] = city_code
         print(city_name, city_code)
 
-    file.write_json("anjuke_city_code.json", city_dict)
-
+    Utils.io.write_json("anjuke_city_code.json", city_dict)
     browser.quit()
 
 
@@ -47,15 +46,15 @@ def crawler_city_resources():
     """
     采集城市房源数量
     """
-    cities = file.load_as_json("anjuke_city_code.json")
-    city_info = file.load_as_json("anjuke_city_infor.json")
+    cities = Utils.io.load_json("anjuke_city_code.json")
+    city_info = Utils.io.load_json("anjuke_city_infor.json")
 
     browser = Chrome(cache_path=r"E:\Temp")
     for city_name in cities:
         if city_name not in city_info:
             city_code = cities[city_name]
             browser.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
-            bs = BeautifulSoup(browser.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
+            bs = BeautifulSoup(browser.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
             city_label = bs.select_one(
                 "#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
             if city_label is not None:
@@ -70,7 +69,7 @@ def crawler_city_resources():
             city_num = int(city_num)
             city_info[city_name] = city_num
 
-            file.write_json("anjuke_city_infor.json", city_info)
+            Utils.io.write_json("anjuke_city_infor.json", city_info)
 
             time.sleep(2)
 

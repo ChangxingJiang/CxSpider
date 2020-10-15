@@ -12,9 +12,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+import Utils4R as Utils
 from toolkit import environment as env
-from toolkit import file
-import toolkit as tool
 
 # 请求信息
 race_list_url = "https://www.wanplus.com/schedule/%s.html"  # 比赛请求的url
@@ -34,8 +33,8 @@ race_list_headers = {
 
 
 def crawler():
-    data_date = file.load_as_json(env.PATH["WanPlus"]["Date File"])  # 载入日期比赛表
-    data_race = file.load_as_json(env.PATH["WanPlus"]["Race File"])  # 载入比赛包含场次表
+    data_date = Utils.io.load_json(env.PATH["WanPlus"]["Date File"])  # 载入日期比赛表
+    data_race = Utils.io.load_json(env.PATH["WanPlus"]["Race File"])  # 载入比赛包含场次表
 
     # 统计需要抓取的比赛ID列表
     need_race_id_list = list()
@@ -57,7 +56,7 @@ def crawler():
             if game_label.has_attr("data-matchid"):
                 match_id_list.append(game_label["data-matchid"])
         data_race[need_race_id] = match_id_list
-        file.write_json(env.PATH["WanPlus"]["Race File"], data_race)  # 存储日期比赛表
+        Utils.io.write_json(env.PATH["WanPlus"]["Race File"], data_race)  # 存储日期比赛表
         time.sleep(5)
 
 

@@ -12,7 +12,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-import environment as env
+from toolkit import environment as env
 from toolkit.textCleaner import TextCleaner
 
 

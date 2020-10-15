@@ -12,15 +12,16 @@
 
 import time
 
+from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
-import toolkit as tool
+import Utils4R as Utils
 
 
 def crawler(live_list_path):
-    browser = tool.open_chrome(use_user_dir=False)
+    browser = Chrome(cache_path=r"E:\Temp")
 
-    account_list = tool.file.load_as_string(live_list_path)
+    account_list = Utils.io.load_string(live_list_path)
     for account_url in account_list.split("\n"):
         browser.get(account_url)
 

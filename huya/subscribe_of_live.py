@@ -17,13 +17,13 @@ import time
 from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
-from toolkit import file
+import Utils4R as Utils
 
 
 def crawler():
     browser = Chrome(cache_path=r"E:\temp")
 
-    account_list = file.load_as_string("huya_account_list.txt")
+    account_list = Utils.io.load_string("huya_account_list.txt")
     for account_url in account_list.split("\n"):
         browser.get(account_url)
 

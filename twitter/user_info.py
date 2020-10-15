@@ -15,7 +15,6 @@ import time
 
 from Selenium4R import Chrome
 
-import toolkit as tool
 from toolkit import environment as env
 from toolkit import mysql
 from toolkit.textCleaner import TextCleaner

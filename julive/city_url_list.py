@@ -14,7 +14,7 @@ Selenium4R >= 0.0.3
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
-from toolkit import file
+import Utils4R as Utils
 
 
 def crawler():
@@ -31,7 +31,7 @@ def crawler():
         city_dict[city_name] = city_url
         print(city_name, city_url)
 
-    file.write_json("julive_city_url_20191217.json", city_dict)
+    Utils.io.write_json("julive_city_url_20191217.json", city_dict)
 
 
 if __name__ == "__main__":
