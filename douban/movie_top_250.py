@@ -66,10 +66,8 @@ def crawler():
             info_line_2 = info_text.split("\n")[1]  # 获取第2行内容信息:包括年份、国家和类型
             director = re.sub(" *(主演|主\\.{3}|\\.{3}).*$", "", info_line_1)  # 仅保留导演部分
             year = int(re.search("[0-9]+", info_line_2.split("/")[0]).group())  # 提取电影年份并转换为数字
-            country = clear_polar_space(info_line_2.split("/")[1]) if len(
-                info_line_2.split("/")) >= 2 else None  # 提取电影国家
-            classify = clear_polar_space(info_line_2.split("/")[2]) if len(
-                info_line_2.split("/")) >= 3 else None  # 提取电影类型
+            country = clear_polar_space(info_line_2.split("/")[1]) if len(info_line_2.split("/")) >= 2 else None  # 提取电影国家
+            classify = clear_polar_space(info_line_2.split("/")[2]) if len(info_line_2.split("/")) >= 3 else None  # 提取电影类型
             classify = re.split(" +", classify)  # 将电影类型转换为list形式
 
             # 解析评分

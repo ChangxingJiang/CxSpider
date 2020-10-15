@@ -19,10 +19,10 @@ def crawler(url: str):
     info_url = "https://api-new.acfunchina.com/rest/app/play/playInfo/mp4?videoId={}&resourceId={}&resourceType=2&mkey=AAHewK3eIAAyMjAzNTI2NDMAAhAAMEP1uwS3Vi7NYAAAAJumF4MyTTFh5HGoyjW6ZpdjKymALUy9jZbsMTBVx-F10EhxyvpMtGQbBCYipvkMShM3iMNwbMd9DM6r2rnOYRVEdr6MaJS4yxxlA_Sl3JNWup57qBCQzOSC7SZnbEsHTQ%3D%3D&market=xiaomi&product=ACFUN_APP&sys_version=10&app_version=6.20.0.915&boardPlatform=sdm845&sys_name=android&socName=UNKNOWN&appMode=0"
 
     # 获取视频基本信息
-    response = requests.get(url, headers=headers)
-    title = re.search(r"(?<=<title>)[^<]+(?=</title>)", response.text).group()  # 视频标题
-    video_id = re.search(r"(?<=\"vid\":\")\d+(?=\",)", response.text).group()  # 视频ID
-    resource_id = re.search(r"(?<=\"ac\":\")\d+(?=\",)", response.text).group()  # 视频资源ID
+    response = requests.get(url, headers=headers).text
+    title = re.search(r"(?<=<title>)[^<]+(?=</title>)", response).group()  # 视频标题
+    video_id = re.search(r"(?<=\"vid\":\")\d+(?=\",)", response).group()  # 视频ID
+    resource_id = re.search(r"(?<=\"ac\":\")\d+(?=\",)", response).group()  # 视频资源ID
 
     # 获取视频Url
     rep_info = requests.get(info_url.format(video_id, resource_id), headers=headers)

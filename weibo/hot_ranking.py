@@ -34,7 +34,7 @@ def crawler(mysql, table_name, test=False):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
     }
     response = requests.get("https://s.weibo.com/top/summary", headers=headers)  # 请求微博热搜榜
-    bs = BeautifulSoup(response.content.decode(errors="ignore"), 'lxml')
+    bs = BeautifulSoup(response.content.decode(errors="ignore"), "lxml")
 
     # 解析网页
     hot_list = list()

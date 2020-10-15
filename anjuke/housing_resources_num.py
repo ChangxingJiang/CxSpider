@@ -55,8 +55,7 @@ def crawler_city_resources():
             city_code = cities[city_name]
             browser.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
             bs = BeautifulSoup(browser.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
-            city_label = bs.select_one(
-                "#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
+            city_label = bs.select_one("#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
             if city_label is not None:
                 city_num = city_label.text
             else:

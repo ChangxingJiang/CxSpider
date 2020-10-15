@@ -19,11 +19,12 @@ import Utils4R as Utils
 
 
 def crawler(live_list_path):
-    browser = Chrome(cache_path=r"E:\Temp")
+    driver = Chrome(cache_path=r"E:\Temp")
 
     account_list = Utils.io.load_string(live_list_path)
+
     for account_url in account_list.split("\n"):
-        browser.get(account_url)
+        driver.get(account_url)
 
         time.sleep(3)
 
@@ -31,7 +32,7 @@ def crawler(live_list_path):
 
         for _ in range(10):
             try:
-                label_subscribe = browser.find_element_by_xpath('//*[@id="js-player-title"]/div/div[4]/div/span')
+                label_subscribe = driver.find_element_by_xpath('//*[@id="js-player-title"]/div/div[4]/div/span')
                 if label_subscribe.text is not None and label_subscribe.text != "":
                     text_subscribe = label_subscribe.text
                     break
