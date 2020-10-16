@@ -24,40 +24,37 @@ from bs4 import BeautifulSoup
 
 
 def crawler_city_list():
-    """
-    采集城市编码列表
-    """
-    browser = Chrome(cache_path=r"E:\Temp")
-    browser.get("https://www.anjuke.com/sy-city.html")
+    """采集城市编码列表"""
+    driver = Chrome(cache_path=r"E:\Temp")
+    driver.get("https://www.anjuke.com/sy-city.html")
 
-    bs = BeautifulSoup(browser.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
     city_dict = dict()
-    for city_label in bs.select("body > div.content > div > div.letter_city > ul > li > div > a"):
-        city_name = city_label.get_text()
-        city_code = city_label["href"].replace("https://", "").replace(".anjuke.com", "")
+    for city_label in driver.find_elements_by_css_selector("body > div.content > div > div.letter_city > ul > li > div > a"):
+        city_name = city_label.text
+        city_code = city_label.get_attribute("href").replace("https://", "").replace(".anjuke.com/", "")
         city_dict[city_name] = city_code
-        print(city_name, city_code)
+        print(city_name, city_code, city_label.get_attribute("href"))
 
     Utils.io.write_json("anjuke_city_code.json", city_dict)
-    browser.quit()
+    driver.quit()
 
 
 def crawler_city_resources():
-    """
-    采集城市房源数量
-    """
+    """采集城市房源数量"""
     cities = Utils.io.load_json("anjuke_city_code.json")
-    city_info = Utils.io.load_json("anjuke_city_infor.json")
+    city_info = Utils.io.load_json("anjuke_city_infor.json", default={})
 
-    browser = Chrome(cache_path=r"E:\Temp")
-    for city_name in cities:
+    driver = Chrome(cache_path=r"E:\Temp")
+
+    for city_name, city_code in cities.items():
         if city_name not in city_info:
-            city_code = cities[city_name]
-            browser.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
-            bs = BeautifulSoup(browser.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
+
+            driver.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
+
+            bs = BeautifulSoup(driver.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
             city_label = bs.select_one("#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
             if city_label is not None:
-                city_num = city_label.text
+                city_num = int(city_label.text)
             else:
                 city_num = 0
                 if bs.select_one("#header > div.site-search > div.sel-city > a > span") is None:
@@ -65,16 +62,15 @@ def crawler_city_resources():
                     time.sleep(300)
                     break
 
-            city_num = int(city_num)
             city_info[city_name] = city_num
 
             Utils.io.write_json("anjuke_city_infor.json", city_info)
 
             time.sleep(2)
 
-    browser.quit()
+    driver.quit()
 
 
 if __name__ == "__main__":
     crawler_city_list()
-    crawler_city_resources()
+    # crawler_city_resources()

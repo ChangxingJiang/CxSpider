@@ -26,7 +26,7 @@ def crawler(pcode, pykm):
     if html_text is None:
         print("获取期刊刊期列表失败!")
         return None
-    bs = BeautifulSoup(html_text, 'lxml')  # 将期刊刊期列表Ajax转换为BeautifulSoup对象
+    bs = BeautifulSoup(html_text, "lxml")  # 将期刊刊期列表Ajax转换为BeautifulSoup对象
 
     issue_list = []  # 返回的刊期列表
     for journal_label in bs.select("#page1 > div > dl > dd > a"):  # 定位到各个刊期的标签
