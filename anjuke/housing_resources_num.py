@@ -2,75 +2,70 @@
 安居客各地房源数量爬虫
 
 需要第三方模块：
-BeautifulSoup4 >= 4.9.0
 Selenium4R >= 0.0.3
-Utils4R >= 0.0.2
+Utils4R >= 0.0.6
 
-函数说明：
-crawler_city_list : 采集城市编码列表
-crawler_city_resources : 采集城市房源数量
-
-@author: 长行
-@version: 1.1
-@create: 2019.12.17
-@revise: 2020.06.09
+@Author: 长行
+@Update: 2020.10.18
 """
 
 import time
 
 import Utils4R as Utils
 from Selenium4R import Chrome
-from bs4 import BeautifulSoup
 
 
-def crawler_city_list():
+class SpiderCityCode(Utils.abc.SingleSpider):
     """采集城市编码列表"""
-    driver = Chrome(cache_path=r"E:\Temp")
-    driver.get("https://www.anjuke.com/sy-city.html")
 
-    city_dict = dict()
-    for city_label in driver.find_elements_by_css_selector("body > div.content > div > div.letter_city > ul > li > div > a"):
-        city_name = city_label.text
-        city_code = city_label.get_attribute("href").replace("https://", "").replace(".anjuke.com/", "")
-        city_dict[city_name] = city_code
-        print(city_name, city_code, city_label.get_attribute("href"))
+    def __init__(self, driver):
+        self.driver = driver
 
-    Utils.io.write_json("anjuke_city_code.json", city_dict)
-    driver.quit()
+    def run(self, **params):
+        self.driver.get("https://www.anjuke.com/sy-city.html")
+
+        city_dict = {}
+        for city_label in self.driver.find_elements_by_css_selector("body > div.content > div > div.letter_city > ul > li > div > a"):
+            city_name = city_label.text
+            city_code = city_label.get_attribute("href").replace("https://", "").replace(".anjuke.com/", "")
+            city_dict[city_name] = city_code
+
+        return city_dict
 
 
-def crawler_city_resources():
+class SpiderCityInfo(Utils.abc.SingleSpider):
     """采集城市房源数量"""
-    cities = Utils.io.load_json("anjuke_city_code.json")
-    city_info = Utils.io.load_json("anjuke_city_infor.json", default={})
 
+    def __init__(self, driver):
+        self.driver = driver
+
+    def run(self, **params):
+        self.driver.get("https://" + params["city_code"] + ".fang.anjuke.com/?from=navigation")
+        city_label = self.driver.find_element_by_css_selector(
+            "#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
+        return int(city_label.text) if city_label else 0
+
+
+def crawler():
     driver = Chrome(cache_path=r"E:\Temp")
 
-    for city_name, city_code in cities.items():
-        if city_name not in city_info:
+    # 采集城市编码列表
+    spider_city_code = SpiderCityCode(driver)
+    result1 = spider_city_code.run()
+    Utils.io.write_json("anjuke_city_code.json", result1)
 
-            driver.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
-
-            bs = BeautifulSoup(driver.page_source, "lxml")  # 将网页转化为BeautifulSoup结构
-            city_label = bs.select_one("#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
-            if city_label is not None:
-                city_num = int(city_label.text)
-            else:
-                city_num = 0
-                if bs.select_one("#header > div.site-search > div.sel-city > a > span") is None:
-                    print("可能出现反爬虫，请处理...")
-                    time.sleep(300)
-                    break
-
-            city_info[city_name] = city_num
-
-            Utils.io.write_json("anjuke_city_infor.json", city_info)
-
+    # 采集城市房源数量
+    city_code_list = Utils.io.load_json("anjuke_city_code.json")
+    city_info_list = Utils.io.load_json("anjuke_city_infor.json", default={})
+    spider_city_info = SpiderCityInfo(driver)
+    for city_name, city_code in city_code_list.items():
+        if city_name not in city_info_list:
+            city_info_list[city_name] = spider_city_info.run(city_code=city_code)
+            Utils.io.write_json("anjuke_city_info.json", city_info_list)
             time.sleep(2)
 
     driver.quit()
 
 
 if __name__ == "__main__":
-    crawler_city_list()
-    # crawler_city_resources()
+    crawler()
