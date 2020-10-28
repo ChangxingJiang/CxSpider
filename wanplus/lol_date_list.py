@@ -11,10 +11,10 @@ import datetime
 import json
 import time
 
+import Utils4R as Utils
 import requests
 
 from toolkit import environment as env
-import Utils4R as Utils
 
 # 请求信息
 date_list_url = "https://www.wanplus.com/ajax/schedule/list"  # 列表请求的url
@@ -73,8 +73,7 @@ def crawler():
     for i in range(len(need_date_list)):
         curr_date_str = need_date_list[i]
         print("正在抓取时间戳:", i + 1, "/", len(need_date_list), "(", curr_date_str, ")")
-        curr_date_timestamp = str((datetime.datetime.strptime(
-            curr_date_str, "%Y%m%d") - datetime.datetime(1970, 1, 1)).total_seconds())
+        curr_date_timestamp = str((datetime.datetime.strptime(curr_date_str, "%Y%m%d") - datetime.datetime(1970, 1, 1)).total_seconds())
         date_list_data["time"] = curr_date_timestamp  # 列表请求的表单数据
         response = requests.post(date_list_url, headers=date_list_headers, data=date_list_data)
         if response.status_code == 200:

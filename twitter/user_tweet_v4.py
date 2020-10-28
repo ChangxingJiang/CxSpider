@@ -17,9 +17,9 @@ import time
 from urllib import parse
 
 import Utils4R as Utils
-from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
+from webdriver_manager.chrome import ChromeDriverManager
 
 from toolkit import environment as env
 
@@ -81,6 +81,7 @@ def crawler(driver, user_name, template, since=None, until=None):
             # 读取推文ID
             try:
                 label_id = label_tweet.find_element_by_css_selector(SELECTOR_ID)
+                # print(type(label_id), label_id)
                 tweet_id = re.search("[0-9]+$", label_id.get_attribute("href")).group()
             except (NoSuchElementException, StaleElementReferenceException) as e:
                 print("未找到推文ID标签(" + e.__class__.__name__ + ")")
@@ -159,11 +160,13 @@ if __name__ == "__main__":
         database=setting["Huabang"]["database"]
     )
 
-    selenium = Chrome(cache_path=r"E:\temp")  # 打开Selenium控制的Chrome浏览器
+    from selenium import webdriver
+
+    selenium = webdriver.Chrome(executable_path=ChromeDriverManager(path=r"E:\temp").install())  # 打开Selenium控制的Chrome浏览器
 
     if "Huabang" in env.DATA and "Media List" in env.DATA["Huabang"]:
         for media_item in env.DATA["Huabang"]["Media List"]:
-            # if media_item[0] != 211:
+            # if media_item[0] < 383:
             #     continue
             print("开始抓取媒体:", media_item[1], "(", media_item[0], ")", "-", media_item[3], "(", media_item[2], ")")
             tweet_template = {
@@ -178,9 +181,9 @@ if __name__ == "__main__":
                 "likes": None
             }
             tweets = crawler(selenium, media_item[2], tweet_template,
-                             since=dt.date(2020, 9, 1), until=dt.date(2020, 9, 29))  # 闭开区间
+                             since=dt.date(2020, 10, 1), until=dt.date(2020, 10, 16))  # 闭开区间
             print("共抓取推文:", len(tweets))
-            record_num = mysql.insert("twitter_tweet_2009", tweets)
+            record_num = mysql.insert("twitter_tweet_2010", tweets)
             print("写入记录数:", record_num)
             time.sleep(1)
     else:
