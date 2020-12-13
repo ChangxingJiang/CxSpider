@@ -12,19 +12,17 @@
 
 import time
 
+import crawlertool as tool
 from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
-import Utils4R as Utils
 
+class SpiderDouyuSubscribe(tool.abc.SingleSpider):
+    def __init__(self, driver):
+        self.driver = driver
 
-def crawler(live_list_path):
-    driver = Chrome(cache_path=r"E:\Temp")
-
-    account_list = Utils.io.load_string(live_list_path)
-
-    for account_url in account_list.split("\n"):
-        driver.get(account_url)
+    def run(self, account_url):
+        self.driver.get(account_url)
 
         time.sleep(3)
 
@@ -32,7 +30,7 @@ def crawler(live_list_path):
 
         for _ in range(10):
             try:
-                label_subscribe = driver.find_element_by_xpath('//*[@id="js-player-title"]/div/div[4]/div/span')
+                label_subscribe = self.driver.find_element_by_xpath('//*[@id="js-player-title"]/div/div[4]/div/span')
                 if label_subscribe.text is not None and label_subscribe.text != "":
                     text_subscribe = label_subscribe.text
                     break
@@ -40,6 +38,18 @@ def crawler(live_list_path):
             except NoSuchElementException:
                 time.sleep(1)
 
+        return text_subscribe
+
+
+def crawler(live_list_path):
+    driver = Chrome(cache_path=r"E:\Temp")
+
+    account_list = tool.io.load_string(live_list_path)
+
+    spider = SpiderDouyuSubscribe(driver)
+
+    for account_url in account_list.split("\n"):
+        text_subscribe = spider.run(account_url)
         print(account_url, text_subscribe)
 
 

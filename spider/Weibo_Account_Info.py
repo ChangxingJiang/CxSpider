@@ -9,10 +9,10 @@
 import json
 from typing import Dict
 
-import Utils4R as Utils
+import crawlertool as tool
 
 
-class SpiderWeiboAccount(Utils.abc.SingleSpider):
+class SpiderWeiboAccount(tool.abc.SingleSpider):
     def __init__(self):
         # 爬虫实例的变量
         self.user_id = None
@@ -31,7 +31,7 @@ class SpiderWeiboAccount(Utils.abc.SingleSpider):
 
         item = {}
 
-        response_text = Utils.try_request(actual_url, headers={"User-Agent": Utils.static.USER_AGENT["Win10_Chrome"]})
+        response_text = tool.try_request(actual_url, headers={"User-Agent": tool.static.USER_AGENT["Win10_Chrome"]})
         
         if not response_text:
             self.log("微博账号:" + str(user_id) + "|账号信息API请求失败")

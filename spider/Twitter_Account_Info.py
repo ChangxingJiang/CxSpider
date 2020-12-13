@@ -10,11 +10,11 @@ import re
 import time
 from typing import Dict
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 
 
-class SpiderTwitterAccount(Utils.abc.SingleSpider):
+class SpiderTwitterAccount(tool.abc.SingleSpider):
     def __init__(self, driver: "Chrome"):
         self.driver = driver
 
@@ -51,20 +51,20 @@ class SpiderTwitterAccount(Utils.abc.SingleSpider):
 
         if label := self.driver.find_element_by_xpath(
                 "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/a", ):
-            item["following"] = Utils.extract.number(label.text)
+            item["following"] = tool.extract.number(label.text)
         elif label := self.driver.find_element_by_xpath(
                 "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[4]/div[1]/a"):
-            item["following"] = Utils.extract.number(label.text)
+            item["following"] = tool.extract.number(label.text)
         else:
             self.log("Twitter账号:" + user_name + "|账号正在关注数抓取异常")
             item["following"] = 0
 
         if label := self.driver.find_element_by_xpath(
                 "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[2]/a"):
-            item["followers"] = Utils.extract.number(label.text)
+            item["followers"] = tool.extract.number(label.text)
         elif label := self.driver.find_element_by_xpath(
                 "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[4]/div[2]/a"):
-            item["followers"] = Utils.extract.number(label.text)
+            item["followers"] = tool.extract.number(label.text)
         else:
             self.log("Twitter账号:" + user_name + "|账号粉丝数抓取异常")
             item["following"] = 0

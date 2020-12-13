@@ -10,11 +10,11 @@ Utils4R >= 0.0.6
 
 import re
 
-import Utils4R as Utils
+import crawlertool as tool
 import requests
 
 
-class Spider(Utils.abc.SingleSpider):
+class Spider(tool.abc.SingleSpider):
 
     def __init__(self):
         # 执行请求的请求头

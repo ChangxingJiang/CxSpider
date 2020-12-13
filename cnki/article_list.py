@@ -7,14 +7,14 @@ CNKI(中国知网)刊期包含论文列表爬虫
 
 import re
 
-import Utils4R as Utils
+import crawlertool as tool
 import requests
 from bs4 import BeautifulSoup
 
 from toolkit.textCleaner import TextCleaner
 
 
-class SpiderCnkiArticleList(Utils.abc.SingleSpider):
+class SpiderCnkiArticleList(tool.abc.SingleSpider):
     """CNKI(中国知网)刊期包含论文列表爬虫"""
 
     def run(self, journal, pcode, pykm, year, issue):

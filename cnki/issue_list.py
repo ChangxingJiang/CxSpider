@@ -12,12 +12,12 @@ Utils4R >= 0.0.6
 
 import re
 
-import Utils4R as Utils
+import crawlertool as tool
 import requests
 from bs4 import BeautifulSoup
 
 
-class SpiderCnkiIssueList(Utils.abc.SingleSpider):
+class SpiderCnkiIssueList(tool.abc.SingleSpider):
     """CNKI(中国知网)期刊刊期列表爬虫"""
 
     def run(self, pcode, pykm):

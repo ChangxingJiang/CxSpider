@@ -13,11 +13,11 @@ import math
 import time
 from urllib.parse import urlencode
 
-import Utils4R as Utils
+import crawlertool as tool
 import requests
 
 
-class SpiderBilibiliUserVideoList(Utils.abc.SingleSpider):
+class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
     """B站UP主发布视频列表爬虫"""
 
     def __init__(self):

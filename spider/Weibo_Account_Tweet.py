@@ -15,10 +15,10 @@ from datetime import timedelta
 from typing import Dict
 from typing import List
 
-import Utils4R as Utils
+import crawlertool as tool
 
 
-class SpiderWeiboPost(Utils.abc.SingleSpider):
+class SpiderWeiboPost(tool.abc.SingleSpider):
     def __init__(self):
         # 爬虫实例的常量
         self.default_domain = "107603"
@@ -54,7 +54,7 @@ class SpiderWeiboPost(Utils.abc.SingleSpider):
             self.console("抓取开始,第" + str(page) + "次下拉,实际请求Url:" + actual_url)
 
             # 对Ajax执行请求
-            response_text = Utils.try_request(actual_url, headers={"User-Agent": Utils.static.USER_AGENT["Win10_Chrome"]})
+            response_text = tool.try_request(actual_url, headers={"User-Agent": tool.static.USER_AGENT["Win10_Chrome"]})
             if not response_text:
                 self.log("抓取结束:Ajax请求结果为空")
                 return post_list

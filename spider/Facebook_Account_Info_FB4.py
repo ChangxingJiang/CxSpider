@@ -4,11 +4,11 @@
 import re
 import time
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 
 
-class SpiderFacebookAccountForFb4(Utils.abc.SingleSpider):
+class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
     """Facebook账号信息爬虫
 
     适用于Facebook老版本UI(FB4)的Facebook账号信息爬虫

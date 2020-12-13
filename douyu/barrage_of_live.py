@@ -19,45 +19,48 @@ Utils4R >= 0.0.2
 import re
 import time
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-def crawler(live_name, live_url, mysql):
-    browser = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
-    browser.get(live_url)  # 访问目标斗鱼主播的直播间
-    time.sleep(10)
+class SpiderDouyuBarrage(tool.abc.SingleSpider):
+    def __init__(self, live_name, live_url, mysql):
+        self.browser = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
+        self.browser.get(live_url)  # 访问目标斗鱼主播的直播间
+        time.sleep(10)
 
-    time_string = time.strftime("%Y%m%d_%H%M", time.localtime(time.time()))
-    table_name = "douyu_{}".format(time_string)
+        self.mysql = mysql
 
-    sql_create = "CREATE TABLE live_barrage.`douyu_{}` (" \
-                 "`bid` int(11) NOT NULL AUTO_INCREMENT COMMENT '弹幕ID(barrage id)'," \
-                 "`type` varchar(60) DEFAULT NULL COMMENT '弹幕类型'," \
-                 "`fetch_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '弹幕抓取时间(约等于弹幕发布时间)'," \
-                 " `user_name` varchar(40) DEFAULT NULL COMMENT '弹幕发布者名称'," \
-                 " `user_level` int(11) DEFAULT NULL COMMENT '弹幕发布者等级'," \
-                 " `content` varchar(100) DEFAULT NULL COMMENT '弹幕内容'," \
-                 " `text` varchar(100) DEFAULT NULL COMMENT '弹幕其他信息'," \
-                 " PRIMARY KEY (`bid`)" \
-                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='斗鱼弹幕({})';"
-    mysql.create(sql_create.format(time_string, live_name))
+        time_string = time.strftime("%Y%m%d_%H%M", time.localtime(time.time()))
+        self.table_name = "douyu_{}".format(time_string)
 
-    print("开始抓取斗鱼直播弹幕.....")
+        sql_create = "CREATE TABLE live_barrage.`douyu_{}` (" \
+                     "`bid` int(11) NOT NULL AUTO_INCREMENT COMMENT '弹幕ID(barrage id)'," \
+                     "`type` varchar(60) DEFAULT NULL COMMENT '弹幕类型'," \
+                     "`fetch_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '弹幕抓取时间(约等于弹幕发布时间)'," \
+                     " `user_name` varchar(40) DEFAULT NULL COMMENT '弹幕发布者名称'," \
+                     " `user_level` int(11) DEFAULT NULL COMMENT '弹幕发布者等级'," \
+                     " `content` varchar(100) DEFAULT NULL COMMENT '弹幕内容'," \
+                     " `text` varchar(100) DEFAULT NULL COMMENT '弹幕其他信息'," \
+                     " PRIMARY KEY (`bid`)" \
+                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='斗鱼弹幕({})'"
+        mysql.create(sql_create.format(time_string, live_name))
 
-    total_time = 0
-    total_num = 0
-    # screenshot = 0
+        print("开始抓取斗鱼直播弹幕.....")
 
-    barrage_id_list = list()
+        self.total_time = 0
+        self.total_num = 0
 
-    data_id_max = 0
-    for num in range(int(36000 / 0.5)):
+        self.barrage_id_list = list()
+
+        self.data_id_max = 0
+
+    def run(self):
 
         start_time = time.time()
 
-        label_html = browser.find_element_by_id("js-barrage-list").get_attribute("innerHTML")
+        label_html = self.browser.find_element_by_id("js-barrage-list").get_attribute("innerHTML")
         soup = BeautifulSoup(label_html, 'lxml')  # 将网页内容解析为Soup对象
 
         barrage_list = []
@@ -65,12 +68,12 @@ def crawler(live_name, live_url, mysql):
 
             bid = str(label["id"])  # 提取:弹幕ID
 
-            if bid in barrage_id_list:
+            if bid in self.barrage_id_list:
                 continue
-            barrage_id_list.append(bid)
+            self.barrage_id_list.append(bid)
 
-            if len(barrage_id_list) > 200:
-                barrage_id_list.remove(barrage_id_list[0])
+            if len(self.barrage_id_list) > 200:
+                self.barrage_id_list.remove(self.barrage_id_list[0])
 
             barrage_info = {
                 "type": "",  # 弹幕所属类型
@@ -105,18 +108,18 @@ def crawler(live_name, live_url, mysql):
 
         if len(barrage_list) < 200:
 
-            mysql.insert(table_name, barrage_list)
+            self.mysql.insert(self.table_name, barrage_list)
 
-            total_num += 1
-            total_time += 1000 * (time.time() - start_time)
+            self.total_num += 1
+            self.total_time += 1000 * (time.time() - start_time)
 
-            print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", data_id_max, ")", "|",
-                  "运行时间:", round(total_time / total_num), "毫秒", "(", round(total_time), "/", total_num, ")")
+            print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", self.data_id_max, ")", "|",
+                  "运行时间:", round(self.total_time / self.total_num), "毫秒", "(", round(self.total_time), "/", self.total_num, ")")
 
         else:
 
-            total_num += 1
-            total_time += 1000 * (time.time() - start_time)
+            self.total_num += 1
+            self.total_time += 1000 * (time.time() - start_time)
 
             print("本次时间范围内弹幕列表未自动向下滚动...")
 
@@ -124,10 +127,13 @@ def crawler(live_name, live_url, mysql):
         if wait_time > (time.time() - start_time):
             time.sleep(0.5 - (time.time() - start_time))
 
-        data_id_max += len(barrage_list)
+        self.data_id_max += len(barrage_list)
 
 
 if __name__ == "__main__":
-    crawler(live_name="东北大鹌鹑",
-            live_url="https://www.douyu.com/96291",
-            mysql=Utils.db.MySQL(host="", user="", password="", database=""))
+    spider = SpiderDouyuBarrage(live_name="东北大鹌鹑",
+                                live_url="https://www.douyu.com/96291",
+                                mysql=tool.db.MySQL(host="", user="", password="", database=""))
+
+    for num in range(int(36000 / 0.5)):
+        spider.run()

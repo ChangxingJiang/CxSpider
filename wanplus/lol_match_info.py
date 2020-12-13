@@ -11,10 +11,8 @@ import json
 import os
 import time
 
+import crawlertool as tool
 import requests
-
-import Utils4R as Utils
-from toolkit import environment as env
 
 match_list_url = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"  # 场次请求的url
 match_list_referer = "https://www.wanplus.com/schedule/%s.html"  # 场次请求的headers中referer参数的值
@@ -32,32 +30,37 @@ match_list_headers = {
     "x-requested-with": "XMLHttpRequest"
 }  # 场次请求的headers
 
+RACEFILE = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\race_list.json"
+MATCHPATH = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\match"
 
-def crawler():
-    data_race = Utils.io.load_json(env.PATH["WanPlus"]["Race File"])  # 载入比赛包含场次表
-    data_list_match = os.listdir(env.PATH["WanPlus"]["Match Path"])  # 载入游戏信息文件列表
 
-    # 统计需要抓取的场次ID列表
-    need_match_id_list = dict()
-    for race_id, match_id_list in data_race.items():
-        for match_id in match_id_list:
-            match_file_name = str(match_id) + ".json"
-            if match_file_name not in data_list_match:
-                need_match_id_list[match_id] = race_id
-    print("需要抓取的场次数量:", len(need_match_id_list))
+class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
+    def run(self):
+        data_race = tool.io.load_json(RACEFILE)  # 载入比赛包含场次表
+        data_list_match = os.listdir(MATCHPATH)  # 载入游戏信息文件列表
 
-    num = 1
-    for match_id, race_id in need_match_id_list.items():
-        print("正在抓取场次:", num, "/", len(need_match_id_list), "(", match_id, "-", race_id, ")")
-        num += 1
-        # 执行场次请求
-        actual_url = match_list_url % match_id
-        match_list_headers["referer"] = match_list_referer % race_id
-        response = requests.get(actual_url, headers=match_list_headers)
-        response_json = json.loads(response.content.decode())
-        Utils.io.write_json(os.path.join(env.PATH["WanPlus"]["Match Path"], str(match_id) + ".json"), response_json)
-        time.sleep(5)
+        # 统计需要抓取的场次ID列表
+        need_match_id_list = dict()
+        for race_id, match_id_list in data_race.items():
+            for match_id in match_id_list:
+                match_file_name = str(match_id) + ".json"
+                if match_file_name not in data_list_match:
+                    need_match_id_list[match_id] = race_id
+        print("需要抓取的场次数量:", len(need_match_id_list))
+
+        num = 1
+        for match_id, race_id in need_match_id_list.items():
+            print("正在抓取场次:", num, "/", len(need_match_id_list), "(", match_id, "-", race_id, ")")
+            num += 1
+            # 执行场次请求
+            actual_url = match_list_url % match_id
+            match_list_headers["referer"] = match_list_referer % race_id
+            response = requests.get(actual_url, headers=match_list_headers)
+            response_json = json.loads(response.content.decode())
+            tool.io.write_json(os.path.join(MATCHPATH, str(match_id) + ".json"), response_json)
+            time.sleep(5)
 
 
 if __name__ == "__main__":
-    crawler()
+    spider = SpiderWanplusLolMatchInfo()
+    spider.run()

@@ -11,11 +11,11 @@ Utils4R >= 0.0.6
 
 import time
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 
 
-class SpiderCityCode(Utils.abc.SingleSpider):
+class SpiderCityCode(tool.abc.SingleSpider):
     """采集城市编码列表"""
 
     def __init__(self, driver):
@@ -33,7 +33,7 @@ class SpiderCityCode(Utils.abc.SingleSpider):
         return city_dict
 
 
-class SpiderCityInfo(Utils.abc.SingleSpider):
+class SpiderCityInfo(tool.abc.SingleSpider):
     """采集城市房源数量"""
 
     def __init__(self, driver):
@@ -52,16 +52,16 @@ def crawler():
     # 采集城市编码列表
     spider_city_code = SpiderCityCode(driver)
     result1 = spider_city_code.run()
-    Utils.io.write_json("anjuke_city_code.json", result1)
+    tool.io.write_json("anjuke_city_code.json", result1)
 
     # 采集城市房源数量
-    city_code_list = Utils.io.load_json("anjuke_city_code.json")
-    city_info_list = Utils.io.load_json("anjuke_city_infor.json", default={})
+    city_code_list = tool.io.load_json("anjuke_city_code.json")
+    city_info_list = tool.io.load_json("anjuke_city_infor.json", default={})
     spider_city_info = SpiderCityInfo(driver)
     for city_name, city_code in city_code_list.items():
         if city_name not in city_info_list:
             city_info_list[city_name] = spider_city_info.run(city_code=city_code)
-            Utils.io.write_json("anjuke_city_info.json", city_info_list)
+            tool.io.write_json("anjuke_city_info.json", city_info_list)
             time.sleep(2)
 
     driver.quit()

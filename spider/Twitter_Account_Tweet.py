@@ -10,10 +10,10 @@ import re
 import time
 from urllib import parse
 
-import Utils4R as Utils
+import crawlertool as tool
 
 
-class SpiderTwitterTweet(Utils.abc.SingleSpider):
+class SpiderTwitterTweet(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
@@ -134,7 +134,7 @@ class SpiderTwitterTweet(Utils.abc.SingleSpider):
             if last_label_tweet is not None:
                 self.driver.execute_script("arguments[0].scrollIntoView();", last_label_tweet)  # 滑动到推文标签
                 self.console("执行一次向下翻页...")
-                time.sleep(1)
+                time.sleep(3)
             else:
                 break
 

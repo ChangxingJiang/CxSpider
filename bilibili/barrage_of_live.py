@@ -12,12 +12,12 @@ Utils4R >= 0.0.6
 
 import time
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-class SpiderBilibiliBarrage(Utils.abc.SingleSpider):
+class SpiderBilibiliBarrage(tool.abc.SingleSpider):
     """Bilibili弹幕爬虫"""
 
     def __init__(self, driver, live_url):
@@ -118,4 +118,4 @@ def crawler(live_name, live_url, mysql):
 if __name__ == "__main__":
     crawler(live_name="20191110_LOL世界赛决赛(FPX vs G2)",
             live_url="https://live.bilibili.com/blanc/6?liteVersion=true",
-            mysql=Utils.db.MySQL(host="", user="", password="", database=""))
+            mysql=tool.db.MySQL(host="", user="", password="", database=""))

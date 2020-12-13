@@ -14,23 +14,22 @@ Selenium4R >= 0.0.3
 
 import time
 
+import crawlertool as tool
 from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
-import Utils4R as Utils
 
+class SpiderHuyaSubscribe(tool.abc.SingleSpider):
+    def __init__(self, driver):
+        self.driver = driver
 
-def crawler():
-    browser = Chrome(cache_path=r"E:\temp")
-
-    account_list = Utils.io.load_string("huya_account_list.txt")
-    for account_url in account_list.split("\n"):
-        browser.get(account_url)
+    def run(self, account_url):
+        self.driver.get(account_url)
 
         # 读取直播间订阅数量
         text_subscribe = ""
         try:
-            label_subscribe = browser.find_element_by_xpath('//*[@id="activityCount"]')
+            label_subscribe = self.driver.find_element_by_xpath('//*[@id="activityCount"]')
             if label_subscribe is not None:
                 text_subscribe = label_subscribe.text
         except NoSuchElementException:
@@ -39,12 +38,25 @@ def crawler():
         # 读取直播间ID
         text_id = ""
         try:
-            label_id = browser.find_element_by_css_selector(
+            label_id = self.driver.find_element_by_css_selector(
                 '#J_roomHeader > div.room-hd-l > div.host-info > div.host-detail.J_roomHdDetail > span.host-rid')
             if label_id is not None:
                 text_id = label_id.text
         except NoSuchElementException:
             pass
+
+        return text_id, text_subscribe
+
+
+def crawler():
+    driver = Chrome(cache_path=r"E:\temp")
+
+    account_list = tool.io.load_string("huya_account_list.txt")
+
+    spider = SpiderHuyaSubscribe(driver)
+
+    for account_url in account_list.split("\n"):
+        text_id, text_subscribe = spider.run(account_url)
 
         print(account_url, text_id, text_subscribe)
 

@@ -6,12 +6,12 @@ import time
 from typing import Dict
 from typing import List
 
-import Utils4R as Utils
+import crawlertool as tool
 from bs4 import BeautifulSoup
 from lxml import etree
 
 
-class SpiderFacebookPostForFb4(Utils.abc.SingleSpider):
+class SpiderFacebookPostForFb4(tool.abc.SingleSpider):
     """Facebook账号推文爬虫
 
     适用于Facebook老版本UI(FB4)的Facebook账号发布帖子爬虫；
@@ -36,7 +36,7 @@ class SpiderFacebookPostForFb4(Utils.abc.SingleSpider):
             "pragma": "no-cache",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-origin",
-            "user-agent": Utils.static.USER_AGENT["Win10_Chrome"]
+            "user-agent": tool.static.USER_AGENT["Win10_Chrome"]
         }
 
         # 请求使用的代理IP地址(可在VPN软件中查询)
@@ -91,7 +91,7 @@ class SpiderFacebookPostForFb4(Utils.abc.SingleSpider):
             # 处理帖子首页的情况
             if is_first_page:
                 # 请求目标Facebook账号的帖子页
-                response_text = Utils.try_request(url=page_url, headers=self.headers, proxies=self.proxies)
+                response_text = tool.try_request(url=page_url, headers=self.headers, proxies=self.proxies)
                 if not response_text:
                     self.log("抓取结束:帖子首页请求结果为空(账号不存在/账号已失效)")
                     return post_list
@@ -130,7 +130,7 @@ class SpiderFacebookPostForFb4(Utils.abc.SingleSpider):
 
                 # 计算需要请求的Ajax地址并执行请求
                 ajax_url = self.make_ajax_url(timeline_cursor=timeline_cursor, user_page_id=user_page_id)
-                response_text = Utils.try_request(url=ajax_url, headers=self.headers, proxies=self.proxies)
+                response_text = tool.try_request(url=ajax_url, headers=self.headers, proxies=self.proxies)
                 if not response_text:
                     self.log("抓取结束:Ajax请求结果为空(出现异常/已抓取该账号的所有推文)")
                     return post_list

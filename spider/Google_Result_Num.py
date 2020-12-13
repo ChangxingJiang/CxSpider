@@ -12,11 +12,11 @@ import time
 from typing import Dict
 from urllib import parse
 
-import Utils4R as Utils
+import crawlertool as tool
 from Selenium4R import Chrome
 
 
-class SpiderGoogle(Utils.abc.SingleSpider):
+class SpiderGoogle(tool.abc.SingleSpider):
     def __init__(self, driver: "Chrome"):
         self.driver = driver
 
