@@ -33,7 +33,7 @@ class SpiderTwitterAccount(tool.abc.SingleSpider):
         if pattern := re.search(r"(?<=twitter.com/)[^/]+", page_url):
             return pattern.group()
 
-    def run(self, user_name: str) -> Dict:
+    def running(self, user_name: str) -> Dict:
         """执行Twitter账号信息爬虫
 
         :param user_name: Twitter的账号用户名称（可以通过get_twitter_user_name获取）

@@ -17,7 +17,7 @@ class SpiderWeiboAccount(tool.abc.SingleSpider):
         # 爬虫实例的变量
         self.user_id = None
 
-    def run(self, user_id: str) -> Dict:
+    def running(self, user_id: str) -> Dict:
         """执行微博账号信息爬虫
 
         :param user_id: 微博账号的ID

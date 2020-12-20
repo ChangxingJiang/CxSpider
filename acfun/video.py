@@ -37,7 +37,7 @@ class Spider(tool.abc.SingleSpider):
                              "&socName=UNKNOWN"
                              "&appMode=0")
 
-    def run(self, **params):
+    def running(self, **params):
         if "page_url" not in params:
             return False
 
@@ -60,4 +60,4 @@ class Spider(tool.abc.SingleSpider):
 
 if __name__ == "__main__":
     spider = Spider()
-    print(spider.run(page_url="https://www.acfun.cn/v/ac16986343"))
+    print(spider.running(page_url="https://www.acfun.cn/v/ac16986343"))

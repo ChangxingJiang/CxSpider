@@ -33,7 +33,7 @@ TFT_LIST = [
 
 
 class SpiderTftSummonerList(tool.abc.SingleSpider):
-    def run(self, params_item):
+    def running(self, params_item):
         response = requests.get(
             url="https://qt.qq.com/lua/mlol_battle_info/get_total_tier_rank_list",
             params={"area_id": str(params_item[0]), "offset": str(params_item[1]), "sign": str(params_item[2])},
@@ -79,7 +79,7 @@ def crawler(mysql):
         print("抓取召唤师列表:", num, "/", len(TFT_LIST))
         num += 1
 
-        summoner_list = spider.run(params_item)
+        summoner_list = spider.running(params_item)
 
         mysql.insert("summoner", summoner_list)
         time.sleep(3)

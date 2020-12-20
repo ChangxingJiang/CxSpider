@@ -33,7 +33,7 @@ class SpiderGoogle(tool.abc.SingleSpider):
         page_url = re.sub(r"[Hh][Tt][Tt][Pp][Ss]?://", "", page_url)
         return page_url[:page_url.index("/")] if "/" in page_url else page_url
 
-    def run(self, domain_name: str, year: int, month: int) -> Dict:
+    def running(self, domain_name: str, year: int, month: int) -> Dict:
         """执行Google搜索引擎收录增量爬虫
 
         抓取Google收录在来自目标网站在目标年份和月份的结果数量

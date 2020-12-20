@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderJuliveCityList(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         driver = Chrome(cache_path=r"E:\temp")
         driver.get("https://cc.julive.com/project/s")
 
@@ -35,7 +35,7 @@ class SpiderJuliveCityList(tool.abc.SingleSpider):
 
 def crawler():
     spider = SpiderJuliveCityList()
-    city_dict = spider.run()
+    city_dict = spider.running()
     tool.io.write_json("julive_city_url_20191217.json", city_dict)
 
 

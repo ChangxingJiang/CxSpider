@@ -17,7 +17,7 @@ from Selenium4R import Chrome
 
 
 class SpiderMaoyanWebHeat(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         driver = Chrome(cache_path=r"E:\temp")  # ChromeDriver可执行文件的路径
         driver.get("http://piaofang.maoyan.com/dashboard/web-heat")
         time.sleep(1)
@@ -39,7 +39,7 @@ class SpiderMaoyanWebHeat(tool.abc.SingleSpider):
 
 def crawler():
     spider = SpiderMaoyanWebHeat()
-    lst = spider.run()
+    lst = spider.running()
 
     for elem in lst:
         print("排名:", elem[0])

@@ -21,7 +21,7 @@ class SpiderDouyuSubscribe(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def run(self, account_url):
+    def running(self, account_url):
         self.driver.get(account_url)
 
         time.sleep(3)
@@ -49,7 +49,7 @@ def crawler(live_list_path):
     spider = SpiderDouyuSubscribe(driver)
 
     for account_url in account_list.split("\n"):
-        text_subscribe = spider.run(account_url)
+        text_subscribe = spider.running(account_url)
         print(account_url, text_subscribe)
 
 

@@ -17,7 +17,7 @@ from toolkit.textCleaner import TextCleaner
 class SpiderCnkiArticleList(tool.abc.SingleSpider):
     """CNKI(中国知网)刊期包含论文列表爬虫"""
 
-    def run(self, journal, pcode, pykm, year, issue):
+    def running(self, journal, pcode, pykm, year, issue):
         """采集指定刊期的论文列表
 
         :param journal: <str> 期刊名称
@@ -115,4 +115,4 @@ if __name__ == "__main__":
     spider_cnki_article_list = SpiderCnkiArticleList()
 
     for journal in journal_list["CSSCI-新闻与传播学"]:
-        print(journal[0], ":", spider_cnki_article_list.run(journal[0], journal[1], journal[2], "2020", "04"))
+        print(journal[0], ":", spider_cnki_article_list.running(journal[0], journal[1], journal[2], "2020", "04"))

@@ -35,7 +35,7 @@ class SpiderBilibiliBarrage(tool.abc.SingleSpider):
         driver.get(live_url)  # 访问目标Bilibili主播的直播间
         time.sleep(10)
 
-    def run(self):
+    def running(self):
         label_html = self.driver.find_element_by_id("chat-history-list").get_attribute("outerHTML")
         soup = BeautifulSoup(label_html, "lxml")
 
@@ -99,7 +99,7 @@ def crawler(live_name, live_url, mysql):
 
     for num in range(36000):
         start_time = time.time()
-        barrage_list = spider_bilibili_barrage.run()
+        barrage_list = spider_bilibili_barrage.running()
         mysql.insert(table_name, barrage_list)
 
         total_num += 1

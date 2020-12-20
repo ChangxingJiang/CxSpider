@@ -19,7 +19,7 @@ class SpiderAlexa(tool.abc.SingleSpider):
         # 爬虫实例的变量
         self.page_url = None
 
-    def run(self, page_url: str) -> Dict:
+    def running(self, page_url: str) -> Dict:
         """执行Alexa爬虫
 
         :param page_url: 目标网站地址

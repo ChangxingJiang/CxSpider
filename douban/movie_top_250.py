@@ -32,7 +32,7 @@ headers = {
 
 
 class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         movie_list = list()
 
         for page_num in range(10):
@@ -106,7 +106,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
 def crawler():
     spider = SpiderDoubanMovieTop250()
 
-    movie_list = spider.run()
+    movie_list = spider.running()
 
     # 将临时变量中的数据存储到Json文件
     with open("豆瓣TOP250电影.json", "w+", encoding="UTF-8") as file:

@@ -32,7 +32,7 @@ class SpiderTwitterTweet(tool.abc.SingleSpider):
         if pattern := re.search(r"(?<=twitter.com/)[^/]+", page_url):
             return pattern.group()
 
-    def run(self, user_name: str, since_date, until_date):
+    def running(self, user_name: str, since_date, until_date):
         """执行Twitter账号推文爬虫
 
         :param user_name: Facebook账号主页名称（可以通过get_facebook_user_name获取）

@@ -35,7 +35,7 @@ MATCHPATH = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\match"
 
 
 class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         data_race = tool.io.load_json(RACEFILE)  # 载入比赛包含场次表
         data_list_match = os.listdir(MATCHPATH)  # 载入游戏信息文件列表
 
@@ -63,4 +63,4 @@ class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
 
 if __name__ == "__main__":
     spider = SpiderWanplusLolMatchInfo()
-    spider.run()
+    spider.running()

@@ -21,7 +21,7 @@ class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
         self.driver = driver
         self.page_url = None
 
-    def run(self, page_url: str):
+    def running(self, page_url: str):
         """执行Facebook老版UI账号信息爬虫
 
         :param page_url: Facebook账号主页的Url

@@ -36,7 +36,7 @@ class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
         }
 
-    def run(self, mid):
+    def running(self, mid):
         # 执行请求的参数列表
         param_dict = {
             "mid": 20165629,
@@ -73,4 +73,4 @@ class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
 
 if __name__ == "__main__":
     spider = SpiderBilibiliUserVideoList()
-    print(spider.run(20165629))
+    print(spider.running(20165629))

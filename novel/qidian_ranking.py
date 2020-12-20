@@ -30,7 +30,7 @@ headers = {
 
 
 class SpiderQidianRanking(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         response = requests.get("https://www.qidian.com/rank/collect?style=2&chn=-1&page=1", headers=headers)
 
         # 解析答案
@@ -46,7 +46,7 @@ class SpiderQidianRanking(tool.abc.SingleSpider):
 
 def crawler():
     spider = SpiderQidianRanking()
-    book_list = spider.run()
+    book_list = spider.running()
 
     for book in book_list:
         print(book)

@@ -23,7 +23,7 @@ class SpiderHuyaSubscribe(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def run(self, account_url):
+    def running(self, account_url):
         self.driver.get(account_url)
 
         # 读取直播间订阅数量
@@ -56,7 +56,7 @@ def crawler():
     spider = SpiderHuyaSubscribe(driver)
 
     for account_url in account_list.split("\n"):
-        text_id, text_subscribe = spider.run(account_url)
+        text_id, text_subscribe = spider.running(account_url)
 
         print(account_url, text_id, text_subscribe)
 

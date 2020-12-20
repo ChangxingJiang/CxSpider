@@ -17,8 +17,12 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class SpiderWeiboHotRanking(tool.abc.SingleSpider):
-    def run(self, mysql, table_name, test=False):
+class SpiderWeiboHotRanking(tool.abc.LoopSpider):
+    def __init__(self, interval, mysql):
+        super().__init__(interval)
+        self.mysql = mysql
+
+    def running(self):
         # 执行网页请求
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -34,6 +38,7 @@ class SpiderWeiboHotRanking(tool.abc.SingleSpider):
             "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
         }
+
         response = requests.get("https://s.weibo.com/top/summary", headers=headers)  # 请求微博热搜榜
         bs = BeautifulSoup(response.content.decode(errors="ignore"), "lxml")
 
@@ -89,14 +94,13 @@ class SpiderWeiboHotRanking(tool.abc.SingleSpider):
                 "icon": icon
             })
 
+        self.write(hot_list)
+
+    def write(self, data):
         # 将结果写入到数据库
-        if test:
-            tool.console("测试", "准备写入数据:" + str(hot_list))
-            return True
-        else:
-            return mysql.insert(table_name=table_name, data=hot_list)
+        self.mysql.insert(table="weibo", data=data)
 
 
 if __name__ == "__main__":
-    spider = SpiderWeiboHotRanking()
-    spider.run(test=True, mysql=tool.db.MySQL(host="", user="", password="", database=""), table_name="weibo")
+    spider = SpiderWeiboHotRanking(interval=5, mysql=tool.db.DefaultMySQL())
+    spider.start()

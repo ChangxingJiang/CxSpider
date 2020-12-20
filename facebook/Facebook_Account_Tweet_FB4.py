@@ -64,7 +64,7 @@ class SpiderFacebookPostForFb4(tool.abc.SingleSpider):
         page_url = re.sub(r"[Hh][Tt][Tt][Pp][Ss]?://[^.]*\.?facebook\.com/p?g?/?", "", page_url)
         return page_url[:page_url.index("/")] if "/" in page_url else page_url
 
-    def run(self, user_name: str, since_timestamp: int, until_timestamp: int) -> List[Dict]:
+    def running(self, user_name: str, since_timestamp: int, until_timestamp: int) -> List[Dict]:
         """执行Facebook账号推文爬虫
 
         :param user_name: Facebook账号主页名称（可以通过get_facebook_user_name获取）

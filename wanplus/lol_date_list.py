@@ -43,7 +43,7 @@ DATAFILE = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\date_li
 
 
 class SpiderWanplusLolDateList(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         start_date = datetime.datetime.today() + datetime.timedelta(days=-365)  # 抓取开始日期
         end_date = (datetime.datetime.today() + datetime.timedelta(days=-1)).strftime("%Y%m%d")  # 抓取结束日期
 
@@ -102,4 +102,4 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
 
 if __name__ == "__main__":
     spider = SpiderWanplusLolDateList()
-    spider.run()
+    spider.running()

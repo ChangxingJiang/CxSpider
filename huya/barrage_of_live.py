@@ -24,8 +24,9 @@ from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-class SpiderHuyaBarrage(tool.abc.SingleSpider):
-    def __init__(self, live_name, live_url, mysql):
+class SpiderHuyaBarrage(tool.abc.LoopSpider):
+    def __init__(self, interval, live_name, live_url, mysql):
+        super().__init__(interval)
         self.browser = Chrome(cache_path=r"E:\temp")
         self.browser.get(live_url)  # 访问目标虎牙主播的直播间
 
@@ -55,7 +56,7 @@ class SpiderHuyaBarrage(tool.abc.SingleSpider):
 
         self.data_id_max = 0
 
-    def run(self):
+    def running(self):
         for num in range(int(36000 / 0.5)):
 
             start_time = time.time()
@@ -126,16 +127,13 @@ class SpiderHuyaBarrage(tool.abc.SingleSpider):
             self.total_num += 1
             self.total_time += 1000 * (time.time() - start_time)
 
-            wait_time = 0.5
-            if wait_time > (time.time() - start_time):
-                time.sleep(0.5 - (time.time() - start_time))
-
             print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", self.data_id_max, ")", "|",
                   "运行时间:", round(self.total_time / self.total_num), "毫秒", "(", round(self.total_time), "/", self.total_num, ")")
 
 
 if __name__ == "__main__":
-    spider = SpiderHuyaBarrage(live_name="神超",
+    spider = SpiderHuyaBarrage(interval=0.5,
+                               live_name="神超",
                                live_url="https://www.huya.com/102411",
                                mysql=tool.db.MySQL(host="", user="", password="", database=""))
-    spider.run()
+    spider.start()

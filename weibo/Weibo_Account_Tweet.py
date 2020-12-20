@@ -27,7 +27,7 @@ class SpiderWeiboPost(tool.abc.SingleSpider):
         self.user_id = None
         self.earliest_post = None
 
-    def run(self, user_id: str, since_timestamp: int, until_timestamp: int) -> List[Dict]:
+    def running(self, user_id: str, since_timestamp: int, until_timestamp: int) -> List[Dict]:
         """执行微博推文爬虫
 
         :param user_id: 微博账号ID

@@ -34,7 +34,7 @@ RACEFILE = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\race_li
 
 
 class SpiderWanplusLolMatchList(tool.abc.SingleSpider):
-    def run(self):
+    def running(self):
         data_date = tool.io.load_json(DATAFILE)  # 载入日期比赛表
         data_race = tool.io.load_json(RACEFILE)  # 载入比赛包含场次表
 
@@ -64,4 +64,4 @@ class SpiderWanplusLolMatchList(tool.abc.SingleSpider):
 
 if __name__ == "__main__":
     spider = SpiderWanplusLolMatchList()
-    spider.run()
+    spider.running()

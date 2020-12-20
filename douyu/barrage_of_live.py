@@ -24,8 +24,9 @@ from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-class SpiderDouyuBarrage(tool.abc.SingleSpider):
-    def __init__(self, live_name, live_url, mysql):
+class SpiderDouyuBarrage(tool.abc.LoopSpider):
+    def __init__(self, interval, live_name, live_url, mysql):
+        super().__init__(interval)
         self.browser = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
         self.browser.get(live_url)  # 访问目标斗鱼主播的直播间
         time.sleep(10)
@@ -56,7 +57,7 @@ class SpiderDouyuBarrage(tool.abc.SingleSpider):
 
         self.data_id_max = 0
 
-    def run(self):
+    def running(self):
 
         start_time = time.time()
 
@@ -123,17 +124,12 @@ class SpiderDouyuBarrage(tool.abc.SingleSpider):
 
             print("本次时间范围内弹幕列表未自动向下滚动...")
 
-        wait_time = 0.5
-        if wait_time > (time.time() - start_time):
-            time.sleep(0.5 - (time.time() - start_time))
-
         self.data_id_max += len(barrage_list)
 
 
 if __name__ == "__main__":
-    spider = SpiderDouyuBarrage(live_name="东北大鹌鹑",
+    spider = SpiderDouyuBarrage(interval=0.5,
+                                live_name="东北大鹌鹑",
                                 live_url="https://www.douyu.com/96291",
                                 mysql=tool.db.MySQL(host="", user="", password="", database=""))
-
-    for num in range(int(36000 / 0.5)):
-        spider.run()
+    spider.start()

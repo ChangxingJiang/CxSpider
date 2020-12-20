@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup
 class SpiderCnkiIssueList(tool.abc.SingleSpider):
     """CNKI(中国知网)期刊刊期列表爬虫"""
 
-    def run(self, pcode, pykm):
+    def running(self, pcode, pykm):
         """采集指定期刊的刊期列表
 
         :param pcode: <str> 中国知网期刊所属数据库
@@ -78,4 +78,4 @@ if __name__ == "__main__":
 
     spider_cnki_issue_list = SpiderCnkiIssueList()
     for journal in journal_list["CSSCI-新闻与传播学"]:
-        print(journal[0], ":", spider_cnki_issue_list.run(journal[1], journal[2]))
+        print(journal[0], ":", spider_cnki_issue_list.running(journal[1], journal[2]))

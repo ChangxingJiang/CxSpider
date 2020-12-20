@@ -21,7 +21,7 @@ class SpiderCityCode(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def run(self, **params):
+    def running(self, **params):
         self.driver.get("https://www.anjuke.com/sy-city.html")
 
         city_dict = {}
@@ -39,7 +39,7 @@ class SpiderCityInfo(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def run(self, **params):
+    def running(self, **params):
         self.driver.get("https://" + params["city_code"] + ".fang.anjuke.com/?from=navigation")
         city_label = self.driver.find_element_by_css_selector(
             "#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
@@ -51,7 +51,7 @@ def crawler():
 
     # 采集城市编码列表
     spider_city_code = SpiderCityCode(driver)
-    result1 = spider_city_code.run()
+    result1 = spider_city_code.running()
     tool.io.write_json("anjuke_city_code.json", result1)
 
     # 采集城市房源数量
@@ -60,7 +60,7 @@ def crawler():
     spider_city_info = SpiderCityInfo(driver)
     for city_name, city_code in city_code_list.items():
         if city_name not in city_info_list:
-            city_info_list[city_name] = spider_city_info.run(city_code=city_code)
+            city_info_list[city_name] = spider_city_info.running(city_code=city_code)
             tool.io.write_json("anjuke_city_info.json", city_info_list)
             time.sleep(2)
 
