@@ -39,8 +39,8 @@ class SpiderCityInfo(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def running(self, **params):
-        self.driver.get("https://" + params["city_code"] + ".fang.anjuke.com/?from=navigation")
+    def running(self, city_code):
+        self.driver.get("https://" + city_code + ".fang.anjuke.com/?from=navigation")
         city_label = self.driver.find_element_by_css_selector(
             "#container > div.list-contents > div.list-results > div.key-sort > div.sort-condi > span > em")
         return int(city_label.text) if city_label else 0

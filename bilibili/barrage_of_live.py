@@ -75,7 +75,8 @@ class SpiderBilibiliBarrage(tool.abc.SingleSpider):
 def crawler(live_name, live_url, mysql):
     driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
 
-    spider_bilibili_barrage = SpiderBilibiliBarrage(driver, live_url)
+    spider_bilibili_barrage = SpiderBilibiliBarrage(driver=driver,
+                                                    live_url=live_url)
 
     # 创建目标数据表
     table_name = "bilibili_{}".format(time.strftime("%Y%m%d_%H%M", time.localtime(time.time())))

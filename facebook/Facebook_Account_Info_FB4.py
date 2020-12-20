@@ -5,7 +5,6 @@ import re
 import time
 
 import crawlertool as tool
-from Selenium4R import Chrome
 
 
 class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
@@ -16,7 +15,7 @@ class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
     @Update 2020.10.22
     """
 
-    def __init__(self, driver: "Chrome"):
+    def __init__(self, driver):
         # 爬虫实例的变量
         self.driver = driver
         self.page_url = None

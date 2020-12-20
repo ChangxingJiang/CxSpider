@@ -13,11 +13,10 @@ from typing import Dict
 from urllib import parse
 
 import crawlertool as tool
-from Selenium4R import Chrome
 
 
 class SpiderGoogle(tool.abc.SingleSpider):
-    def __init__(self, driver: "Chrome"):
+    def __init__(self, driver):
         self.driver = driver
 
         # 爬虫实例的变量
