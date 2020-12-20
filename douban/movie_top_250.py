@@ -79,6 +79,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
                     quote = None
 
                 movie_list.append({
+                    "url": url,
                     "title": {
                         "chinese": title_chinese,
                         "others": title_other
@@ -96,14 +97,10 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
 
             time.sleep(5)
 
-            print(page_num)
-
-            break
-
         return movie_list
 
 
-def crawler():
+if __name__ == "__main__":
     spider = SpiderDoubanMovieTop250()
 
     movie_list = spider.running()
@@ -111,7 +108,3 @@ def crawler():
     # 将临时变量中的数据存储到Json文件
     with open("豆瓣TOP250电影.json", "w+", encoding="UTF-8") as file:
         file.write(json.dumps({"data": movie_list}, ensure_ascii=False))
-
-
-if __name__ == "__main__":
-    crawler()
