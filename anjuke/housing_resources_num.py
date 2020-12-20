@@ -21,7 +21,7 @@ class SpiderCityCode(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def running(self, **params):
+    def running(self):
         self.driver.get("https://www.anjuke.com/sy-city.html")
 
         city_dict = {}

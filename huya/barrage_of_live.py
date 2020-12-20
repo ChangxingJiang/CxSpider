@@ -122,13 +122,16 @@ class SpiderHuyaBarrage(tool.abc.LoopSpider):
                     barrage_info.update(type="OT", other="弹幕名称" + category)
                 barrage_list.append(barrage_info)
 
-            self.mysql.insert(self.table_name, barrage_list)
+            self.write(barrage_list)
 
             self.total_num += 1
             self.total_time += 1000 * (time.time() - start_time)
 
             print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", self.data_id_max, ")", "|",
                   "运行时间:", round(self.total_time / self.total_num), "毫秒", "(", round(self.total_time), "/", self.total_num, ")")
+
+    def write(self, data):
+        self.mysql.insert(self.table_name, data)
 
 
 if __name__ == "__main__":

@@ -109,7 +109,7 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
 
         if len(barrage_list) < 200:
 
-            self.mysql.insert(self.table_name, barrage_list)
+            self.write(barrage_list)
 
             self.total_num += 1
             self.total_time += 1000 * (time.time() - start_time)
@@ -125,6 +125,9 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
             print("本次时间范围内弹幕列表未自动向下滚动...")
 
         self.data_id_max += len(barrage_list)
+
+    def write(self, data):
+        self.mysql.insert(self.table_name, data)
 
 
 if __name__ == "__main__":
