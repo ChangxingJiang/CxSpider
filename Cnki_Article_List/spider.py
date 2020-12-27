@@ -74,10 +74,7 @@ class SpiderCnkiArticleList(tool.abc.SingleSpider):
                     "db_name": db_name
                 })
 
-        if len(article_list) == 0:
-            return None
-        else:
-            return article_list
+        return article_list
 
 
 if __name__ == "__main__":
@@ -105,7 +102,8 @@ if __name__ == "__main__":
             ["传媒", "CJFD", "CMEI"],
             ["电视研究", "CJFD", "DSYI"],
             ["全球传媒学刊", "CJFD", "QQCM"],
-            ["新闻爱好者", "CJFD", "XWAH"],
+            ["新闻爱好者", "CJFD", "XWAH"
+             ],
             ["新闻与传播评论", "CJFD", "WHDS"],
             ["新闻与写作", "CJFD", "XWXZ"],
             ["中国编辑", "CJFD", "BJZG"]
@@ -114,5 +112,5 @@ if __name__ == "__main__":
 
     spider_cnki_article_list = SpiderCnkiArticleList()
 
-    for journal in journal_list["CSSCI-新闻与传播学"]:
-        print(journal[0], ":", spider_cnki_article_list.running(journal[0], journal[1], journal[2], "2020", "04"))
+    for journal_item in journal_list["CSSCI-新闻与传播学"]:
+        print(journal_item[0], ":", spider_cnki_article_list.running(journal_item[0], journal_item[1], journal_item[2], "2020", "04"))

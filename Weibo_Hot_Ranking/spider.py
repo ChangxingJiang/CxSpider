@@ -1,9 +1,6 @@
 """
 微博热搜榜爬虫
 
-需要第三方模块：
-Utils4R >= 0.0.2
-
 @author: ChangXing
 @version: 1.1
 @create: 2020.05.29
@@ -11,39 +8,36 @@ Utils4R >= 0.0.2
 """
 
 import re
+from abc import ABCMeta
+from abc import abstractmethod
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 
-class SpiderWeiboHotRanking(tool.abc.LoopSpider):
-    def __init__(self, interval, mysql):
-        super().__init__(interval)
-        self.mysql = mysql
+class SpiderWeiboHotRanking(tool.abc.LoopSpider, metaclass=ABCMeta):
+    _HEADERS = {
+        "Accept": "text/html,application/xhtml+xrequestsml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "s.weibo.com",
+        "Pragma": "no-cache",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
+    }
 
     def running(self):
         # 执行网页请求
-        headers = {
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "Accept-Language": "zh-CN,zh;q=0.9",
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "Host": "s.weibo.com",
-            "Pragma": "no-cache",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "cross-site",
-            "Sec-Fetch-User": "?1",
-            "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
-        }
-
-        response = requests.get("https://s.weibo.com/top/summary", headers=headers)  # 请求微博热搜榜
+        response = tool.do_request("https://s.weibo.com/top/summary", headers=self._HEADERS)  # 请求微博热搜榜
         bs = BeautifulSoup(response.content.decode(errors="ignore"), "lxml")
 
         # 解析网页
-        hot_list = list()
+        hot_list = []
         empty_rank = 0  # 统计空热搜(广告热搜)数量
         for label_item in bs.select("#pl_top_realtimehot > table > tbody > tr"):  # 遍历热搜的标签
             # 提取热搜排名
@@ -96,11 +90,6 @@ class SpiderWeiboHotRanking(tool.abc.LoopSpider):
 
         self.write(hot_list)
 
+    @abstractmethod
     def write(self, data):
-        # 将结果写入到数据库
-        self.mysql.insert(table="weibo", data=data)
-
-
-if __name__ == "__main__":
-    spider = SpiderWeiboHotRanking(interval=5, mysql=tool.db.DefaultMySQL())
-    spider.start()
+        """将结果写入到数据库"""

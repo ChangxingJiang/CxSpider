@@ -51,8 +51,8 @@ def crawler():
 
     # 采集城市编码列表
     spider_city_code = SpiderCityCode(driver)
-    result1 = spider_city_code.running()
-    tool.io.write_json("anjuke_city_code.json", result1)
+    result = spider_city_code.running()
+    tool.io.write_json("anjuke_city_code.json", result)
 
     # 采集城市房源数量
     city_code_list = tool.io.load_json("anjuke_city_code.json")

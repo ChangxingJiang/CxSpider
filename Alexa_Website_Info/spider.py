@@ -25,6 +25,7 @@ class SpiderAlexa(tool.abc.SingleSpider):
         :param page_url: 目标网站地址
         :return: 字典格式的Alexa数据
         """
+        self.page_url = page_url
 
         # 计算实际请求的Alexa页面Url
         actual_url = "https://www.alexa.com/siteinfo/{0}".format(page_url)

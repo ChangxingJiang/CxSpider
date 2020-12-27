@@ -16,7 +16,7 @@ import time
 import crawlertool as tool
 import requests
 
-from . import setting
+from WeGame_TFT_Summoner_List import setting
 
 TFT_LIST = [
     [1, 0, "a1a1eeafef7deb237f2f5e6172958615", "艾欧尼亚:第1页"],
