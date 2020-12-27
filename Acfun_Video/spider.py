@@ -11,7 +11,6 @@ Utils4R >= 0.0.6
 import re
 
 import crawlertool as tool
-import requests
 
 
 class Spider(tool.abc.SingleSpider):
@@ -37,20 +36,20 @@ class Spider(tool.abc.SingleSpider):
 
     def running(self, page_url: str):
         # 获取视频基本信息
-        response = requests.get(page_url, headers=self._HEADERS).text
+        response = tool.do_request(page_url, headers=self._HEADERS).text
         title = re.search(r"(?<=<title>)[^<]+(?=</title>)", response).group()  # 提取视频标题
         video_id = re.search(r"(?<=\"vid\":\")\d+(?=\",)", response).group()  # 提取视频ID
         resource_id = re.search(r"(?<=\"ac\":\")\d+(?=\",)", response).group()  # 提取视频资源ID
 
         # 获取视频下载Url
-        rep_info = requests.get(self._DOWNLOAD_URL.format(video_id, resource_id), headers=self._HEADERS)
+        rep_info = tool.do_request(self._DOWNLOAD_URL.format(video_id, resource_id), headers=self._HEADERS)
         video_url = rep_info.json()["playInfo"]["streams"][0]["playUrls"][0]
 
         # 返回结果
-        return {
+        return [{
             "视频标题": title,
             "视频下载地址": video_url
-        }
+        }]
 
 
 if __name__ == "__main__":

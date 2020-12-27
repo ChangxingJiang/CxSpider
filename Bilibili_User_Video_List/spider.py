@@ -14,7 +14,6 @@ import time
 from urllib.parse import urlencode
 
 import crawlertool as tool
-import requests
 
 
 class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
@@ -54,8 +53,9 @@ class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
         video_list = []
         while now_page <= max_page:
             print("正在请求第", now_page, "页......")
+
             param_dict["pn"] = now_page  # 将当前页填入到参数列表中
-            response = requests.get("https://api.bilibili.com/x/space/arc/search?" + urlencode(param_dict), headers=self.headers)
+            response = tool.do_request("https://api.bilibili.com/x/space/arc/search?" + urlencode(param_dict), headers=self.headers)
             response_json = response.json()  # 将返回结果解析为Json格式
 
             now_page += 1  # 页面累加

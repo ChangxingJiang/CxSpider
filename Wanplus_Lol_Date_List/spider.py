@@ -12,7 +12,6 @@ import json
 import time
 
 import crawlertool as tool
-import requests
 
 # 请求信息
 date_list_url = "https://www.wanplus.com/ajax/schedule/list"  # 列表请求的url
@@ -76,7 +75,7 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
             print("正在抓取时间戳:", i + 1, "/", len(need_date_list), "(", curr_date_str, ")")
             curr_date_timestamp = str((datetime.datetime.strptime(curr_date_str, "%Y%m%d") - datetime.datetime(1970, 1, 1)).total_seconds())
             date_list_data["time"] = curr_date_timestamp  # 列表请求的表单数据
-            response = requests.post(date_list_url, headers=date_list_headers, data=date_list_data)
+            response = tool.do_request(date_list_url, method="post", headers=date_list_headers, data=date_list_data)
             if response.status_code == 200:
                 response_json = json.loads(response.content.decode())
                 for curr_date_str, date_info in response_json["data"]["scheduleList"].items():

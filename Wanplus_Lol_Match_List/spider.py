@@ -10,7 +10,6 @@ WanPlus英雄联盟比赛包含场次列表爬虫
 import time
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 # 请求信息
@@ -51,7 +50,7 @@ class SpiderWanplusLolMatchList(tool.abc.SingleSpider):
             need_race_id = str(need_race_id_list[i])
             print("正在抓取比赛:", i + 1, "/", len(need_race_id_list), "(", need_race_id, ")")
             match_id_list = list()  # 场次ID列表
-            response = requests.get(race_list_url % need_race_id, headers=race_list_headers)
+            response = tool.do_request(race_list_url % need_race_id, headers=race_list_headers)
             bs = BeautifulSoup(response.content.decode(), 'lxml')
             game_labels = bs.select("body > div > div.content > div.left > div:nth-child(1) > div > a")
             for game_label in game_labels:

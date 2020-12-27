@@ -13,7 +13,6 @@ Utils4R >= 0.0.6
 import re
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 
@@ -30,7 +29,7 @@ class SpiderCnkiIssueList(tool.abc.SingleSpider):
         issue_list = []
 
         ajax_url = "http://navi.cnki.net/knavi/JournalDetail/GetJournalYearList?pcode={}&pykm={}&pIdx=0".format(pcode, pykm)
-        if html_text := requests.get(ajax_url).content.decode(errors="ignore"):  # 请求获取期刊刊期列表Ajax
+        if html_text := tool.do_request(ajax_url).content.decode(errors="ignore"):  # 请求获取期刊刊期列表Ajax
             bs = BeautifulSoup(html_text, "lxml")  # 将期刊刊期列表Ajax转换为BeautifulSoup对象
 
             for journal_label in bs.select("#page1 > div > dl > dd > a"):  # 定位到各个刊期的标签

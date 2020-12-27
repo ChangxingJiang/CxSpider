@@ -12,7 +12,6 @@ import re
 import time
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 headers = {
@@ -38,7 +37,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
         for page_num in range(10):
             url = "https://movie.douban.com/top250?start={0}&filter=".format(page_num * 25)
 
-            response = requests.get(url, headers=headers)
+            response = tool.do_request(url, headers=headers)
             bs = BeautifulSoup(response.content.decode(errors="ignore"), 'lxml')
 
             for movie_label in bs.select("#content > div > div.article > ol > li"):  # 定位到电影标签

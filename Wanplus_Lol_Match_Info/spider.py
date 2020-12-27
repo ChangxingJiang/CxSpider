@@ -55,7 +55,7 @@ class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
             # 执行场次请求
             actual_url = match_list_url % match_id
             match_list_headers["referer"] = match_list_referer % race_id
-            response = requests.get(actual_url, headers=match_list_headers)
+            response = tool.do_request(actual_url, headers=match_list_headers)
             response_json = json.loads(response.content.decode())
             tool.io.write_json(os.path.join(MATCHPATH, str(match_id) + ".json"), response_json)
             time.sleep(5)

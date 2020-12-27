@@ -8,7 +8,6 @@ CNKI(中国知网)刊期包含论文列表爬虫
 import re
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 from toolkit.textCleaner import TextCleaner
@@ -29,7 +28,7 @@ class SpiderCnkiArticleList(tool.abc.SingleSpider):
         """
         ajax_url = "http://navi.cnki.net/knavi/JournalDetail/GetArticleList?year={}&issue={}&pykm={}&pageIdx=0&pcode={}"
         ajax_url = ajax_url.format(year, issue, pykm, pcode)
-        response = requests.get(ajax_url)  # 请求获取期刊论文列表Ajax
+        response = tool.do_request(ajax_url)  # 请求获取期刊论文列表Ajax
         html_text = response.content.decode(errors="ignore")
         if html_text is None:
             return None
@@ -47,20 +46,22 @@ class SpiderCnkiArticleList(tool.abc.SingleSpider):
             elif article_label.name == "dd":
                 title = str(TextCleaner(article_label.select_one("dd > span > a").text).clear_empty())  # 读取论文标题
                 href = article_label.select_one("dd > span > a")["href"]  # 读取论文链接
-                if re.search("(?<=dbCode=)[^&]+(?=&)", href):
-                    db_code = re.search("(?<=dbCode=)[^&]+(?=&)", href).group()  # 在论文链接中提取变量值
+                if regex := re.search("(?<=dbCode=)[^&]+(?=&)", href):
+                    db_code = regex.group()  # 在论文链接中提取变量值
                 else:
                     continue
-                if re.search("(?<=filename=)[^&]+(?=&)", href):
-                    file_name = re.search("(?<=filename=)[^&]+(?=&)", href).group()  # 在论文链接中提取变量值
+                if regex := re.search("(?<=filename=)[^&]+(?=&)", href):
+                    file_name = regex.group()  # 在论文链接中提取变量值
                 else:
                     continue
-                if re.search("(?<=tableName=)[^&]+(?=&)", href):
-                    db_name = re.search("(?<=tableName=)[^&]+(?=&)", href).group()  # 在论文链接中提取变量值
+                if regex := re.search("(?<=tableName=)[^&]+(?=&)", href):
+                    db_name = regex.group()  # 在论文链接中提取变量值
                 else:
                     continue
+
                 if "来稿要求" in title:
                     continue
+                
                 article_list.append({
                     "journal": journal,
                     "pcode": pcode,

@@ -14,9 +14,8 @@ import os
 import time
 
 import crawlertool as tool
-import requests
 
-from WeGame_TFT_Summoner_List import setting
+import setting
 
 TFT_LIST = [
     [1, 0, "a1a1eeafef7deb237f2f5e6172958615", "艾欧尼亚:第1页"],
@@ -34,16 +33,16 @@ TFT_LIST = [
 
 class SpiderTftSummonerList(tool.abc.SingleSpider):
     def running(self, params_item):
-        response = requests.get(
+        response = tool.do_request(
             url="https://qt.qq.com/lua/mlol_battle_info/get_total_tier_rank_list",
             params={"area_id": str(params_item[0]), "offset": str(params_item[1]), "sign": str(params_item[2])},
             verify=False)
         summoner_json = response.json()
-        if "data" not in summoner_json:
+
+        if "data" not in summoner_json or "player_list" not in summoner_json["data"]:
             return None
-        if "player_list" not in summoner_json["data"]:
-            return None
-        summoner_list = list()
+
+        summoner_list = []
         for summoner_item in summoner_json["data"]["player_list"]:
             if "tier_title" not in summoner_item:
                 continue

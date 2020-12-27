@@ -8,7 +8,6 @@
 """
 
 import crawlertool as tool
-import requests
 from bs4 import BeautifulSoup
 
 headers = {
@@ -31,7 +30,7 @@ headers = {
 
 class SpiderQidianRanking(tool.abc.SingleSpider):
     def running(self):
-        response = requests.get("https://www.qidian.com/rank/collect?style=2&chn=-1&page=1", headers=headers)
+        response = tool.do_request("https://www.qidian.com/rank/collect?style=2&chn=-1&page=1", headers=headers)
 
         # 解析答案
         bs = BeautifulSoup(response.content.decode(), "lxml")
