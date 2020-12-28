@@ -6,14 +6,22 @@ Twitter账号推文爬虫
 @Update: 2020.10.23
 """
 
+import datetime as dt
 import re
 import time
 from urllib import parse
 
 import crawlertool as tool
+from Selenium4R import Chrome
 
 
-class SpiderTwitterTweet(tool.abc.SingleSpider):
+class SpiderTwitterAccountPost(tool.abc.SingleSpider):
+    """
+    Twitter账号推文爬虫
+
+    最近有效性测试时间:2020.12.28
+    """
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -139,3 +147,13 @@ class SpiderTwitterTweet(tool.abc.SingleSpider):
                 break
 
         return item_list
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    driver = Chrome(cache_path=r"E:\Temp")
+    print(SpiderTwitterAccountPost(driver).running(
+        user_name=SpiderTwitterAccountPost.get_twitter_user_name("https://twitter.com/zaobaosg"),
+        since_date=dt.date(2020, 10, 1),
+        until_date=dt.date(2020, 10, 7)
+    ))

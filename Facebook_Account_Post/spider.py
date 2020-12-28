@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 
 
-class SpiderFacebookPostForFb4(tool.abc.SingleSpider):
+class SpiderFacebookAccountPost(tool.abc.SingleSpider):
     """Facebook账号推文爬虫
 
     适用于Facebook老版本UI(FB4)的Facebook账号发布帖子爬虫；
@@ -20,9 +20,11 @@ class SpiderFacebookPostForFb4(tool.abc.SingleSpider):
     根据观察，Facebook对于间隔时间较长、或间隔推文较多的过早的推文，会选择性地显示，因此时间过早的推文并不能完整抓取，这个损失可能会非常大
 
     @Update 2020.10.22
+
+    最近有效性检验日期:2020.12.28
     """
 
-    def __init__(self, proxy_port: int):
+    def __init__(self, proxy_port: int = None):
         """构造Facebook推文爬虫实例
 
         :param proxy_port: 代理端口
@@ -302,3 +304,12 @@ class SpiderFacebookPostForFb4(tool.abc.SingleSpider):
     def earliest_post_time(self) -> str:
         """返回文本格式的追溯最早推文时间"""
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.earliest_post))
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    print(SpiderFacebookAccountPost().running(
+        user_name=SpiderFacebookAccountPost.get_facebook_user_name("https://www.facebook.com/zaobaosg/"),
+        since_timestamp=int(time.mktime(time.strptime("2020-12-01", "%Y-%m-%d"))),
+        until_timestamp=int(time.mktime(time.strptime("2020-12-20", "%Y-%m-%d")))
+    ))

@@ -10,11 +10,12 @@ import re
 import crawlertool as tool
 from bs4 import BeautifulSoup
 
-from toolkit.textCleaner import TextCleaner
-
 
 class SpiderCnkiArticleList(tool.abc.SingleSpider):
-    """CNKI(中国知网)刊期包含论文列表爬虫"""
+    """CNKI(中国知网)刊期包含论文列表爬虫
+
+    最近有效性测试时间:2020.12.28
+    """
 
     def running(self, journal, pcode, pykm, year, issue):
         """采集指定刊期的论文列表
@@ -44,24 +45,24 @@ class SpiderCnkiArticleList(tool.abc.SingleSpider):
             if article_label.name == "dt":
                 now_column = article_label.get_text()
             elif article_label.name == "dd":
-                title = str(TextCleaner(article_label.select_one("dd > span > a").text).clear_empty())  # 读取论文标题
+                title = re.sub(r"\s", "", article_label.select_one("dd > span > a").text)  # 读取论文标题
                 href = article_label.select_one("dd > span > a")["href"]  # 读取论文链接
-                if regex := re.search("(?<=dbCode=)[^&]+(?=&)", href):
-                    db_code = regex.group()  # 在论文链接中提取变量值
+                if match := re.search("(?<=dbCode=)[^&]+(?=&)", href):
+                    db_code = match.group()  # 在论文链接中提取变量值
                 else:
                     continue
-                if regex := re.search("(?<=filename=)[^&]+(?=&)", href):
-                    file_name = regex.group()  # 在论文链接中提取变量值
+                if match := re.search("(?<=filename=)[^&]+(?=&)", href):
+                    file_name = match.group()  # 在论文链接中提取变量值
                 else:
                     continue
-                if regex := re.search("(?<=tableName=)[^&]+(?=&)", href):
-                    db_name = regex.group()  # 在论文链接中提取变量值
+                if match := re.search("(?<=tableName=)[^&]+(?=&)", href):
+                    db_name = match.group()  # 在论文链接中提取变量值
                 else:
                     continue
 
                 if "来稿要求" in title:
                     continue
-                
+
                 article_list.append({
                     "journal": journal,
                     "pcode": pcode,
@@ -78,6 +79,7 @@ class SpiderCnkiArticleList(tool.abc.SingleSpider):
         return article_list
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
     journal_list = {
         "CSSCI-新闻与传播学": [
@@ -103,8 +105,7 @@ if __name__ == "__main__":
             ["传媒", "CJFD", "CMEI"],
             ["电视研究", "CJFD", "DSYI"],
             ["全球传媒学刊", "CJFD", "QQCM"],
-            ["新闻爱好者", "CJFD", "XWAH"
-             ],
+            ["新闻爱好者", "CJFD", "XWAH"],
             ["新闻与传播评论", "CJFD", "WHDS"],
             ["新闻与写作", "CJFD", "XWXZ"],
             ["中国编辑", "CJFD", "BJZG"]
@@ -112,6 +113,5 @@ if __name__ == "__main__":
     }
 
     spider_cnki_article_list = SpiderCnkiArticleList()
-
     for journal_item in journal_list["CSSCI-新闻与传播学"]:
         print(journal_item[0], ":", spider_cnki_article_list.running(journal_item[0], journal_item[1], journal_item[2], "2020", "04"))

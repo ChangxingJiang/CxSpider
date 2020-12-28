@@ -1,25 +1,27 @@
 # coding:utf-8
 
-from typing import Dict
+from typing import List, Dict
 
 import crawlertool as tool
 from bs4 import BeautifulSoup
 
 
-class SpiderAlexa(tool.abc.SingleSpider):
+class SpiderAlexaWebsiteInfo(tool.abc.SingleSpider):
     """Alexa网站信息爬虫
 
     爬虫逻辑为直接请求Alexa的包含指定网站数据的页面以获取数据；
     Alexa对于浏览量较小的网站，仅收录部分数据，因此对于这些我们网站我们也仅能采集到部分数据
 
     @Update: 2020.10.23
+
+    有效性检验时间 : 2020.12.28
     """
 
     def __init__(self):
         # 爬虫实例的变量
         self.page_url = None
 
-    def running(self, page_url: str) -> Dict:
+    def running(self, page_url: str) -> List[Dict]:
         """执行Alexa爬虫
 
         :param page_url: 目标网站地址
@@ -38,9 +40,9 @@ class SpiderAlexa(tool.abc.SingleSpider):
         response_text = tool.try_request(actual_url)
         if not response_text:
             self.log("网站Url:" + page_url + "|请求失败，网络可能出现问题")
-            return item
+            return [item]
 
-        bs = BeautifulSoup(response_text, "lxml")
+        bs = BeautifulSoup(response_text.content.decode("UTF-8", errors="ignore"), "lxml")
 
         # 读取网站的Alexa排名
         if label := bs.select_one("#card_rank > section.rank > div.rank-global > div:nth-child(1) > div:nth-child(2) > p.big.data"):
@@ -96,4 +98,9 @@ class SpiderAlexa(tool.abc.SingleSpider):
             keyword_list.append(keyword + "(" + keyword_value + ")")
         item["keyword_list"] = " > ".join(keyword_list)
 
-        return item
+        return [item]
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    print(SpiderAlexaWebsiteInfo().running(page_url="qq.com"))

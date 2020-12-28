@@ -8,12 +8,19 @@ Twitter账号信息爬虫
 
 import re
 import time
-from typing import Dict
+from typing import List, Dict
 
 import crawlertool as tool
+from Selenium4R import Chrome
 
 
-class SpiderTwitterAccount(tool.abc.SingleSpider):
+class SpiderTwitterAccountInfo(tool.abc.SingleSpider):
+    """
+    Twitter账号信息爬虫
+
+    最近有效性检验时间:2020.12.28
+    """
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -32,7 +39,7 @@ class SpiderTwitterAccount(tool.abc.SingleSpider):
         if pattern := re.search(r"(?<=twitter.com/)[^/]+", page_url):
             return pattern.group()
 
-    def running(self, user_name: str) -> Dict:
+    def running(self, user_name: str) -> List[Dict]:
         """执行Twitter账号信息爬虫
 
         :param user_name: Twitter的账号用户名称（可以通过get_twitter_user_name获取）
@@ -68,4 +75,11 @@ class SpiderTwitterAccount(tool.abc.SingleSpider):
             self.log("Twitter账号:" + user_name + "|账号粉丝数抓取异常")
             item["following"] = 0
 
-        return item
+        return [item]
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    driver = Chrome(cache_path=r"E:\Temp")
+    print(SpiderTwitterAccountInfo(driver).running(SpiderTwitterAccountInfo.get_twitter_user_name("https://twitter.com/zaobaosg")))
+    driver.quit()

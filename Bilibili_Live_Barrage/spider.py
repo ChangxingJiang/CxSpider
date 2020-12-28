@@ -11,28 +11,36 @@ Utils4R >= 0.0.6
 """
 
 import time
+from abc import ABCMeta
 
 import crawlertool as tool
 from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-class SpiderBilibiliBarrage(tool.abc.SingleSpider):
-    """Bilibili弹幕爬虫"""
+class SpiderBilibiliLiveBarrage(tool.abc.LoopSpider, metaclass=ABCMeta):
+    """Bilibili弹幕爬虫
 
-    def __init__(self, driver, live_url):
+    有效性检验日期 : 2020.12.28
+    """
+
+    def __init__(self, driver, live_url, interval):
         """启动爬虫并打开目标Bilibili直播间
 
         :param driver: Selenium实例
         :param live_url: 目标Bilibili直播间地址
         """
+        super().__init__(interval)
         self.driver = driver
         self.live_url = live_url
 
         # 初始化当前抓取的最新推文的时间戳
         self.update_time = time.time()
 
-        driver.get(live_url)  # 访问目标Bilibili主播的直播间
+        # 访问目标Bilibili主播的直播间
+        driver.get(live_url)
+
+        # 等待页面渲染完成
         time.sleep(10)
 
     def running(self):
@@ -40,7 +48,8 @@ class SpiderBilibiliBarrage(tool.abc.SingleSpider):
         soup = BeautifulSoup(label_html, "lxml")
 
         barrage_list = []
-        for label in soup.select("#chat-history-list > div"):
+        for label in soup.select("#chat-history-list > div > div"):
+            print(label)
 
             barrage_info = {
                 "user_name": "",  # 弹幕发布者名称
@@ -69,53 +78,23 @@ class SpiderBilibiliBarrage(tool.abc.SingleSpider):
                     barrage_list.append(barrage_info)
                     self.update_time = temp_time
 
-        return barrage_list
+        self.write(barrage_list)
 
 
-def crawler(live_name, live_url, mysql):
-    driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
-
-    spider_bilibili_barrage = SpiderBilibiliBarrage(driver=driver, live_url=live_url)
-
-    # 创建目标数据表
-    table_name = "bilibili_{}".format(time.strftime("%Y%m%d_%H%M", time.localtime(time.time())))
-    sql_create = "CREATE TABLE live_barrage.`{}` (" \
-                 "`bid` int(11) NOT NULL AUTO_INCREMENT COMMENT '弹幕ID(barrage id)'," \
-                 "`type` varchar(60) DEFAULT NULL COMMENT '弹幕类型'," \
-                 "`fetch_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '弹幕抓取时间(约等于弹幕发布时间)'," \
-                 " `user_name` varchar(40) DEFAULT NULL COMMENT '弹幕发布者名称'," \
-                 " `user_id` int(11) DEFAULT NULL COMMENT '弹幕发布者等级'," \
-                 " `content` varchar(100) DEFAULT NULL COMMENT '弹幕内容'," \
-                 " PRIMARY KEY (`bid`)" \
-                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bilibili弹幕({})';"
-    mysql.create(sql_create.format(table_name, live_name))
-
-    print("开始抓取Bilibili直播弹幕.....")
-
-    total_time = 0
-    total_num = 0
-
-    barrage_num = 0
-
-    for num in range(36000):
-        start_time = time.time()
-        barrage_list = spider_bilibili_barrage.running()
-        mysql.insert(table_name, barrage_list)
-
-        total_num += 1
-        total_time += 1000 * (time.time() - start_time)
-
-        wait_time = 0.5
-        if wait_time > (time.time() - start_time):
-            time.sleep(0.5 - (time.time() - start_time))
-
-        barrage_num += len(barrage_list)
-
-        print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", barrage_num, ")", "|",
-              "运行时间:", round(total_time / total_num), "毫秒", "(", round(total_time), "/", total_num, ")")
-
-
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    crawler(live_name="20191110_LOL世界赛决赛(FPX vs G2)",
-            live_url="https://live.bilibili.com/blanc/6?liteVersion=true",
-            mysql=tool.db.MySQL(host="", user="", password="", database=""))
+    class MySpider(SpiderBilibiliLiveBarrage):
+        """重写SpiderBilibiliLiveBarrage类"""
+
+        def __init__(self, driver, live_url, mysql):
+            super().__init__(driver=driver, live_url=live_url, interval=0.5)
+            self.mysql = mysql
+
+        def write(self, data):
+            # 将结果写入到数据库
+            self.mysql.insert(table="bilibili_live", data=data)
+
+
+    driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
+    spider = MySpider(driver=driver, live_url="https://live.bilibili.com/732602", mysql=tool.db.DefaultMySQL())
+    spider.start()

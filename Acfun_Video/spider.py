@@ -1,19 +1,21 @@
 """
-AcFun视频信息爬虫（包括下载地址）
-
-需要第三方模块：
-Utils4R >= 0.0.6
-
 @Author: 长行
 @Update: 2020.10.18
 """
 
 import re
+from typing import List, Dict
 
 import crawlertool as tool
 
 
-class Spider(tool.abc.SingleSpider):
+class SpiderAcfunVideo(tool.abc.SingleSpider):
+    """
+    AcFun视频信息爬虫（包括下载地址）
+
+    有效性检验时间 : 2020.12.28
+    """
+
     # 执行请求的请求头
     _HEADERS = {
         "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
@@ -34,7 +36,7 @@ class Spider(tool.abc.SingleSpider):
                      "&socName=UNKNOWN"
                      "&appMode=0")
 
-    def running(self, page_url: str):
+    def running(self, page_url) -> List[Dict]:
         # 获取视频基本信息
         response = tool.do_request(page_url, headers=self._HEADERS).text
         title = re.search(r"(?<=<title>)[^<]+(?=</title>)", response).group()  # 提取视频标题
@@ -47,11 +49,11 @@ class Spider(tool.abc.SingleSpider):
 
         # 返回结果
         return [{
-            "视频标题": title,
-            "视频下载地址": video_url
+            "Title": title,
+            "Download Url": video_url
         }]
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    spider = Spider()
-    print(spider.running(page_url="https://www.acfun.cn/v/ac16986343"))
+    print(SpiderAcfunVideo().running(page_url="https://www.acfun.cn/v/ac16986343"))

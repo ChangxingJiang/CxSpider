@@ -17,7 +17,10 @@ from bs4 import BeautifulSoup
 
 
 class SpiderCnkiIssueList(tool.abc.SingleSpider):
-    """CNKI(中国知网)期刊刊期列表爬虫"""
+    """CNKI(中国知网)期刊刊期列表爬虫
+
+    最近有效性检验:2020.12.28
+    """
 
     def running(self, pcode, pykm):
         """采集指定期刊的刊期列表
@@ -44,6 +47,7 @@ class SpiderCnkiIssueList(tool.abc.SingleSpider):
         return issue_list
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
     journal_list = {
         "CSSCI-新闻与传播学": [

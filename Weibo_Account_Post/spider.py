@@ -18,7 +18,13 @@ from typing import List
 import crawlertool as tool
 
 
-class SpiderWeiboPost(tool.abc.SingleSpider):
+class SpiderWeiboAccountPost(tool.abc.SingleSpider):
+    """
+    微博账号推文爬虫
+
+    最近有效性检验时间:2020.12.28
+    """
+
     # 微博默认domain值
     _DEFAULT_DOMAIN = "107603"
 
@@ -136,3 +142,12 @@ class SpiderWeiboPost(tool.abc.SingleSpider):
                     return yesterday
                 else:
                     return today
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    print(SpiderWeiboAccountPost().running(
+        user_id="1654134123",
+        since_timestamp=int(time.mktime(time.strptime("2020-12-01", "%Y-%m-%d"))),
+        until_timestamp=int(time.mktime(time.strptime("2020-12-20", "%Y-%m-%d")))
+    ))

@@ -16,6 +16,7 @@ Utils4R >= 0.0.2
 目标Url: https://www.douyu.com/topic/s9lol?rid=288016
 """
 
+import collections
 import re
 import time
 
@@ -24,44 +25,27 @@ from Selenium4R import Chrome
 from bs4 import BeautifulSoup
 
 
-class SpiderDouyuBarrage(tool.abc.LoopSpider):
-    def __init__(self, interval, live_name, live_url, mysql):
+class SpiderDouyuLiveBarrage(tool.abc.LoopSpider):
+    """斗鱼弹幕爬虫
+
+    最近有效性检验时间:2020.12.28
+    """
+
+    def __init__(self, driver, live_url, interval):
         super().__init__(interval)
-        self.browser = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
-        self.browser.get(live_url)  # 访问目标斗鱼主播的直播间
+        self.driver = driver
+        self.live_url = live_url
+
+        # 访问目标斗鱼主播的直播间
+        self.driver.get(live_url)
+
+        # 等待页面渲染完成
         time.sleep(10)
 
-        self.mysql = mysql
-
-        time_string = time.strftime("%Y%m%d_%H%M", time.localtime(time.time()))
-        self.table_name = "douyu_{}".format(time_string)
-
-        sql_create = "CREATE TABLE live_barrage.`douyu_{}` (" \
-                     "`bid` int(11) NOT NULL AUTO_INCREMENT COMMENT '弹幕ID(barrage id)'," \
-                     "`type` varchar(60) DEFAULT NULL COMMENT '弹幕类型'," \
-                     "`fetch_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '弹幕抓取时间(约等于弹幕发布时间)'," \
-                     " `user_name` varchar(40) DEFAULT NULL COMMENT '弹幕发布者名称'," \
-                     " `user_level` int(11) DEFAULT NULL COMMENT '弹幕发布者等级'," \
-                     " `content` varchar(100) DEFAULT NULL COMMENT '弹幕内容'," \
-                     " `text` varchar(100) DEFAULT NULL COMMENT '弹幕其他信息'," \
-                     " PRIMARY KEY (`bid`)" \
-                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='斗鱼弹幕({})'"
-        mysql.create(sql_create.format(time_string, live_name))
-
-        print("开始抓取斗鱼直播弹幕.....")
-
-        self.total_time = 0
-        self.total_num = 0
-
-        self.barrage_id_list = []
-
-        self.data_id_max = 0
+        self.barrage_id_list = collections.deque()
 
     def running(self):
-
-        start_time = time.time()
-
-        label_html = self.browser.find_element_by_id("js-barrage-list").get_attribute("innerHTML")
+        label_html = self.driver.find_element_by_id("js-barrage-list").get_attribute("innerHTML")
         soup = BeautifulSoup(label_html, "lxml")  # 将网页内容解析为Soup对象
 
         barrage_list = []
@@ -71,10 +55,11 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
 
             if bid in self.barrage_id_list:
                 continue
+
             self.barrage_id_list.append(bid)
 
             if len(self.barrage_id_list) > 200:
-                self.barrage_id_list.remove(self.barrage_id_list[0])
+                self.barrage_id_list.popleft()
 
             barrage_info = {
                 "type": "",  # 弹幕所属类型
@@ -108,31 +93,25 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
             barrage_list.append(barrage_info)
 
         if len(barrage_list) < 200:
-
             self.write(barrage_list)
-
-            self.total_num += 1
-            self.total_time += 1000 * (time.time() - start_time)
-
-            print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", self.data_id_max, ")", "|",
-                  "运行时间:", round(self.total_time / self.total_num), "毫秒", "(", round(self.total_time), "/", self.total_num, ")")
-
         else:
-
-            self.total_num += 1
-            self.total_time += 1000 * (time.time() - start_time)
-
             print("本次时间范围内弹幕列表未自动向下滚动...")
 
-        self.data_id_max += len(barrage_list)
 
-    def write(self, data):
-        self.mysql.insert(self.table_name, data)
-
-
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    spider = SpiderDouyuBarrage(interval=0.5,
-                                live_name="东北大鹌鹑",
-                                live_url="https://www.douyu.com/96291",
-                                mysql=tool.db.MySQL(host="", user="", password="", database=""))
+    class MySpider(SpiderDouyuLiveBarrage):
+        """重写SpiderBilibiliLiveBarrage类"""
+
+        def __init__(self, driver, live_url, mysql):
+            super().__init__(driver=driver, live_url=live_url, interval=0.5)
+            self.mysql = mysql
+
+        def write(self, data):
+            # 将结果写入到数据库
+            self.mysql.insert(table="douyu_live", data=data)
+
+
+    driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
+    spider = MySpider(driver=driver, live_url="https://www.douyu.com/96291", mysql=tool.db.DefaultMySQL())
     spider.start()

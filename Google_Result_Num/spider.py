@@ -9,13 +9,14 @@ Google搜索引擎收录增量爬虫
 import calendar
 import re
 import time
-from typing import Dict
+from typing import List, Dict
 from urllib import parse
 
 import crawlertool as tool
+from Selenium4R import Chrome
 
 
-class SpiderGoogle(tool.abc.SingleSpider):
+class SpiderGoogleResultNum(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
@@ -32,7 +33,7 @@ class SpiderGoogle(tool.abc.SingleSpider):
         page_url = re.sub(r"[Hh][Tt][Tt][Pp][Ss]?://", "", page_url)
         return page_url[:page_url.index("/")] if "/" in page_url else page_url
 
-    def running(self, domain_name: str, year: int, month: int) -> Dict:
+    def running(self, domain_name: str, year: int, month: int) -> List[Dict]:
         """执行Google搜索引擎收录增量爬虫
 
         抓取Google收录在来自目标网站在目标年份和月份的结果数量
@@ -82,10 +83,20 @@ class SpiderGoogle(tool.abc.SingleSpider):
         if label := self.driver.find_element_by_id("result-stats"):
             if pattern := re.search(r"[\d,]+\.?\d*", label.text):
                 self.log("抓取成功(实际请求的Google页面Url:" + actual_url + ")")
-                return {"web_post_sum": int(pattern.group().replace(",", ""))}
+                return [{"web_post_sum": int(pattern.group().replace(",", ""))}]
             else:
                 self.log("抓取失败,获取的目标数据格式异常(实际请求的Google页面Url:" + actual_url + ")")
-                return {"web_post_sum": None}
+                return [{"web_post_sum": None}]
         else:
             self.log("抓取失败,未找到目标数据所在的节点(实际请求的Google页面Url:" + actual_url + ")")
-            return {"web_post_sum": None}
+            return [{"web_post_sum": None}]
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    driver = Chrome(cache_path=r"E:\Temp")
+    print(SpiderGoogleResultNum(driver).running(
+        domain_name=SpiderGoogleResultNum.get_domain_name("https://www.qq.com"),
+        year=2020,
+        month=12
+    ))

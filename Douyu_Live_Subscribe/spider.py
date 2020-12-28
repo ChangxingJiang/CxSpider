@@ -17,7 +17,13 @@ from Selenium4R import Chrome
 from selenium.common.exceptions import NoSuchElementException
 
 
-class SpiderDouyuSubscribe(tool.abc.SingleSpider):
+class SpiderDouyuLiveSubscribe(tool.abc.SingleSpider):
+    """
+    斗鱼直播间订阅数爬虫
+
+    已失效
+    """
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -38,20 +44,14 @@ class SpiderDouyuSubscribe(tool.abc.SingleSpider):
             except NoSuchElementException:
                 time.sleep(1)
 
-        return text_subscribe
+        return [{
+            "account_url": account_url,
+            "text_subscribe": text_subscribe
+        }]
 
 
-def crawler(live_list_path):
-    driver = Chrome(cache_path=r"E:\Temp")
-
-    account_list = tool.io.load_string(live_list_path)
-
-    spider = SpiderDouyuSubscribe(driver)
-
-    for account_url in account_list.split("\n"):
-        text_subscribe = spider.running(account_url)
-        print(account_url, text_subscribe)
-
-
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    crawler("douyu_account_list.txt")  # 文件中为直播间Url列表
+    driver = Chrome(cache_path=r"E:\Temp")
+    print(SpiderDouyuLiveSubscribe(driver).running("https://www.douyu.com/96291"))
+    driver.quit()

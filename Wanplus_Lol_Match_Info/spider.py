@@ -8,58 +8,49 @@ WanPlus英雄联盟场次详细信息爬虫
 """
 
 import json
-import os
-import time
 
 import crawlertool as tool
 
-match_list_url = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"  # 场次请求的url
-match_list_referer = "https://www.wanplus.com/schedule/%s.html"  # 场次请求的headers中referer参数的值
-match_list_headers = {
-    "accept": "application/json, text/javascript, */*; q=0.01",
-    "accept-encoding": "gzip, deflate, br",
-    "accept-language": "zh-CN,zh;q=0.9",
-    "cache-control": "no-cache",
-    "pragma": "no-cache",
-    "referer": "",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-origin",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
-    "x-csrf-token": "345357323",
-    "x-requested-with": "XMLHttpRequest"
-}  # 场次请求的headers
-
-RACEFILE = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\race_list.json"
-MATCHPATH = "E:\\【微云工作台】\\数据\\英雄联盟比赛数据\\match"
-
 
 class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
-    def running(self):
-        data_race = tool.io.load_json(RACEFILE)  # 载入比赛包含场次表
-        data_list_match = os.listdir(MATCHPATH)  # 载入游戏信息文件列表
+    """
+    WanPlus英雄联盟场次详细信息爬虫
 
-        # 统计需要抓取的场次ID列表
-        need_match_id_list = dict()
-        for race_id, match_id_list in data_race.items():
-            for match_id in match_id_list:
-                match_file_name = str(match_id) + ".json"
-                if match_file_name not in data_list_match:
-                    need_match_id_list[match_id] = race_id
-        print("需要抓取的场次数量:", len(need_match_id_list))
+    最近有效性测试:已失效
+    """
 
-        num = 1
-        for match_id, race_id in need_match_id_list.items():
-            print("正在抓取场次:", num, "/", len(need_match_id_list), "(", match_id, "-", race_id, ")")
-            num += 1
-            # 执行场次请求
-            actual_url = match_list_url % match_id
-            match_list_headers["referer"] = match_list_referer % race_id
-            response = tool.do_request(actual_url, headers=match_list_headers)
-            response_json = json.loads(response.content.decode())
-            tool.io.write_json(os.path.join(MATCHPATH, str(match_id) + ".json"), response_json)
-            time.sleep(5)
+    # 场次请求的url
+    _MATCH_LIST_URL = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"
+
+    # 场次请求的headers中referer参数的值
+    _MATCH_LIST_REFERER = "https://www.wanplus.com/schedule/%s.html"
+
+    # 场次请求的headers
+    _MATCH_LIST_HEADERS = {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "referer": "",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
+        "x-csrf-token": "345357323",
+        "x-requested-with": "XMLHttpRequest"
+    }
+
+    def running(self, race_id, match_id):
+        # 执行场次请求
+        self._MATCH_LIST_HEADERS["referer"] = self._MATCH_LIST_REFERER % race_id
+        response = tool.do_request(self._MATCH_LIST_URL % match_id, headers=self._MATCH_LIST_HEADERS)
+        return [{
+            "race_id": race_id,
+            "match_id": match_id,
+            "match_detail": json.loads(response.content.decode())
+        }]
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    spider = SpiderWanplusLolMatchInfo()
-    spider.running()
+    print(SpiderWanplusLolMatchInfo().running(race_id="67046", match_id="71690"))

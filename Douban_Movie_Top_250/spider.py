@@ -7,37 +7,42 @@
 @revise: -
 """
 
-import json
 import re
 import time
 
 import crawlertool as tool
 from bs4 import BeautifulSoup
 
-headers = {
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "Accept-Language": "zh-CN,zh;q=0.9",
-    "cache-control": "no-cache",
-    "Connection": "keep-alive",
-    "host": "movie.douban.com",
-    "pragma": "no-cache",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "none",
-    "Sec-Fetch-User": "?1",
-    "Upgrade-Insecure-Requests": "1",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
-}
-
 
 class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
+    """
+    豆瓣TOP250电影采集
+
+    最近有效性检验日期 : 2020.12.28
+    """
+
+    _HEADERS = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "cache-control": "no-cache",
+        "Connection": "keep-alive",
+        "host": "movie.douban.com",
+        "pragma": "no-cache",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+    }
+
     def running(self):
         movie_list = []
 
         for page_num in range(10):
             url = "https://movie.douban.com/top250?start={0}&filter=".format(page_num * 25)
 
-            response = tool.do_request(url, headers=headers)
+            response = tool.do_request(url, headers=self._HEADERS)
             bs = BeautifulSoup(response.content.decode(errors="ignore"), 'lxml')
 
             for movie_label in bs.select("#content > div > div.article > ol > li"):  # 定位到电影标签
@@ -77,18 +82,14 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
 
                 movie_list.append({
                     "url": url,
-                    "title": {
-                        "chinese": title_chinese,
-                        "others": title_other
-                    },
+                    "title_chinese": title_chinese,
+                    "title_others": title_other,
                     "director": director,
                     "year": year,
                     "country": country,
                     "classify": classify,
-                    "rating": {
-                        "num": rating_num,
-                        "people": rating_people
-                    },
+                    "rating_num": rating_num,
+                    "rating_people": rating_people,
                     "quote": quote
                 })
 
@@ -97,11 +98,6 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
         return movie_list
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    spider = SpiderDoubanMovieTop250()
-
-    movie_list = spider.running()
-
-    # 将临时变量中的数据存储到Json文件
-    with open("豆瓣TOP250电影.json", "w+", encoding="UTF-8") as file:
-        file.write(json.dumps({"data": movie_list}, ensure_ascii=False))
+    print(SpiderDoubanMovieTop250().running())

@@ -9,7 +9,6 @@
 
 import re
 from abc import ABCMeta
-from abc import abstractmethod
 
 import crawlertool as tool
 from bs4 import BeautifulSoup
@@ -90,6 +89,20 @@ class SpiderWeiboHotRanking(tool.abc.LoopSpider, metaclass=ABCMeta):
 
         self.write(hot_list)
 
-    @abstractmethod
-    def write(self, data):
-        """将结果写入到数据库"""
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    class MySpider(SpiderWeiboHotRanking):
+        """重写SpiderWeiboHotRanking类"""
+
+        def __init__(self, interval, mysql):
+            super().__init__(interval)
+            self.mysql = mysql
+
+        def write(self, data):
+            # 将结果写入到数据库
+            self.mysql.insert(table="weibo", data=data)
+
+
+    spider = MySpider(interval=5, mysql=tool.db.DefaultMySQL())
+    spider.start()

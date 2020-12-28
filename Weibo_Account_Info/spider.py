@@ -7,17 +7,23 @@
 """
 
 import json
-from typing import Dict
+from typing import List, Dict
 
 import crawlertool as tool
 
 
-class SpiderWeiboAccount(tool.abc.SingleSpider):
+class SpiderWeiboAccountInfo(tool.abc.SingleSpider):
+    """
+    微博账号信息爬虫
+
+    最近有效性检验时间:2020.12.28
+    """
+
     def __init__(self):
         # 爬虫实例的变量
         self.user_id = None
 
-    def running(self, user_id: str) -> Dict:
+    def running(self, user_id: str) -> List[Dict]:
         """执行微博账号信息爬虫
 
         :param user_id: 微博账号的ID
@@ -31,13 +37,13 @@ class SpiderWeiboAccount(tool.abc.SingleSpider):
 
         item = {}
 
-        response_text = tool.try_request(actual_url, headers={"User-Agent": tool.static.USER_AGENT["Win10_Chrome"]})
-        
+        response_text = tool.try_request(actual_url, headers={"User-Agent": tool.static.USER_AGENT["Win10_Chrome83"]})
+
         if not response_text:
             self.log("微博账号:" + str(user_id) + "|账号信息API请求失败")
 
         try:
-            response_json = json.loads(response_text)
+            response_json = json.loads(response_text.content.decode("UTF-8", errors="ignore"))
 
             # 读取微博账号的粉丝数
             item["followers"] = response_json["data"]["userInfo"]["followers_count"]
@@ -50,4 +56,9 @@ class SpiderWeiboAccount(tool.abc.SingleSpider):
         except (json.decoder.JSONDecodeError, KeyError):
             self.log("微博账号:" + str(user_id) + "|账号信息API内容格式异常")
 
-        return item
+        return [item]
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    print(SpiderWeiboAccountInfo().running("1654134123"))

@@ -12,47 +12,42 @@ Selenium4R >= 0.0.3
 @revise: 2020.06.09
 """
 
-import time
-
 import crawlertool as tool
 from Selenium4R import Chrome
 
 
-class SpiderHuyaSubscribe(tool.abc.SingleSpider):
+class SpiderHuyaLiveSubscribe(tool.abc.SingleSpider):
+    """
+    虎牙直播间订阅数爬虫
+
+    最近有效性检验：2020.12.28
+    """
+
     def __init__(self, driver):
         self.driver = driver
 
     def running(self, account_url):
         self.driver.get(account_url)
 
+        item = {
+            "text_id": "",
+            "text_subscribe": ""
+        }
+
         # 读取直播间订阅数量
-        text_subscribe = ""
         if label_subscribe := self.driver.find_element_by_xpath('//*[@id="activityCount"]'):
-            text_subscribe = label_subscribe.text
+            item["text_subscribe"] = label_subscribe.text
 
         # 读取直播间ID
-        text_id = ""
         if label_id := self.driver.find_element_by_css_selector(
-                '#J_roomHeader > div.room-hd-l > div.host-info > div.host-detail.J_roomHdDetail > span.host-rid'):
-            text_id = label_id.text
+                "#J_roomHeader > div.room-hd-l > div.host-info > div.host-detail.J_roomHdDetail > span.host-rid"):
+            item["text_id"] = label_id.text
 
-        return text_id, text_subscribe
-
-
-def crawler():
-    driver = Chrome(cache_path=r"E:\temp")
-
-    account_list = tool.io.load_string("huya_account_list.txt")
-
-    spider = SpiderHuyaSubscribe(driver)
-
-    for account_url in account_list.split("\n"):
-        text_id, text_subscribe = spider.running(account_url)
-
-        print(account_url, text_id, text_subscribe)
-
-        time.sleep(3)
+        return [item]
 
 
+# ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    crawler()
+    driver = Chrome(cache_path=r"E:\temp")
+    print(SpiderHuyaLiveSubscribe(driver).running("https://www.huya.com/102411"))
+    driver.quit()

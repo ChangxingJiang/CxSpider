@@ -5,14 +5,17 @@ import re
 import time
 
 import crawlertool as tool
+from Selenium4R import Chrome
 
 
-class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
+class SpiderFacebookAccountInfo(tool.abc.SingleSpider):
     """Facebook账号信息爬虫
 
     适用于Facebook老版本UI(FB4)的Facebook账号信息爬虫
 
     @Update 2020.10.22
+
+    有效性检验日期:2020.12.28
     """
 
     def __init__(self, driver):
@@ -60,4 +63,11 @@ class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
         else:
             self.log("Facebook账号主页:" + page_url + "|账号关注数和点赞数抓取异常")
 
-        return item
+        return [item]
+
+
+# ------------------- 单元测试 -------------------
+if __name__ == "__main__":
+    driver = Chrome(cache_path=r"E:\Temp")
+    print(SpiderFacebookAccountInfo(driver).running("https://www.facebook.com/zaobaosg/"))
+    driver.quit()
