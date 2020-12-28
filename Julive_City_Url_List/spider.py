@@ -21,7 +21,7 @@ class SpiderJuliveCityList(tool.abc.SingleSpider):
         driver = Chrome(cache_path=r"E:\temp")
         driver.get("https://cc.julive.com/project/s")
 
-        bs = BeautifulSoup(driver.page_source, 'lxml')  # 将网页转化为BeautifulSoup结构
+        bs = BeautifulSoup(driver.page_source, "lxml")
 
         city_dict = dict()
         for element_city in bs.select(

@@ -53,7 +53,7 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
         self.total_time = 0
         self.total_num = 0
 
-        self.barrage_id_list = list()
+        self.barrage_id_list = []
 
         self.data_id_max = 0
 
@@ -62,7 +62,7 @@ class SpiderDouyuBarrage(tool.abc.LoopSpider):
         start_time = time.time()
 
         label_html = self.browser.find_element_by_id("js-barrage-list").get_attribute("innerHTML")
-        soup = BeautifulSoup(label_html, 'lxml')  # 将网页内容解析为Soup对象
+        soup = BeautifulSoup(label_html, "lxml")  # 将网页内容解析为Soup对象
 
         barrage_list = []
         for label in soup.select("li"):

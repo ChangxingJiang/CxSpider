@@ -50,11 +50,11 @@ class SpiderFacebookAccountForFb4(tool.abc.SingleSpider):
         # 抓取账户关注数和点赞数
         if label := self.driver.find_element_by_css_selector("#PagesProfileHomeSecondaryColumnPagelet"):
             if pattern := re.search(r"[\d, ]+(?= 位用户关注了)", label.text):
-                item["follow"] = pattern.group().replace(",", "").replace(" ", "")
+                item["follow"] = int(pattern.group().replace(",", "").replace(" ", ""))
             else:
                 item["follow"] = 0
             if pattern := re.search(r"[\d, ]+(?= 位用户赞了)", label.text):
-                item["favor"] = pattern.group().replace(",", "").replace(" ", "")
+                item["favor"] = int(pattern.group().replace(",", "").replace(" ", ""))
             else:
                 item["favor"] = 0
         else:

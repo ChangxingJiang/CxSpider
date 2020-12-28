@@ -19,10 +19,10 @@ import crawlertool as tool
 
 
 class SpiderWeiboPost(tool.abc.SingleSpider):
-    def __init__(self):
-        # 爬虫实例的常量
-        self.default_domain = "107603"
+    # 微博默认domain值
+    _DEFAULT_DOMAIN = "107603"
 
+    def __init__(self):
         # 爬虫实例的变量
         self.user_id = None
         self.earliest_post = None
@@ -48,7 +48,7 @@ class SpiderWeiboPost(tool.abc.SingleSpider):
             actual_url = ("https://m.weibo.cn/api/container/getIndex?" +
                           "type=uid" +
                           "&value=" + user_id +
-                          "&containerid=" + self.default_domain + user_id +
+                          "&containerid=" + self._DEFAULT_DOMAIN + user_id +
                           "&page=" + str(page))
 
             self.console("抓取开始,第" + str(page) + "次下拉,实际请求Url:" + actual_url)

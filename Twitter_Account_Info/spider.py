@@ -11,11 +11,10 @@ import time
 from typing import Dict
 
 import crawlertool as tool
-from Selenium4R import Chrome
 
 
 class SpiderTwitterAccount(tool.abc.SingleSpider):
-    def __init__(self, driver: "Chrome"):
+    def __init__(self, driver):
         self.driver = driver
 
         # 爬虫实例的变量
@@ -50,7 +49,7 @@ class SpiderTwitterAccount(tool.abc.SingleSpider):
         item = {}
 
         if label := self.driver.find_element_by_xpath(
-                "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/a", ):
+                "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/a"):
             item["following"] = tool.extract.number(label.text)
         elif label := self.driver.find_element_by_xpath(
                 "//*[@id=\"react-root\"]/div/div/div/main/div/div/div/div[1]/div/div/div/div/div[1]/div/div[4]/div[1]/a"):

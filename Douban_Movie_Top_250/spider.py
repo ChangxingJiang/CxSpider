@@ -32,7 +32,7 @@ headers = {
 
 class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
     def running(self):
-        movie_list = list()
+        movie_list = []
 
         for page_num in range(10):
             url = "https://movie.douban.com/top250?start={0}&filter=".format(page_num * 25)
@@ -54,8 +54,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
                 info_text = movie_label.select_one("li > div > div.info > div.bd > p:nth-child(1)").text  # 获取说明部分内容
                 info_text = re.sub("\n *", "\n", info_text)  # 清除行前多余的空格
                 info_text = re.sub("^\n", "", info_text)  # 清除开头的空行
-                info_line_1 = info_text.split("\n")[0]  # 获取第1行内容信息:包括导演和主演
-                info_line_2 = info_text.split("\n")[1]  # 获取第2行内容信息:包括年份、国家和类型
+                info_line_1, info_line_2 = info_text.split("\n")[0:2]  # 获取第1行内容信息:包括导演和主演、获取第2行内容信息:包括年份、国家和类型
                 director = re.sub(" *(主演|主\\.{3}|\\.{3}).*$", "", info_line_1)  # 仅保留导演部分
                 year = int(re.search("[0-9]+", info_line_2.split("/")[0]).group())  # 提取电影年份并转换为数字
                 country = info_line_2.split("/")[1].strip() if len(info_line_2.split("/")) >= 2 else None  # 提取电影国家
@@ -67,8 +66,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
                 rating_num = float(re.search("[0-9.]+", rating_num).group())  # 将评分转换为浮点型数字
 
                 # 解析评分人数
-                rating_people = movie_label.select_one(
-                    "li > div > div.info > div.bd > div > span:nth-child(4)").text  # 提取评分人数
+                rating_people = movie_label.select_one("li > div > div.info > div.bd > div > span:nth-child(4)").text  # 提取评分人数
                 rating_people = int(re.search("[0-9]+", rating_people).group())  # 将评分人数转换为数字
 
                 # 解析评价(该标签可能会不存在)

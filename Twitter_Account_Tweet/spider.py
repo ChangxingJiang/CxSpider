@@ -46,7 +46,7 @@ class SpiderTwitterTweet(tool.abc.SingleSpider):
         item_list = []
 
         # 生成请求的Url
-        query_sentence = list()
+        query_sentence = []
         query_sentence.append("from:%s" % user_name)  # 搜索目标用户发布的推文
         query_sentence.append("-filter:retweets")  # 过滤到所有转推的推文
         if since_date is not None:

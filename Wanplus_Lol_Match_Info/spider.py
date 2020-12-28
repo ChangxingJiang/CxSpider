@@ -12,7 +12,6 @@ import os
 import time
 
 import crawlertool as tool
-import requests
 
 match_list_url = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"  # 场次请求的url
 match_list_referer = "https://www.wanplus.com/schedule/%s.html"  # 场次请求的headers中referer参数的值

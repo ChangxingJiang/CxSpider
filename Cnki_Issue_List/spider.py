@@ -30,11 +30,12 @@ class SpiderCnkiIssueList(tool.abc.SingleSpider):
 
         ajax_url = "http://navi.cnki.net/knavi/JournalDetail/GetJournalYearList?pcode={}&pykm={}&pIdx=0".format(pcode, pykm)
         if html_text := tool.do_request(ajax_url).content.decode(errors="ignore"):  # 请求获取期刊刊期列表Ajax
+
             bs = BeautifulSoup(html_text, "lxml")  # 将期刊刊期列表Ajax转换为BeautifulSoup对象
 
             for journal_label in bs.select("#page1 > div > dl > dd > a"):  # 定位到各个刊期的标签
-                if match_name := re.search("[0-9]{6}", journal_label["id"]):  # 提取刊期名称，格式例如：yq201908
-                    journal_name = match_name.group()
+                if match := re.search("[0-9]{6}", journal_label["id"]):  # 提取刊期名称，格式例如：yq201908
+                    journal_name = match.group()
                     issue_list.append({
                         "year": journal_name[0:4],
                         "issue": journal_name[4:]

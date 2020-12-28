@@ -16,7 +16,6 @@ import time
 
 import crawlertool as tool
 from Selenium4R import Chrome
-from selenium.common.exceptions import NoSuchElementException
 
 
 class SpiderHuyaSubscribe(tool.abc.SingleSpider):
@@ -28,22 +27,14 @@ class SpiderHuyaSubscribe(tool.abc.SingleSpider):
 
         # 读取直播间订阅数量
         text_subscribe = ""
-        try:
-            label_subscribe = self.driver.find_element_by_xpath('//*[@id="activityCount"]')
-            if label_subscribe is not None:
-                text_subscribe = label_subscribe.text
-        except NoSuchElementException:
-            pass
+        if label_subscribe := self.driver.find_element_by_xpath('//*[@id="activityCount"]'):
+            text_subscribe = label_subscribe.text
 
         # 读取直播间ID
         text_id = ""
-        try:
-            label_id = self.driver.find_element_by_css_selector(
-                '#J_roomHeader > div.room-hd-l > div.host-info > div.host-detail.J_roomHdDetail > span.host-rid')
-            if label_id is not None:
-                text_id = label_id.text
-        except NoSuchElementException:
-            pass
+        if label_id := self.driver.find_element_by_css_selector(
+                '#J_roomHeader > div.room-hd-l > div.host-info > div.host-detail.J_roomHdDetail > span.host-rid'):
+            text_id = label_id.text
 
         return text_id, text_subscribe
 
