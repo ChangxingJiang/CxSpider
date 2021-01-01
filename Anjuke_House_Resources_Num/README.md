@@ -34,3 +34,18 @@ for city_name, city_code in city_code_list.items():
 driver.quit()
 ```
 
+
+
+### 安居客各地房源数量爬虫(anjuke.housing_resources_num)
+
+> @author: ChangXing
+>
+> @version: 1.1
+>
+> @create: 2019.12.17
+>
+> @revise: 2020.06.09
+
+先采集城市编码列表(crawler_city_list)，再依据城市编码采集城市房源数量(crawler_city_resources)。
+
+* 应用配置：无需使用代理IP，需要使用Selenium

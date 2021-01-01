@@ -26,3 +26,23 @@ spider = Spider()
 print(spider.run(page_url="https://www.acfun.cn/v/ac16986343"))
 ```
 
+
+
+### [V-02-1] AcFun视频信息爬虫(acfun.video)
+
+> **@author** ChangXing
+>
+> **@version** 1.0
+>
+> **@create** 2020.07.24
+
+采集AcFun视频信息
+
+* 应用配置：无需使用代理IP、无需使用Selenium
+
+| 字段名 | 字段内容     |
+| ------ | ------------ |
+| title  | 视频标题     |
+| videos | 视频下载地址 |
+
+### 

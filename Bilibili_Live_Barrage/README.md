@@ -60,18 +60,32 @@ if __name__ == "__main__":
             mysql=Utils.db.MySQL(host="", user="", password="", database=""))
 ```
 
-# B站UP主发布视频列表爬虫
+### Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
 
-> 最新有效性检查时间：2020.10.18
+> @author: ChangXing
+>
+> @version: 1.2
+>
+> @create: 2019.11.24
+>
+> @revise: 2020.06.08
 
-#### 所需第三方包
+使用Selenium模拟浏览器，采集Bilibili直播间中的弹幕。
 
-* Utils4R >= 0.0.6
-* requests >= 2.23.0
+* 应用配置：无需使用代理IP，需要使用Selenium
 
-#### 调用Demo
+| 字段名     | 字段内容                                               |
+| ---------- | ------------------------------------------------------ |
+| bid        | 弹幕ID                                                 |
+| type       | 弹幕类型                                               |
+| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
+| user_name  | 弹幕发布者名称                                         |
+| user_id    | 弹幕发布者ID                                           |
+| content    | 弹幕内容                                               |
 
-```python
-spider = SpiderBilibiliUserVideoList()
-print(spider.run(20165629))  # 其中20165629为用户ID
-```
+### 
+
+
+
+
+

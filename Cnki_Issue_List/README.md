@@ -64,3 +64,22 @@ spider_cnki_issue_list = SpiderCnkiIssueList()
 for journal in journal_list["CSSCI-新闻与传播学"]:
     print(journal[0], ":", spider_cnki_issue_list.run(journal[1], journal[2]))
 ```
+
+
+
+
+
+### 知网期刊包含刊期列表爬虫(cnki.issue_list)
+
+> @author: ChangXing
+>
+> @version: 1.1
+>
+> @create: 2019.11.02
+>
+> @revise: 2020.06.08
+
+采集中国知网中指定期刊所有刊期的列表，刊期包括年份和在该年的序号。
+
+* 采集参数：需要指定期刊的pcode、pykm共2个属性作为参数才可以采集
+* 应用配置：无需使用代理IP，无需使用Selenium
