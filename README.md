@@ -2,16 +2,17 @@
 
 本项目为爬虫合集，主要其一为本合集自行设计实现的爬虫，其二为本合集收录的其他爬虫。
 
-**本合集提醒您：在使用“CxSpider 长行的爬虫合集”（以下简称本合集）的爬虫前，请您务必仔细阅读并透彻理解本合集的免责声明（以下简称免责声明）。您可以选择不使用本合集，但如果您使用本合集，您的使用行为将被视为对免责声明全部内容的认可。**
+**本合集提醒您：在使用“CxSpider 长行的爬虫合集”（以下简称本合集）的爬虫前，请您务必仔细阅读并透彻理解本合集的[免责声明](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)（以下简称免责声明）。您可以选择不使用本合集，但如果您使用本合集，您的使用行为将被视为对免责声明全部内容的认可。**
 
 ### 目录
 
-* [自行设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E8%87%AA%E8%A1%8C%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
-  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
+* [合集设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
+  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
   * [爬虫的设置&调用方法](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
   * [工具类说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E7%B1%BB%E8%AF%B4%E6%98%8E)
-* [收录的其他爬虫](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
-  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8-1)
+* [合集收录的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
+  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
+* [免责声明](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
 * 爬虫相关答疑
 * [项目近期计划](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E8%BF%91%E6%9C%9F%E8%AE%A1%E5%88%92)
 * [项目作者介绍](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85%E4%BB%8B%E7%BB%8D)
