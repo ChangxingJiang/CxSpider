@@ -13,7 +13,7 @@
 * [合集设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
   * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
   * [爬虫的设置&调用方法](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
-  * [工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E7%B1%BB%E8%AF%B4%E6%98%8E)
+  * [工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
 * [合集收录的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
   * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
 * [免责声明](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
@@ -77,7 +77,7 @@
 1. 安装爬虫运行所需的环境
 
    * 安装Python环境和Python的开发环境：Python版本≥3.8
-   * 安装所需的Python工具模块：每个爬虫各不相同，每个爬虫需要安装的工具模块参见具体爬虫的文档，每个工具模块的功能参见工具模块说明
+   * 安装所需的Python工具模块：每个爬虫各不相同，每个爬虫需要安装的工具模块参见具体爬虫的文档，每个工具模块的功能参见[工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
    * 安装Chrome浏览器：如果爬虫为Selenium爬虫，则需要安装Chrome浏览器
 
 2. 引用爬虫源代码中的爬虫类
