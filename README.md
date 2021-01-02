@@ -1,56 +1,67 @@
-[TOC]
-
 # CxSpider 长行的爬虫合集
 
 本项目为爬虫合集，主要其一为本合集自行设计实现的爬虫，其二为本合集收录的其他爬虫。
 
-* 自行设计的爬虫
-  * 爬虫列表
-  * 爬虫的设置&调用方法
-  * 工具类说明
-  * 免责声明
-* 收录的其他爬虫
-  * 爬虫列表
-  * 爬虫免责说明
-* 项目近期计划
-* 项目作者介绍
+**本合集提醒您：在使用“CxSpider 长行的爬虫合集”（以下简称本合集）的爬虫前，请您务必仔细阅读并透彻理解本合集的免责声明（以下简称免责声明）。您可以选择不使用本合集，但如果您使用本合集，您的使用行为将被视为对免责声明全部内容的认可。**
 
-# 自行设计的爬虫
+### 目录
 
-对于本合集自行设计的爬虫，本合集统一了爬虫的配置方式、调用方式和返回结果格式，并遵循如下原则：
+* [自行设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E8%87%AA%E8%A1%8C%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
+  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
+  * [爬虫的设置&调用方法](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
+  * [工具类说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E7%B1%BB%E8%AF%B4%E6%98%8E)
+* [收录的其他爬虫](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
+  * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8-1)
+* 爬虫相关答疑
+* [项目近期计划](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E8%BF%91%E6%9C%9F%E8%AE%A1%E5%88%92)
+* [项目作者介绍](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85%E4%BB%8B%E7%BB%8D)
+
+# 合集设计的爬虫
+
+对于本合集自行设计实现的爬虫，本合集统一了爬虫的配置方式、调用方式和返回结果格式，在设计中遵循如下原则：
 
 1. 每个Python脚本（.py文件）仅依赖于发布在pypi（可以通过pip安装）的工具即自身，方便直接复制代码来使用爬虫。
 2. 爬虫返回结果统一为字典列表格式，并在工具类中配有将这种格式写入csv、Excel和MySQL的工具函数。
 3. 将所有爬虫发布到pypi的cxspider模块（`pip install cxspider`），方便直接调用。
 
-## 爬虫列表
+## 合集设计的爬虫列表
 
-| ID     | 网站               | 爬虫                               | 爬虫路径                     | 状态   |
-| ------ | ------------------ | ---------------------------------- | ---------------------------- | ------ |
-| S-01-1 | 微博               | 微博热搜榜实时爬虫                 | weibo.hot_ranking            | 正常   |
-| S-02-1 | Twitter            | Twitter用户推文爬虫                | twitter.user_tweet           | 待更新 |
-| S-02-2 | Twitter            | Twitter用户信息爬虫                | twitter.user_info            | 正常   |
-| S-03-1 | Facebook           | Facebook用户推文爬虫               | facebook.user_tweet          | 正常   |
-| V-01-1 | Bilibili           | B站UP主发布视频列表爬虫【Demo】    | bilibili.user_video_list     | 正常   |
-| V-02-1 | AcFun              | AcFun视频信息爬虫（包括下载地址）  | acfun.video                  | 正常   |
-| G-01-1 | WanPlus-玩加电竞   | 英雄联盟每日比赛列表爬虫           | wanplus.lol_date_list        | 正常   |
-| G-01-2 | WanPlus-玩加电竞   | 英雄联盟比赛包含场次列表爬虫       | wanplus.lol_match_list       | 正常   |
-| G-01-3 | WanPlus-玩加电竞   | 英雄联盟场次详细信息爬虫           | wanplus.lol_match_info       | 正常   |
-| G-02-1 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：召唤师列表   | wegame.tft_summoner_list     | 正常   |
-| G-02-2 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：游戏场次列表 | wegame.tft_exploit_list      | 正常   |
-| G-02-3 | WeGame(安卓客户端) | 云顶之弈比赛记录爬虫：游戏场次详情 | wegame.tft_exploit_detail    | 正常   |
-| L-01-1 | 虎牙               | 直播弹幕爬虫                       | huya.barrage_of_live         | 正常   |
-| L-01-2 | 虎牙               | 直播间订阅数爬虫                   | huya.subscribe_of_live       | 正常   |
-| L-02-1 | 斗鱼               | 直播弹幕爬虫                       | douyu.barrage_of_live        | 正常   |
-| L-02-2 | 斗鱼               | 直播间订阅数爬虫                   | douyu.subscribe_of_live      | 待修复 |
-| L-03-1 | Bilibili           | 直播弹幕爬虫                       | bilibili.barrage_of_live     | 正常   |
-| O-01-1 | 安居客             | 安居客各地房源数量爬虫             | anjuke.housing_resources_num | 正常   |
-| O-02-1 | 居理新房           | 居理新房城市页面列表爬虫           | julive.city_url_list         | 正常   |
-| O-03-1 | 中国知网           | 期刊包含刊期列表爬虫               | cnki.issue_list              | 正常   |
-| O-03-4 | 中国知网           | 刊期包含论文列表爬虫               | cnki.article_list            | 正常   |
-| O-04-1 | 猫眼               | 猫眼网播热度爬虫【Demo】           | maoyan.web_heat              | 正常   |
-| O-05-1 | 豆瓣               | 豆瓣电影TOP250爬虫                 | douban.movie_top_250         | 正常   |
-| N-01-1 | 起点中文网         | 小说排行榜                         | novel.qidian_ranking         | 正常   |
+**爬虫顺序**：爬虫目标网站的一级域名的首字母顺序。
+
+**爬虫命名规则**：爬虫名称由爬虫目标网站的一级域名（例如`AcFun`）和爬虫的具体功能描述（例如`Video`）组成；其中，一级域名内部使用驼峰式表示，具体功能描述用下划线间隔单词，每个被下划线分隔的单词均首字母大写。
+
+| 爬虫名称                   | 爬虫平台.爬虫功能 [源代码路径]                               | 爬虫状态 (最近检查时间) |
+| -------------------------- | ------------------------------------------------------------ | ----------------------- |
+| AcFun_Video                | [A站.视频信息爬虫(包括下载地址)](https://github.com/ChangxingJiang/CxSpider/tree/master/Acfun_Video) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Acfun_Video/Acfun_Video.py) | 有效 (2020.12.28)       |
+| Alexa_Website_Info         | [Alexa.网站信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Alexa_Website_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Alexa_Website_Info/Alexa_Website_Info.py) | 有效 (2020.12.28)       |
+| Anjuke_City_Code_List      | [安居客.各城市编码列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Anjuke_City_Code_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Anjuke_City_Code_List/Anjuke_City_Code_List.py) | 有效 (2020.12.28)       |
+| Anjuke_House_Resources_Num | [安居客.房源数量爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Anjuke_House_Resources_Num) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Anjuke_House_Resources_Num/Anjuke_House_Resources_Num.py) | 有效 (2020.12.28)       |
+| Bilibili_Live_Barrage      | [B站.直播弹幕爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Bilibili_Live_Barrage) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Bilibili_Live_Barrage/Bilibili_Live_Barrage.py) | 有效 (2020.12.28)       |
+| Bilibili_User_Video_List   | [B站.UP主发布视频列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Bilibili_User_Video_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Bilibili_User_Video_List/Bilibili_User_Video_List.py) | 有效 (2020.12.28)       |
+| Cnki_Article_List          | [中国知网.刊期包含论文列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Cnki_Article_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Cnki_Article_List/Cnki_Article_List.py) | 有效 (2020.12.28)       |
+| Cnki_Issue_List            | [中国知网.期刊包含刊期列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Cnki_Issue_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Cnki_Issue_List/Cnki_Issue_List.py) | 有效 (2020.12.28)       |
+| Douban_Movie_Top_250       | [豆瓣.电影TOP250爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Douban_Movie_Top_250) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Douban_Movie_Top_250/Douban_Movie_Top_250.py) | 有效 (2020.12.28)       |
+| Douyu_Live_Barrage         | [斗鱼.直播弹幕爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Douyu_Live_Barrage) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Douyu_Live_Barrage/Douyu_Live_Barrage.py) | 有效 (2020.12.28)       |
+| Douyu_Live_Subscribe       | [斗鱼.直播间订阅数爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Douyu_Live_Subscribe) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Douyu_Live_Subscribe/Douyu_Live_Subscribe.py) | 已失效                  |
+| Facebook_Account_Info      | [Facebook.账号信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Facebook_Account_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Facebook_Account_Info/Facebook_Account_Info.py) | 有效 (2020.12.28)       |
+| Facebook_Account_Post      | [Facebook.账号发布推文爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Facebook_Account_Post) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Facebook_Account_Post/Facebook_Account_Post.py) | 有效 (2020.12.28)       |
+| Google_Result_Num          | [Google.搜索结果数量爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Google_Result_Num) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Google_Result_Num/Google_Result_Num.py) | 有效 (2020.12.28)       |
+| Huya_Live_Barrage          | [虎牙.直播弹幕爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Huya_Live_Barrage) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Huya_Live_Barrage/Huya_Live_Barrage.py) | 已失效                  |
+| Huya_Live_Subscribe        | [虎牙.直播间订阅数爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Huya_Live_Subscribe) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Huya_Live_Subscribe/Huya_Live_Subscribe.py) | 有效 (2020.12.28)       |
+| Julive_City_Url_List       | [居理新房.城市页面地址列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Julive_City_Url_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Julive_City_Url_List/Julive_City_Url_List.py) | 有效 (2020.12.28)       |
+| Maoyan_Web_Heat            | [猫眼.猫眼网播热度爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Maoyan_Web_Heat) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Maoyan_Web_Heat/Maoyan_Web_Heat.py) | 有效 (2020.12.28)       |
+| Qidian_Book_Type_List      | [起点中文网.小说排行榜](https://github.com/ChangxingJiang/CxSpider/tree/master/Qidian_Book_Type_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Qidian_Book_Type_List/Qidian_Book_Type_List.py) | 有效 (2020.12.28)       |
+| Twitter_Account_Info       | [Twitter.账号信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Twitter_Account_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Twitter_Account_Info/Twitter_Account_Info.py) | 有效 (2020.12.28)       |
+| Twitter_Account_Post       | [Twitter.账号发布推文爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Twitter_Account_Post) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Twitter_Account_Post/Twitter_Account_Post.py) | 有效 (2020.12.28)       |
+| Wanplus_Lol_Date_List      | [玩加电竞.英雄联盟每日比赛列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Wanplus_Lol_Date_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Wanplus_Lol_Date_List/Wanplus_Lol_Date_List.py) | 有效 (2020.12.28)       |
+| Wanplus_Lol_Match_Info     | [玩加电竞.英雄联盟场次详细信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Wanplus_Lol_Match_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Wanplus_Lol_Match_Info/Wanplus_Lol_Match_Info.py) | 已失效                  |
+| Wanplus_Lol_Match_List     | [玩加电竞.英雄联盟比赛包含场次列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Wanplus_Lol_Match_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Wanplus_Lol_Match_List/Wanplus_Lol_Match_List.py) | 有效 (2020.12.28)       |
+| WeGame_TFT_Exploit_Detail  | [WeGame.云顶之弈比赛记录爬虫C:游戏场次详情](https://github.com/ChangxingJiang/CxSpider/tree/master/WeGame_TFT_Exploit_Detail) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/WeGame_TFT_Exploit_Detail/WeGame_TFT_Exploit_Detail.py) | 有效 (2020.01.08)       |
+| WeGame_TFT_Exploit_List    | [WeGame.云顶之弈比赛记录爬虫B:游戏场次列表](https://github.com/ChangxingJiang/CxSpider/tree/master/WeGame_TFT_Exploit_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/WeGame_TFT_Exploit_List/WeGame_TFT_Exploit_List.py) | 有效 (2020.01.08)       |
+| WeGame_TFT_Summoner_List   | [WeGame.云顶之弈比赛记录爬虫A:召唤师列表](https://github.com/ChangxingJiang/CxSpider/tree/master/WeGame_TFT_Summoner_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/WeGame_TFT_Summoner_List/WeGame_TFT_Summoner_List.py) | 有效 (2020.01.08)       |
+| Weibo_Account_Info         | [微博.账号信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Weibo_Account_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Weibo_Account_Info/Weibo_Account_Info.py) | 有效 (2020.12.28)       |
+| Weibo_Account_Post         | [微博.账号发布推文爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Weibo_Account_Post) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Weibo_Account_Post/Weibo_Account_Post.py) | 有效 (2020.12.28)       |
+| Weibo_Hot_Ranking          | [微博.热搜榜爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/Weibo_Hot_Ranking) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/Weibo_Hot_Ranking/Weibo_Hot_Ranking.py) | 有效 (2020.12.28)       |
 
 ##  爬虫设置&调用方法
 
@@ -74,6 +85,8 @@ Step 2：在命令提示符（CMD）中使用命令行参数设置并运行爬�
 
 #### （三）使用可执行文件运行（暂未实现）
 
+#### （四）返回数据格式说明
+
 ## 工具类说明
 
 * crawlertool（必须）：本项目配套的最基本的爬虫工具模块，包括爬虫的抽象基类，以及信息提取、数据库读写、IO操作等工具函数（`pip install crawlertool`）
@@ -83,30 +96,35 @@ Step 2：在命令提示符（CMD）中使用命令行参数设置并运行爬�
 
 > 所有爬虫均会在自己的说明（`README.md`）中注明该爬虫所需的工具模块。
 
-## 免责声明
-
-#### 1\. 免责声明
-
-* 本合集中所有爬虫仅可用于学习、研究用途，不应用于任何商业用途。
-* 本合集所有实现和收录的爬虫均只采集公开显示的数据，如公开显示的数据中包含用户个人数据，将依据学习和研究需要模糊处理。
-* 使用者如将本合集中的任何爬虫用于商业用途，后果自负！
-* 如本合集中的爬虫对您的权益造成了影响，请联系合集作者，本合集将在24小时内移除该爬虫。
-
-#### 2\. 本合集实现爬虫原则
-
-* 严格控制爬虫的请求频率，避免因爬虫导致目标网站的负荷过大。因此，本合集不提供多线程爬虫，同时，在每次请求期间均会留出足够的延时时间。
-* 严格控制爬虫仅采集公开的信息。本合集不提供采集被明确标注不希望被他人获取的数据。
-* 严格控制爬虫的个人信息获取。爬虫将在抓取环节对于学习、研究无关的个人数据（包括电话、地址、姓名等）进行模糊处理（如记录这些信息的哈希值）。
-* 如用户修改或重写爬虫的running方法（即修改或重新设计爬虫），则用户自行设计的爬虫与本合集无关。
-* 本合集的的承诺仅对本合集自行实现的爬虫有效，对本合集收录的爬虫，本合集仅作收录，不保证检查其合法性，在使用时，请用户自行衡量并承担其合法性。
-
-# 收录的其他爬虫
+# 合集收录的爬虫
 
 对于本合集收录的爬虫，均为发布在Github或博客中的爬虫，本项目作者测试基本无误后收录。本合集将其中的部分爬虫改变为本合集的统一格式，以方便调用，但会明确标注爬虫的来源。
 
-## 爬虫列表
+## 合集收录的爬虫列表
 
-## 免责声明
+# 免责声明
+
+#### （一）针对合集设计的爬虫 (“合集设计的爬虫列表”中的爬虫)
+
+1\. 所有本合集设计的爬虫均仅可用于研究和教学用途，不得用于任何商业用途。使用者如将任何本合集设计的爬虫应用于商业用途，则由使用者自行衡量其合法性，并承担相关的法律责任。
+
+2\. 所有本合集设计的爬虫均作出了如下限制：
+
+* 严格控制请求频率；
+* 严格限制仅采集公开、没有被标注为不希望他人获取的数据；
+* 严格模糊处理与研究和教学无关的个人数据（如姓名、电话、地址等），使其只能用于区分，而无实际意义（采用哈希方法）；
+
+使用者如通过修改爬虫代码（修改爬虫类的running方法）的方法以绕过以上限制，则由使用者自行并承担相关的法律责任。
+
+3\. 使用者如在本合集爬虫的基础上重新设计爬虫（即修改或重写爬虫的running方法），则重新设计的爬虫与本合集无关，由使用者自行承担相关的法律责任。
+
+4\. 任何单位或个人认为本合集的任何爬虫可能涉嫌侵犯其权益，可联系本合集作者，本合集将会尽快移除该爬虫。
+
+#### （二）针对合集收录的爬虫 (“合集收录的爬虫列表”中的爬虫)
+
+* 本合集收录的第三方爬虫均系他人制作或提供，您可能从该爬虫的网页上获得目标爬虫，本合集对其合法性概不负责，亦不承担任何法律责任。
+
+* 任何单位或个人认为本合集链接到的第三方网页内容可能涉嫌侵犯其信息网络传播权，可联系本合集作者，本合集将尽快断开相关链接内容。
 
 # 项目近期计划
 
