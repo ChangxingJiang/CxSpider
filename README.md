@@ -12,16 +12,15 @@
 
 * [合集设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
   * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
-  * [爬虫的设置&调用方法](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
+  * [爬虫使用说明](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)
   * [工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
 * [合集收录的爬虫](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
   * [爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
 * [免责声明](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
-* 爬虫相关答疑
 * [项目近期计划](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E8%BF%91%E6%9C%9F%E8%AE%A1%E5%88%92)
 * [项目作者介绍](https://github.com/ChangxingJiang/CxSpider#%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85%E4%BB%8B%E7%BB%8D)
 
-## 合集设计的爬虫
+## 一、合集设计的爬虫
 
 “合集设计的爬虫”，即本合集作者自行设计实现的爬虫，这些爬虫均继承了`crawlertool`工具模块中单线程爬虫的抽象基类（`SingleSpider`和`LoopSpider`），具有统一的配置方式、调用方式和返回数据格式。在爬虫具体的设计实现中，为了方便爬虫的使用，遵循了如下原则：
 
@@ -31,7 +30,7 @@
 
 在使用合集设计的爬虫时，可以结合爬虫的Readme文档以及[”爬虫设置&调用方法“](https://github.com/ChangxingJiang/CxSpider#%E7%88%AC%E8%99%AB%E8%AE%BE%E7%BD%AE%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95)中的方法，配置、调用爬虫。
 
-### 合集设计的爬虫列表
+### （一）合集设计的爬虫列表
 
 > **爬虫命名规则**：爬虫名称由爬虫目标网站的一级域名（例如`AcFun`）和爬虫的具体功能描述（例如`Video`）组成；其中，一级域名内部使用驼峰式表示，具体功能描述用下划线间隔单词；每个被下划线分隔的单词均首字母大写。
 
@@ -68,40 +67,42 @@
 | Weibo_Account_Post          | [微博.账号发布推文爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Weibo_Account_Post) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Weibo_Account_Post/Weibo_Account_Post.py) | 有效 (2020.12.28)       |
 | Weibo_Hot_Ranking           | [微博.热搜榜爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Weibo_Hot_Ranking) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Weibo_Hot_Ranking/Weibo_Hot_Ranking.py) | 有效 (2020.12.28)       |
 
-###  爬虫设置&调用方法
+###  （二）爬虫使用说明
 
 本项目计划提供三种调用方式。
 
-#### （一）在IDE中执行Python脚本
+#### 1\. 在IDE中执行Python脚本
 
-1. 安装爬虫运行所需的环境
+**第1步：安装爬虫运行所需的环境**
 
-   * 安装Python环境和Python的开发环境：Python版本≥3.8
-   * 安装所需的Python工具模块：每个爬虫各不相同，每个爬虫需要安装的工具模块参见具体爬虫的文档，每个工具模块的功能参见[工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
-   * 安装Chrome浏览器：如果爬虫为Selenium爬虫，则需要安装Chrome浏览器
+* 安装Python环境和Python的开发环境：Python版本≥3.8
+* 安装所需的Python工具模块：每个爬虫各不相同，每个爬虫需要安装的工具模块参见具体爬虫的文档，每个工具模块的功能参见[工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
+* 安装Chrome浏览器：如果爬虫为Selenium爬虫，则需要安装Chrome浏览器
 
-2. 引用爬虫源代码中的爬虫类
+**第2步：引用爬虫源代码中的爬虫类**
 
-   * 直接粘贴爬虫源代码中的爬虫类
-   * 安装cxspider模块，引用cxspider模块中的爬虫类
+* 直接粘贴爬虫源代码中的爬虫类
+* 安装cxspider模块，引用cxspider模块中的爬虫类
 
-3. 处理爬虫返回的结果数据
+**第3步：处理爬虫返回的结果数据**
 
-   * 所有爬虫返回的结果数据格式均为列表字典（`List[Dict]`）格式：列表中的每个元素均为字典格式的一条记录，字典中的每个键值对均为一个字段
+* 所有爬虫返回的结果数据格式均为列表字典（`List[Dict]`）格式：列表中的每个元素均为字典格式的一条记录，字典中的每个键值对均为一个字段
+* 对于单次运行的爬虫（继承自抽象基类：`SingleSpider`），`running`方法的返回值即为爬虫返回的数据
+* 对于循环运行的爬虫（继承自抽象基类：`LoopSpider`），需要重写`write`方法来处理爬虫返回的数据，`write`方法的参数即为爬虫返回的数据
 
-   * 对于单次运行的爬虫（继承自抽象基类：`SingleSpider`），`running`方法的返回值即为爬虫返回的数据
-   * 对于循环运行的爬虫（继承自抽象基类：`LoopSpider`），需要重写`write`方法来处理爬虫返回的数据，`write`方法的参数即为爬虫返回的数据
+**第4步：运行爬虫**
 
-4. 运行爬虫
+#### 2\. 在命令行中执行Python脚本（暂未完全实现）
 
-#### （二）在命令提示符中执行Python脚本（暂未完全实现）
+**第1步：安装爬虫运行所需的环境（具体方法同上）**
 
-1. 安装爬虫运行所需的环境（安装Python环境+pip安装所需的工具模块+安装Chrome浏览器）
-2. 在命令提示符（CMD）中使用命令行参数设置并运行爬虫
+**第2步：在命令提示符（CMD）中使用命令行参数设置并运行爬虫**
 
-#### （三）使用可执行文件运行（暂未实现）
+* 具体命令行参数参见支持命令行运行的爬虫的文档
 
-### 工具模块说明
+#### 3\. 使用可执行文件运行（暂未实现）
+
+### （三）工具模块说明
 
 **crawlertool** : 本项目配套爬虫工具模块 (必需)
 
@@ -125,7 +126,7 @@
 
 > 所有爬虫均会在自己的说明文档（`README.md`）中注明该爬虫所需的工具模块。
 
-## 合集收录的爬虫
+## 二、合集收录的爬虫
 
 “合集收录的爬虫”，即本合集作者在使用后收录的、发布于Github项目或博客中的爬虫。本合集只收录这些爬虫所在的Github项目主页或博客页，具体配置、调用方法及返回数据结构需要使用者自行阅读第三方的爬虫介绍。
 
@@ -133,9 +134,9 @@
 
 ### 合集收录的爬虫列表
 
-## 免责声明
+## 三、免责声明
 
-#### （一）针对合集设计的爬虫 (“合集设计的爬虫列表”中的爬虫)
+### （一）针对合集设计的爬虫 (“合集设计的爬虫列表”中的爬虫)
 
 1\. 所有本合集设计的爬虫均仅可用于研究和教学用途，不得用于任何商业用途。使用者如将任何本合集设计的爬虫应用于商业用途，则由使用者自行衡量其合法性，并承担相关的法律责任。
 
@@ -151,7 +152,7 @@
 
 4\. 任何单位或个人认为本合集的任何爬虫可能涉嫌侵犯其权益，可联系本合集作者，本合集将在24小时内移除该爬虫。
 
-#### （二）针对合集收录的爬虫 (“合集收录的爬虫列表”中的爬虫)
+### （二）针对合集收录的爬虫 (“合集收录的爬虫列表”中的爬虫)
 
 1\. 本合集收录的第三方爬虫均系他人制作或提供，您可能从该爬虫的网页上获得目标爬虫，本合集对其合法性概不负责，亦不承担任何法律责任。
 
@@ -159,7 +160,7 @@
 
 3\. 任何单位或个人认为本合集链接到的第三方网页内容可能涉嫌侵犯其信息网络传播权，可联系本合集作者，本合集将尽快断开相关链接内容。
 
-## 项目计划
+## 四、项目计划
 
 ### （一）项目计划
 
@@ -183,7 +184,7 @@
 
 2020.06.09 迁移、合并合集作者的另外几个爬虫项目
 
-## 项目作者介绍
+## 五、项目作者介绍
 
 > **长行** · [Github](https://github.com/ChangxingJiang) · [CSDN](https://blog.csdn.net/Changxing_J) · [LeetCode](https://leetcode-cn.com/u/changxingjiang/) · 1278729001@qq.com
 
