@@ -18,7 +18,7 @@
   * 爬虫列表
 * [三、免责声明](https://github.com/ChangxingJiang/CxSpider#%E4%B8%89%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E)
 * [四、项目计划](https://github.com/ChangxingJiang/CxSpider#%E5%9B%9B%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92)
-* [五、项目作者](https://github.com/ChangxingJiang/CxSpider#%E4%BA%94%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85%E4%BB%8B%E7%BB%8D)
+* [五、项目作者](https://github.com/ChangxingJiang/CxSpider#%E4%BA%94%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85)
 
 ## 一、合集设计的爬虫
 
