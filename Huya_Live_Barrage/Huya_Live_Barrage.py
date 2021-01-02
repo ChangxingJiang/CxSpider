@@ -27,8 +27,6 @@ from bs4 import BeautifulSoup
 class SpiderHuyaLiveBarrage(tool.abc.LoopSpider):
     """
     虎牙直播弹幕爬虫
-
-    最近有效性检验日期 : 已失效
     """
 
     def __init__(self, driver, live_url, interval=0.5):

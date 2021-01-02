@@ -14,8 +14,6 @@ class SpiderFacebookAccountInfo(tool.abc.SingleSpider):
     适用于Facebook老版本UI(FB4)的Facebook账号信息爬虫
 
     @Update 2020.10.22
-
-    有效性检验日期:2020.12.28
     """
 
     def __init__(self, driver):

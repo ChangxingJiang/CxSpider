@@ -21,8 +21,6 @@ import crawlertool as tool
 class SpiderWeiboAccountPost(tool.abc.SingleSpider):
     """
     微博账号推文爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     # 微博默认domain值

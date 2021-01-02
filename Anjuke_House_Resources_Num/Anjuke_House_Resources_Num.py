@@ -18,8 +18,6 @@ from Selenium4R import Chrome
 class SpiderHouseResourcesNum(tool.abc.SingleSpider):
     """
     采集城市房源数量
-
-    有效性检验日期 : 2020.12.28
     """
 
     def __init__(self, driver):

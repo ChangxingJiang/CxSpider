@@ -19,8 +19,6 @@ from Selenium4R import Chrome
 class SpiderHuyaLiveSubscribe(tool.abc.SingleSpider):
     """
     虎牙直播间订阅数爬虫
-
-    最近有效性检验：2020.12.28
     """
 
     def __init__(self, driver):

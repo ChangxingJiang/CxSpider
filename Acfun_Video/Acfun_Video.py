@@ -12,8 +12,6 @@ import crawlertool as tool
 class SpiderAcfunVideo(tool.abc.SingleSpider):
     """
     AcFun视频信息爬虫（包括下载地址）
-
-    有效性检验时间 : 2020.12.28
     """
 
     # 执行请求的请求头

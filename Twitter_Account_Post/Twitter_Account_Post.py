@@ -18,8 +18,6 @@ from Selenium4R import Chrome
 class SpiderTwitterAccountPost(tool.abc.SingleSpider):
     """
     Twitter账号推文爬虫
-
-    最近有效性测试时间:2020.12.28
     """
 
     def __init__(self, driver):

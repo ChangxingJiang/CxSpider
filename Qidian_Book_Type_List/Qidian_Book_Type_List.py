@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 class SpiderQidianBookTypeList(tool.abc.SingleSpider):
     """
     起点中文网小说列表爬虫
-
-    最近有效性检验时间:2020.12.28
     """
     _HEADERS = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",

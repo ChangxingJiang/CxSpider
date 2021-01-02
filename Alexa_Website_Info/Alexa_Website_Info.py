@@ -13,8 +13,6 @@ class SpiderAlexaWebsiteInfo(tool.abc.SingleSpider):
     Alexa对于浏览量较小的网站，仅收录部分数据，因此对于这些我们网站我们也仅能采集到部分数据
 
     @Update: 2020.10.23
-
-    有效性检验时间 : 2020.12.28
     """
 
     def __init__(self):

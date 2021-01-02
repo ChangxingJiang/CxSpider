@@ -20,8 +20,6 @@ class SpiderFacebookAccountPost(tool.abc.SingleSpider):
     根据观察，Facebook对于间隔时间较长、或间隔推文较多的过早的推文，会选择性地显示，因此时间过早的推文并不能完整抓取，这个损失可能会非常大
 
     @Update 2020.10.22
-
-    最近有效性检验日期:2020.12.28
     """
 
     def __init__(self, proxy_port: int = None):

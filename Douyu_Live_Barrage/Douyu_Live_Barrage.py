@@ -27,8 +27,6 @@ from bs4 import BeautifulSoup
 
 class SpiderDouyuLiveBarrage(tool.abc.LoopSpider):
     """斗鱼弹幕爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     def __init__(self, driver, live_url, interval):

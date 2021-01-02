@@ -15,6 +15,10 @@ from bs4 import BeautifulSoup
 
 
 class SpiderWeiboHotRanking(tool.abc.LoopSpider, metaclass=ABCMeta):
+    """
+    微博热搜榜爬虫
+    """
+    
     _HEADERS = {
         "Accept": "text/html,application/xhtml+xrequestsml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Accept-Language": "zh-CN,zh;q=0.9",

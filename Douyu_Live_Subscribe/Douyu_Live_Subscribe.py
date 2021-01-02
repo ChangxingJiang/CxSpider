@@ -20,8 +20,6 @@ from selenium.common.exceptions import NoSuchElementException
 class SpiderDouyuLiveSubscribe(tool.abc.SingleSpider):
     """
     斗鱼直播间订阅数爬虫
-
-    已失效
     """
 
     def __init__(self, driver):

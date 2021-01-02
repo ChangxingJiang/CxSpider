@@ -18,8 +18,6 @@ import crawlertool as tool
 class SpiderTftSummonerList(tool.abc.SingleSpider):
     """
     WeGame云顶之弈比赛记录爬虫：召唤师列表
-
-    最近有效性测试时间:2020.01.18
     """
 
     def running(self, params_item):

@@ -15,8 +15,6 @@ from bs4 import BeautifulSoup
 class SpiderJuliveCityUrlList(tool.abc.SingleSpider):
     """
     居理新房城市页面列表爬虫
-
-    最近有效性检验时间：2020.12.28
     """
 
     def __init__(self, driver):

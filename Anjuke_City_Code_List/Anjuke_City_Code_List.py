@@ -7,8 +7,6 @@ from Selenium4R import Chrome
 class SpiderAnjukeCityCodeList(tool.abc.SingleSpider):
     """
     安居客城市编码列表爬虫
-
-    有效性检验时间 : 2020.12.28
     """
 
     def __init__(self, driver):

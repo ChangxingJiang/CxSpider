@@ -17,8 +17,6 @@ from bs4 import BeautifulSoup
 class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
     """
     豆瓣TOP250电影采集
-
-    最近有效性检验日期 : 2020.12.28
     """
 
     _HEADERS = {

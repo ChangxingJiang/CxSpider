@@ -15,8 +15,6 @@ import crawlertool as tool
 class SpiderWeiboAccountInfo(tool.abc.SingleSpider):
     """
     微博账号信息爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     def __init__(self):

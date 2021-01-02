@@ -17,8 +17,6 @@ from Selenium4R import Chrome
 class SpiderTwitterAccountInfo(tool.abc.SingleSpider):
     """
     Twitter账号信息爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     def __init__(self, driver):

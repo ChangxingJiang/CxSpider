@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 class SpiderWanplusLolMatchList(tool.abc.SingleSpider):
     """
     WanPlus英雄联盟比赛包含场次列表爬虫
-
-    最近有效性检测时间:2020.12.28
     """
     # 比赛请求的url
     _RACE_LIST_URL = "https://www.wanplus.com/schedule/%s.html"

@@ -18,8 +18,6 @@ import crawlertool as tool
 
 class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
     """B站UP主发布视频列表爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     _HEADERS = {

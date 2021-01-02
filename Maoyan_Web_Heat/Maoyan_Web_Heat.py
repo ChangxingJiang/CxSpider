@@ -19,8 +19,6 @@ from Selenium4R import Chrome
 class SpiderMaoyanWebHeat(tool.abc.SingleSpider):
     """
     猫眼网播热度采集爬虫
-
-    有效性检验时间:2020.12.28
     """
 
     def __init__(self, driver):

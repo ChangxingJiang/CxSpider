@@ -15,8 +15,6 @@ import crawlertool as tool
 class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
     """
     WanPlus英雄联盟场次详细信息爬虫
-
-    最近有效性测试:已失效
     """
 
     # 场次请求的url

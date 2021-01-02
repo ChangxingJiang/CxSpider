@@ -18,8 +18,6 @@ import crawlertool as tool
 class SpiderWanplusLolDateList(tool.abc.SingleSpider):
     """
     WanPlus英雄联盟每日比赛列表爬虫
-
-    最近有效性检验时间:2020.12.28
     """
 
     # 列表请求的url

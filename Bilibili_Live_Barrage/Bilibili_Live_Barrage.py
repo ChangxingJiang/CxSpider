@@ -20,8 +20,6 @@ from bs4 import BeautifulSoup
 
 class SpiderBilibiliLiveBarrage(tool.abc.LoopSpider, metaclass=ABCMeta):
     """Bilibili弹幕爬虫
-
-    有效性检验日期 : 2020.12.28
     """
 
     def __init__(self, driver, live_url, interval):

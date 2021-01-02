@@ -13,8 +13,6 @@ from bs4 import BeautifulSoup
 
 class SpiderCnkiArticleList(tool.abc.SingleSpider):
     """CNKI(中国知网)刊期包含论文列表爬虫
-
-    最近有效性测试时间:2020.12.28
     """
 
     def running(self, journal, pcode, pykm, year, issue):
