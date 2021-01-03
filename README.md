@@ -8,7 +8,7 @@
 
 -----
 
-* [合集设计的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
+* [合集设计的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
 * [合集设计的爬虫使用说明](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
 * [合集收录的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
 * [免责声明](https://github.com/ChangxingJiang/CxSpider#%E4%B8%89%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E)
@@ -222,3 +222,4 @@
 > **长行** · [Github](https://github.com/ChangxingJiang) · [CSDN](https://blog.csdn.net/Changxing_J) · [LeetCode](https://leetcode-cn.com/u/changxingjiang/) · 1278729001@qq.com
 
 诚邀对爬虫感兴趣的朋友共同维护此项目，有意者请联系作者的Github账号或邮箱！
+
