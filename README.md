@@ -50,7 +50,7 @@
 | Huya_Live_Barrage          | [虎牙.直播弹幕爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Huya_Live_Barrage) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Huya_Live_Barrage/Huya_Live_Barrage.py) | 已失效                  |
 | Huya_Live_Subscribe        | [虎牙.直播间订阅数爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Huya_Live_Subscribe) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Huya_Live_Subscribe/Huya_Live_Subscribe.py) | 有效 (2020.12.28)       |
 | Julive_City_Url_List       | [居理新房.城市页面地址列表爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Julive_City_Url_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Julive_City_Url_List/Julive_City_Url_List.py) | 有效 (2020.12.28)       |
-| Maoyan_Web_Heat            | [猫眼.猫眼网播热度爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Maoyan_Web_Heat) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Maoyan_Web_Heat/Maoyan_Web_Heat.py) | 有效 (2020.12.28)       |
+| Maoyan_Web_Heat            | [猫眼.猫眼网播热度爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Maoyan_Web_Heat) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Maoyan_Web_Heat/Maoyan_Web_Heat.py) | 未知 (1年内未检测)      |
 | Qidian_Book_Type_List      | [起点中文网.小说排行榜爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Qidian_Book_Type_List) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Qidian_Book_Type_List/Qidian_Book_Type_List.py) | 有效 (2020.12.28)       |
 | Twitter_Account_Info       | [Twitter.账号信息爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Twitter_Account_Info) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Twitter_Account_Info/Twitter_Account_Info.py) | 有效 (2020.12.28)       |
 | Twitter_Account_Post       | [Twitter.账号发布推文爬虫](https://github.com/ChangxingJiang/CxSpider/tree/master/spider/Twitter_Account_Post) [[源]](https://github.com/ChangxingJiang/CxSpider/blob/master/spider/Twitter_Account_Post/Twitter_Account_Post.py) | 有效 (2020.12.28)       |
@@ -145,27 +145,48 @@
 
 | 爬虫名称 (依据字典顺序排列)   | 爬虫平台.爬虫功能                 | 爬虫地址                                                     |
 | ----------------------------- | --------------------------------- | ------------------------------------------------------------ |
+| AutoHome_Article              | 汽车之家.文章爬虫                 | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/zIDHQ1iRSElfV5PBAokFJw) |
 | Baidu_Tieba_Tiezi_Post        | 百度贴吧.帖子信息爬虫             | [Github·Tieba_Spider (Aqua-Dream)](https://github.com/Aqua-Dream/Tieba_Spider) |
+| Baidu_Top_List                | 百度热点.热点信息爬虫             | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
 | Bilibili_Picture              | B站.封面图爬虫                    | [Github·spiders (xiyaowong)](https://github.com/xiyaowong/spiders) |
+| Bilibili_User_Info            | B站.用户信息爬虫                  | [Github·bilibili-user (airingursb)](https://github.com/airingursb/bilibili-user) |
+| Biqukan_Book_Info             | 笔趣阁.图书爬虫                   | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| Dianping_Goods_Info           | 大众点评.商品信息爬虫             | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/q-lIhCcaCZR9L1m9r_Jmyw) |
+| Dianping_Goods_Comment        | 大众点评.商品评论爬虫             | [Github·dianping_textmining (py-bin)](https://github.com/py-bin/dianping_textmining) |
+| Douban_Book_Info              | 豆瓣.图书信息爬虫                 | [Github·ScrapyDouban (baabaaox)](https://github.com/baabaaox/ScrapyDouban)<br />[Github·Python3Webcrawler (mochazi)](https://github.com/mochazi/Python3Webcrawler)<br />[Github·DoubanSpider (lanbing510)](https://github.com/lanbing510/DouBanSpider) |
+| Douban_Movie_Info             | 豆瓣.电影信息爬虫                 | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/FmZo2cjno1HrofWGiX4c-Q)<br />[Github·ScrapyDouban (baabaaox)](https://github.com/baabaaox/ScrapyDouban) |
+| Douyu_Live_Subscribe          | 斗鱼.直播间订阅数爬虫             | [Github·DouyuSpider (danzhewuju)](https://github.com/danzhewuju/DouyuSpider) |
 | DuoWan_LPL_Match_Info         | 多玩游戏.LPL实时比赛信息爬虫      | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
-| Lagou_Job_Info                | 拉勾网.工作信息爬虫               | [Github·JobSpiders (wqh0109663)](https://github.com/wqh0109663/JobSpiders)<br />[Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| Dytt8_Movie_Info              | 电影天堂.电影信息爬虫             | [Github·spider_python (xingag)](https://github.com/xingag/spider_python) |
+| Jd_Goods_Info                 | 京东.商品信息爬虫                 | [Github·Python3Webcrawler (mochazi)](https://github.com/mochazi/Python3Webcrawler) |
+| Lagou_Job_Info                | 拉勾网.工作信息爬虫               | [Github·JobSpiders (wqh0109663)](https://github.com/wqh0109663/JobSpiders)<br />[Github·Reptile (librauee)](https://github.com/librauee/Reptile)<br />[Github·spider_python (xingag)](https://github.com/xingag/spider_python) |
+| Maoyan_Movie_Info             | 猫眼.电影票房爬虫                 | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/1aNU76w2m9vJWCcZTRpp_A) |
+| Maoyan_Movie_Top_100          | 猫眼.电影TOP100爬虫               | [Github·DJH-Spider (jasonhavenD)](https://github.com/jasonhavenD/DJH-Spider) |
+| N163_Book_List                | 网易云阅读.图书列表爬虫           | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| N163_Book_Info                | 网易云阅读.图书爬虫               | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| N163_Music_Comment            | 网易云音乐.音乐评论爬虫           | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
 | N51job_Job_Info               | 前程无忧.工作信息爬虫             | [Github·JobSpiders (wqh0109663)](https://github.com/wqh0109663/JobSpiders) |
 | NowCoder_Interview_Experience | 牛客网.面经爬虫                   | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| QQ_Video_Barrage              | 腾讯视频.视频弹幕爬虫             | [Github·Reptile (librauee)](https://github.com/librauee/Reptile) |
+| Shixiseng_Job_Info            | 实习生.工作信息爬虫               | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/3tyPmarn_gcsn78cSKgnAQ) |
 | Toutiao_Search_List           | 今日头条·头条搜索爬虫             | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)        |
-| Toutiao_News_List             | 今日头条·新闻列表爬虫(45个类别)   | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)        |
+| Toutiao_News_List             | 今日头条·新闻列表爬虫(45个类别)   | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)<br />[Github·TouTiaoNews (LeoLin9527)](https://github.com/LeoLin9527/TouTiaoNews) |
 | Toutiao_User_Info             | 今日头条·账号信息爬虫             | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)        |
 | Toutiao_User_Post             | 今日头条·账号发布文章爬虫         | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)        |
 | Toutiao_User_Video            | 今日头条·账号发布视频爬虫         | [Giuthub·TTBot (01ly)](https://github.com/01ly/TTBot)        |
 | WeChat_Account_Info           | 微信公众号.公众号信息爬虫         | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider) |
-| WeChat_Article_List           | 微信公众号.公众号文章列表爬虫     | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider) |
-| WeChat_Article_Info           | 微信公众号.公众号文章信息爬虫     | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider) |
+| WeChat_Article_List           | 微信公众号.公众号文章列表爬虫     | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider)<br />[Github·wechat-spider (bowenpay)](https://github.com/bowenpay/wechat-spider) |
+| WeChat_Article_Info           | 微信公众号.公众号文章信息爬虫     | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider)<br />[Github·wechat-spider (bowenpay)](https://github.com/bowenpay/wechat-spider) |
 | WeChat_Article_Comment        | 微信公众号.公众号文章评论爬虫     | [Github·wechat-spider (striver-ing)](https://github.com/striver-ing/wechat-spider) |
 | Weibo_User_Info               | 微博.账号信息爬虫                 | [Github·WeiboSpider (nghuyong)](https://github.com/nghuyong/WeiboSpider) |
 | Weibo_User_Post               | 微博.账号发布推文爬虫             | [Github·WeiboSpider (nghuyong)](https://github.com/nghuyong/WeiboSpider) |
 | Weibo_Social_Network          | 微博.账号社交关系爬虫             | [Github·WeiboSpider (nghuyong)](https://github.com/nghuyong/WeiboSpider) |
 | Weibo_Post_Comment            | 微博.微博评论爬虫                 | [Github·WeiboSpider (nghuyong)](https://github.com/nghuyong/WeiboSpider) |
 | Weibo_Post_By_Keyword         | 微博.基于关键词和时间段的微博爬虫 | [Github·WeiboSpider (nghuyong)](https://github.com/nghuyong/WeiboSpider) |
+| Youdao_Translate              | 有道翻译.翻译爬虫                 | [文章链接 (斐波那契小李)](https://mp.weixin.qq.com/s/a-ORkG5XGSAP_-6GNilBbQ)<br />[Github·Python3Webcrawler (mochazi)](https://github.com/mochazi/Python3Webcrawler) |
 | Zhaopin_Job_Info              | 智联招聘.工作信息爬虫             | [Github·JobSpiders (wqh0109663)](https://github.com/wqh0109663/JobSpiders) |
+| Zhihu_User_Info               | 知乎.用户信息爬虫                 | [Github·zhihu_spider (LiuRoy)](https://github.com/LiuRoy/zhihu_spider) |
+| Zhipin_Job_Info               | Boss直聘.工作信息爬虫             | [Github·spider_python (xingag)](https://github.com/xingag/spider_python) |
 
 > **爬虫列表顺序 / 爬虫命名规则**：与[“合集设计的爬虫列表”的命名规则](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)相同。
 
