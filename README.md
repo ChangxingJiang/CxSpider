@@ -6,21 +6,20 @@
 
 如果您发现本合集中的爬虫出现部分失效或完全失效的情况，请在本项目的[Issues](https://github.com/ChangxingJiang/CxSpider/issues)中提出，谢谢！
 
+-----
+
+* [合集设计的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
+* [合集设计的爬虫使用说明](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
+* [合集收录的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
+* [免责声明](https://github.com/ChangxingJiang/CxSpider#%E4%B8%89%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E)
+* [项目计划](https://github.com/ChangxingJiang/CxSpider#%E5%9B%9B%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92)
+* [项目作者](https://github.com/ChangxingJiang/CxSpider#%E4%BA%94%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85)
+
+-----
+
 **本合集提醒您：在使用“CxSpider 长行的爬虫合集”（以下简称本合集）的爬虫前，请您务必仔细阅读并透彻理解本合集的[免责声明](https://github.com/ChangxingJiang/CxSpider#%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)（以下简称免责声明）。您可以选择不使用本合集，但如果您使用本合集，您的使用行为将被视为对免责声明全部内容的认可。**
 
-### 文档目录
-
-* [一、合集设计的爬虫](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB)
-  * [（一）合集设计的爬虫列表](https://github.com/ChangxingJiang/CxSpider#%E4%B8%80%E5%90%88%E9%9B%86%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%88%AC%E8%99%AB%E5%88%97%E8%A1%A8)
-  * [（二）爬虫使用说明](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
-  * [（三）工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E4%B8%89%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
-* [二、合集收录的爬虫](https://github.com/ChangxingJiang/CxSpider#%E4%BA%8C%E5%90%88%E9%9B%86%E6%94%B6%E5%BD%95%E7%9A%84%E7%88%AC%E8%99%AB)
-  * 爬虫列表
-* [三、免责声明](https://github.com/ChangxingJiang/CxSpider#%E4%B8%89%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E)
-* [四、项目计划](https://github.com/ChangxingJiang/CxSpider#%E5%9B%9B%E9%A1%B9%E7%9B%AE%E8%AE%A1%E5%88%92)
-* [五、项目作者](https://github.com/ChangxingJiang/CxSpider#%E4%BA%94%E9%A1%B9%E7%9B%AE%E4%BD%9C%E8%80%85)
-
-## 一、合集设计的爬虫
+# 一、合集设计的爬虫
 
 “合集设计的爬虫”，即本合集作者自行设计实现的爬虫，这些爬虫均继承了`crawlertool`工具模块中单线程爬虫的抽象基类（`SingleSpider`和`LoopSpider`），具有统一的配置方式、调用方式和返回数据格式。在爬虫具体的设计实现中，为了方便爬虫的使用，遵循了如下原则：
 
@@ -71,62 +70,70 @@
 
 ###  （二）爬虫使用说明
 
-本项目计划提供三种调用方式。
+本项目在计划中将会实现三种运行爬虫的方法，在现阶段在IDE执行Python脚本的运行方法支持较好，未来将会逐渐支持另外两种爬虫的运行方法。
 
-#### 1\. 在IDE中执行Python脚本
+#### 1\. 在IDE中执行Python脚本（当前支持较好）
 
-**第1步：安装爬虫运行所需的环境**
+**第1步：检查Python环境**
 
-* 安装Python环境和Python的开发环境：Python版本≥3.8
-* 安装所需的Python工具模块：每个爬虫各不相同，每个爬虫需要安装的工具模块参见具体爬虫的文档，每个工具模块的功能参见[工具模块说明](https://github.com/ChangxingJiang/CxSpider#%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E)
-* 安装Chrome浏览器：如果爬虫为Selenium爬虫，则需要安装Chrome浏览器
+> Python版本要求：>=3.8
 
-**第2步：引用爬虫源代码中的爬虫类**
+检查系统的Python环境，如果没有安装则安装Python环境【[教程链接](https://dataartist.blog.csdn.net/article/details/88278970)】；建议同时安装Python的IDE。
 
-* 直接粘贴爬虫源代码中的爬虫类
-* 安装cxspider模块，引用cxspider模块中的爬虫类
+**第2步：pip安装爬虫所需的Python工具模块**
 
-**第3步：处理爬虫返回的结果数据**
+每个爬虫依赖的工具模块均在爬虫文档（爬虫文件夹中的README文档）的“依赖列表”中列出，直接使用pip安装即可。一些爬虫经常调用的工具模块的功能如下：
 
-* 所有爬虫返回的结果数据格式均为列表字典（`List[Dict]`）格式：列表中的每个元素均为字典格式的一条记录，字典中的每个键值对均为一个字段
-* 对于单次运行的爬虫（继承自抽象基类：`SingleSpider`），`running`方法的返回值即为爬虫返回的数据
-* 对于循环运行的爬虫（继承自抽象基类：`LoopSpider`），需要重写`write`方法来处理爬虫返回的数据，`write`方法的参数即为爬虫返回的数据
+>**crawlertool** : 本项目配套爬虫工具模块 (必需)
+>安装：`pip install crawlertool`
+>本项目配套的最基本的爬虫工具模块，包括爬虫的抽象基类，以及信息提取、数据库读写、IO操作等工具函数。
 
-**第4步：运行爬虫**
+>**Selenium4R** : 本项目配套Selenium工具模块 (Selenium爬虫必需)
+>安装：`pip install Selenium4R`
+>魔改版Selenium，增加webdriver的自动下载和缓存，增加对POST请求的支持，自动处理一些常见异常。
 
-#### 2\. 在命令行中执行Python脚本（暂未完全实现）
+>**bs4 (BeautifulSoup4)** : Dom解析工具 (部分爬虫需要)
+>安装：`pip install bs4`
 
-**第1步：安装爬虫运行所需的环境（具体方法同上）**
+>**lxml** : Dom解析工具 (部分爬虫需要)
+>安装：`pip install lxml`
 
-**第2步：在命令提示符（CMD）中使用命令行参数设置并运行爬虫**
+**第3步：安装Chrome浏览器（仅Selenium爬虫需要）**
 
-* 具体命令行参数参见支持命令行运行的爬虫的文档
+如果在爬虫文档的“依赖列表”中注明了需要Chrome浏览器，则需要在安装Chrome浏览器【[官网链接](https://www.google.cn/chrome/)】。
+
+**第4步：引用CxSpider项目中的爬虫源代码**
+
+可以通过以下方法引用CxSpider中的爬虫源代码：
+
+* 直接粘贴爬虫源代码中的爬虫类（当前支持较好）
+
+* 安装cxspider模块，引用cxspider模块中的爬虫类（暂未支持）
+
+**第5步：处理爬虫返回的结果数据**
+
+所有爬虫返回的结果数据格式均为列表字典（`List[Dict]`）格式：列表中的每个元素为一条记录（行），单条的记录均为字典格式；字典中的每一个键值对对应记录中的一个字段（列），求中键为字段名，值为字段的值。
+
+本合集设计的爬虫中，对单次运行的爬虫和循环运行的爬虫作出了不同的处理（在爬虫文档中注明了爬虫所属的类型）。具体的：
+
+* 单次运行的爬虫类继承自抽象基类`SingleSpider`，调用爬虫时直接调用爬虫类的`running`方法，`running`方法的返回值即为爬虫返回的结果数据。
+* 循环运行的爬虫类继承自抽象基类`LoopSpider`，调用爬虫时调用爬虫的`start`方法即可启动循环运行的爬虫；在每次循环中，爬虫均会将爬虫返回的结果数据作为参数提供给`write`方法，因此需要通过重写`write`方法来处理爬虫返回的结果数据。
+
+**第6步：运行爬虫**
+
+对于单次运行的爬虫，在构造爬虫类后直接调用爬虫类的`running`方法即可；
+
+对于循环运行的爬虫，在构造爬虫类并重写`write`方法后，调用爬虫类的`start`方法即可启动循环运行的爬虫。
+
+#### 2\. 在命令行中执行Python脚本（暂未实现）
+
+**第1步：检查Python环境+pip安装爬虫所需的Python工具模块+安装Chrome浏览器（具体方法同上）**
+
+**第2步：在命令提示符（CMD）中通过命令行参数设置并运行爬虫**
+
+具体命令行参数设置方法将会写在每个爬虫的文档中。
 
 #### 3\. 使用可执行文件运行（暂未实现）
-
-### （三）工具模块说明
-
-**crawlertool** : 本项目配套爬虫工具模块 (必需)
-
-安装：`pip install crawlertool`
-
-本项目配套的最基本的爬虫工具模块，包括爬虫的抽象基类，以及信息提取、数据库读写、IO操作等工具函数。
-
-**Selenium4R** : 本项目配套Selenium工具模块 (Selenium爬虫必需)
-
-安装：`pip install Selenium4R`
-
-魔改版Selenium，增加webdriver的自动下载和缓存，增加对POST请求的支持，自动处理一些常见异常。
-
-**bs4 (BeautifulSoup4)** : Dom解析工具 (部分爬虫需要)
-
-安装：`pip install bs4`
-
-**lxml** : Dom解析工具 (部分爬虫需要)
-
-安装：`pip install lxml`
-
-> 所有爬虫均会在自己的说明文档（`README.md`）中注明该爬虫所需的工具模块。
 
 ## 二、合集收录的爬虫
 
@@ -192,19 +199,21 @@
 
 * 在crawlertool爬虫工具模块中，实现将统一的爬虫返回数据格式（字典列表）存储到不同位置的工具函数
 * 整理CxSpider模块并发布到pypi
-* 实现通过不需要本地Python环境的可执行文件运行爬虫
+* 实现爬虫调用的命令行参数支持
+* 实现通过不需要本地Python环境的可执行文件运行爬虫（按爬虫分别封装/封装通用的爬虫调用器）
+* 更新webdriver的管理方式，不再需要用户再管理缓存路径
 
 #### 2\. 计划新增的爬虫
 
-* 大众点评商铺数据：商铺名称、商铺地址、联系方式、五星好评、人均、环境、音效、服务（@MrLuoj）
-* WeGame：指定名称召唤师的匹配或排位记录
+* 大众点评商铺数据：商铺名称、商铺地址、联系方式、五星好评、人均、环境、音效、服务（@**[MrLuoj](https://github.com/MrLuoj)**）
+* WeGame：指定名称召唤师的匹配或排位记录（@**[ixuhan](https://github.com/ixuhan)**）
 * Twitter：目标用户发布的图片及视频
 
 ### （二）项目历史
 
 2021.01.02 整体整理、更新项目结构
 
-2020.11.01 100☆
+2020.11.01 达到100☆
 
 2020.06.09 迁移、合并合集作者的另外几个爬虫项目
 
