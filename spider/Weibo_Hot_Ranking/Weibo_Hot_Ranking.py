@@ -1,14 +1,6 @@
-"""
-微博热搜榜爬虫
-
-@author: ChangXing
-@version: 1.1
-@create: 2020.05.29
-@revise: 2020.06.08
-"""
-
 import re
 from abc import ABCMeta
+from datetime import datetime
 
 import crawlertool as tool
 from bs4 import BeautifulSoup
@@ -18,7 +10,8 @@ class SpiderWeiboHotRanking(tool.abc.LoopSpider, metaclass=ABCMeta):
     """
     微博热搜榜爬虫
     """
-    
+    _COLUMNS = ["ranking", "keyword", "heat", "icon", "time"]
+
     _HEADERS = {
         "Accept": "text/html,application/xhtml+xrequestsml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Accept-Language": "zh-CN,zh;q=0.9",
@@ -88,7 +81,8 @@ class SpiderWeiboHotRanking(tool.abc.LoopSpider, metaclass=ABCMeta):
                 "ranking": ranking,
                 "keyword": keyword,
                 "heat": heat,
-                "icon": icon
+                "icon": icon,
+                "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
 
         self.write(hot_list)
@@ -108,5 +102,5 @@ if __name__ == "__main__":
             self.mysql.insert(table="weibo", data=data)
 
 
-    spider = MySpider(interval=5, mysql=tool.db.DefaultMySQL())
+    spider = MySpider(interval=5 * 60, mysql=tool.db.DefaultMySQL())
     spider.start()
