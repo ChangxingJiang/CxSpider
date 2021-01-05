@@ -1,15 +1,3 @@
-"""
-Bilibili弹幕爬虫
-
-需要第三方模块：
-BeautifulSoup4 >= 4.9.0
-Selenium4R >= 0.0.3
-Utils4R >= 0.0.6
-
-@Author: ChangXing
-@Update: 2020.10.18
-"""
-
 import time
 from abc import ABCMeta
 
@@ -19,8 +7,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderBilibiliLiveBarrage(tool.abc.LoopSpider, metaclass=ABCMeta):
-    """Bilibili弹幕爬虫
-    """
+    """Bilibili弹幕爬虫"""
 
     def __init__(self, driver, live_url, interval):
         """启动爬虫并打开目标Bilibili直播间
@@ -51,7 +38,7 @@ class SpiderBilibiliLiveBarrage(tool.abc.LoopSpider, metaclass=ABCMeta):
 
             barrage_info = {
                 "user_name": "",  # 弹幕发布者名称
-                "user_id": 0,  # 弹幕发布者等级
+                "user_id": 0,  # 弹幕发布者ID
                 "content": "",  # 弹幕内容
             }
 
@@ -73,6 +60,7 @@ class SpiderBilibiliLiveBarrage(tool.abc.LoopSpider, metaclass=ABCMeta):
                     barrage_info["user_name"] = label["data-uname"]
                     barrage_info["user_id"] = label["data-uid"]
                     barrage_info["content"] = label["data-danmaku"]
+                    barrage_info["fetch_time"] = temp_time
                     barrage_list.append(barrage_info)
                     self.update_time = temp_time
 
