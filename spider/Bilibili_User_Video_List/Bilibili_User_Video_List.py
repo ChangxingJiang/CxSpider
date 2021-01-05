@@ -17,24 +17,26 @@ import crawlertool as tool
 
 
 class SpiderBilibiliUserVideoList(tool.abc.SingleSpider):
-    """B站UP主发布视频列表爬虫
-    """
+    """B站UP主发布视频列表爬虫"""
 
-    _HEADERS = {
-        "accept": "application/json, text/plain, */*",
-        "accept-language": "zh-CN,zh;q=0.9",
-        "cache-control": "no-cache",
-        "origin": "https://space.bilibili.com",
-        "referer": "https://space.bilibili.com/20165629/video",
-        "pragma": "no-cache",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-site",
-        "Upgrade-Insecure-Requests": "1",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
-    }
+    def __init__(self):
+        self.headers = {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "zh-CN,zh;q=0.9",
+            "cache-control": "no-cache",
+            "origin": "https://space.bilibili.com",
+            "referer": "https://space.bilibili.com/20165629/video",
+            "pragma": "no-cache",
+            "Sec-Fetch-Dest": "empty",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "same-site",
+            "Upgrade-Insecure-Requests": "1",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+        }
 
     def running(self, mid):
+
+        self.headers["referer"] = "https://space.bilibili.com/%s/video".format(str(mid))
 
         now_page = 1
         max_page = 2
