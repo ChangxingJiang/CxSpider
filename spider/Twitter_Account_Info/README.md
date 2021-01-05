@@ -1,27 +1,27 @@
-### Twitter用户信息爬虫(twitter.user_info)
+# Twitter用户信息爬虫文档
 
-> **@author** ChangXing
->
-> **@version** 4.1
->
-> **@create** 2017.12.25
->
-> **@revise** 2020.06.08
+> 最新有效性检查时间：2020.12.28
 
-使用第三方模块twitter-scraper采集Twitter用户信息；因为该模块采集的粉丝数和关注数可能存在偏差，因此再通过Selenium抓取Twitter用户信息，以更正该模块采集的数量。
+**爬虫类型**：单次运行爬虫
 
-* 采集信息：粉丝数和关注数为twitter-scraper采集并配合Selenium爬虫检查，其他字段为twitter-scraper采集。
-* 应用配置：无需使用代理IP，需要使用Selenium
+**爬虫依赖第三方模块**：crawlertool、Selenium4R
 
-| 字段名          | 字段内容                                     |
-| --------------- | -------------------------------------------- |
-| name            | Twitter用户名                                |
-| username        | Twitter用户唯一名称(@中的名字)               |
-| birthday        | Twitter用户生日                              |
-| biography       | Twitter用户介绍                              |
-| website         | Twitter用户网站                              |
-| profile_photo   | Twitter用户头像图的Url                       |
-| likes_count     | Twitter用户的被点赞数                        |
-| tweets_count    | Twitter用户的推文数                          |
-| followers_count | Twitter用户的粉丝数(关注数:被多少人关注)     |
-| following_count | Twitter用户的关注数(正在关注数:关注了多少人) |
+**爬虫功能**：采集Twitter账号的基本信息
+
+**爬虫参数**：
+
+| 参数名    | 参数功能                                                     |
+| --------- | ------------------------------------------------------------ |
+| driver    | Selenium4R.Chrome浏览器对象                                  |
+| user_name | Twitter账号名称（可通过静态方法get_twitter_user_name从Twitter账号主页Url中提取） |
+
+**爬虫返回结果数据**：
+
+| 字段名    | 字段内容                                  |
+| --------- | ----------------------------------------- |
+| following | Twitter账号关注的其他账号数量（正在关注） |
+| followers | Twitter账号的粉丝数量                     |
+
+**创建时间**：2017.12.25
+
+**修改时间**：2020.12.28

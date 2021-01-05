@@ -1,22 +1,4 @@
-"""
-虎牙直播弹幕爬虫
-
-需要第三方模块：
-BeautifulSoup4 >= 4.9.0
-Selenium4R >= 0.0.3
-Utils4R >= 0.0.2
-
-
-@author: ChangXing
-@version: 1.2
-@create: 2019.11.24
-@revise: 2020.06.08
-
-功能: 抓取虎牙直播间中所有弹幕，依据不同类型的弹幕提取不同信息，并存储于文件中
-说明: 使用Selenium打开虎牙直播间，通过浏览器不断将Js渲染后的网页源代码传给BeautifulSoup解析弹幕
-目标Url: https://www.huya.com/%s
-"""
-
+from datetime import datetime
 import time
 
 import crawlertool as tool
@@ -25,9 +7,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderHuyaLiveBarrage(tool.abc.LoopSpider):
-    """
-    虎牙直播弹幕爬虫
-    """
+    """虎牙直播弹幕爬虫"""
 
     def __init__(self, driver, live_url, interval=0.5):
         super().__init__(interval)
@@ -62,7 +42,8 @@ class SpiderHuyaLiveBarrage(tool.abc.LoopSpider):
                 "content": "",  # 弹幕内容
                 "gift_name": "",  # 礼物名称
                 "gift_num": 0,  # 礼物数量
-                "other": ""  # 其他信息
+                "other": "",  # 其他信息
+                "fetch_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 弹幕采集时间
             }
 
             category = str(label.select_one("li > div")["class"])  # 提取:弹幕类型

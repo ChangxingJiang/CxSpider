@@ -12,15 +12,7 @@ from lxml import etree
 
 
 class SpiderFacebookAccountPost(tool.abc.SingleSpider):
-    """Facebook账号推文爬虫
-
-    适用于Facebook老版本UI(FB4)的Facebook账号发布帖子爬虫；
-    爬虫逻辑为在账号帖子页面中不断下拉刷新，以获取更多的推文；
-    帖子首页加载20条推文，通过请求帖子首页获得，而后每次下拉加载8条推文，通过请求下拉刷新的Ajax请求获得；
-    根据观察，Facebook对于间隔时间较长、或间隔推文较多的过早的推文，会选择性地显示，因此时间过早的推文并不能完整抓取，这个损失可能会非常大
-
-    @Update 2020.10.22
-    """
+    """Facebook账号推文爬虫"""
 
     def __init__(self, proxy_port: int = None):
         """构造Facebook推文爬虫实例

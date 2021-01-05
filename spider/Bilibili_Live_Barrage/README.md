@@ -1,89 +1,34 @@
-# Bilibili弹幕爬虫
+# Bilibili直播弹幕爬虫文档
 
-> 最新有效性检查时间：2020.10.18
+> 最新有效性检查时间：2020.12.28
 
-#### 所需第三方包
+**爬虫类型**：循环运行爬虫
 
-* BeautifulSoup4 >= 4.9.0
-* Selenium4R >= 0.0.3
-* Utils4R >= 0.0.6
+**爬虫依赖第三方模块**：crawlertool、Selenium4R、bs4
 
-#### 调用Demo
+**爬虫功能**：采集Bilibili直播间弹幕
 
-```python
-def crawler(live_name, live_url, mysql):
-    driver = Chrome(cache_path=r"E:\Temp")  # 打开Chrome浏览器
+**爬虫参数**：
 
-    spider_bilibili_barrage = SpiderBilibiliBarrage(driver, live_url)
+| 参数名   | 参数功能                                             |
+| -------- | ---------------------------------------------------- |
+| driver   | Selenium4R.Chrome浏览器对象                          |
+| live_url | 直播间地址（形如：https://live.bilibili.com/732602） |
+| interval | 每次循环的间隔时长（单位：秒）                       |
 
-    # 创建目标数据表
-    table_name = "bilibili_{}".format(time.strftime("%Y%m%d_%H%M", time.localtime(time.time())))
-    sql_create = "CREATE TABLE live_barrage.`{}` (" \
-                 "`bid` int(11) NOT NULL AUTO_INCREMENT COMMENT '弹幕ID(barrage id)'," \
-                 "`type` varchar(60) DEFAULT NULL COMMENT '弹幕类型'," \
-                 "`fetch_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '弹幕抓取时间(约等于弹幕发布时间)'," \
-                 " `user_name` varchar(40) DEFAULT NULL COMMENT '弹幕发布者名称'," \
-                 " `user_id` int(11) DEFAULT NULL COMMENT '弹幕发布者等级'," \
-                 " `content` varchar(100) DEFAULT NULL COMMENT '弹幕内容'," \
-                 " PRIMARY KEY (`bid`)" \
-                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bilibili弹幕({})';"
-    mysql.create(sql_create.format(table_name, live_name))
+**爬虫返回结果数据**：
 
-    print("开始抓取Bilibili直播弹幕.....")
+| 字段名     | 字段内容                                                     |
+| ---------- | ------------------------------------------------------------ |
+| type       | 弹幕类型：NORMAL=正常弹幕；ENTER=观众进入提醒；MESSAGE=系统信息；GIFT=观众赠送礼物提醒 |
+| user_name  | 弹幕发布者名称                                               |
+| user_id    | 弹幕发布者ID                                                 |
+| content    | 弹幕内容                                                     |
+| fetch_time | 弹幕采集时间：因弹幕为实时采集，因此也采集时间也可以作为弹幕发布时间使用 |
 
-    total_time = 0
-    total_num = 0
+**创建时间**：2019.11.24
 
-    barrage_num = 0
-
-    for num in range(36000):
-        start_time = time.time()
-        barrage_list = spider_bilibili_barrage.run()
-        mysql.insert(table_name, barrage_list)
-
-        total_num += 1
-        total_time += 1000 * (time.time() - start_time)
-
-        wait_time = 0.5
-        if wait_time > (time.time() - start_time):
-            time.sleep(0.5 - (time.time() - start_time))
-
-        barrage_num += len(barrage_list)
-
-        print("本次时间范围内新增弹幕:", len(barrage_list), "条,", "(共计:", barrage_num, ")", "|",
-              "运行时间:", round(total_time / total_num), "毫秒", "(", round(total_time), "/", total_num, ")")
-
-
-if __name__ == "__main__":
-    crawler(live_name="20191110_LOL世界赛决赛(FPX vs G2)",
-            live_url="https://live.bilibili.com/blanc/6?liteVersion=true",
-            mysql=Utils.db.MySQL(host="", user="", password="", database=""))
-```
-
-### Bilibili直播弹幕爬虫(bilibili.barrage_of_live)
-
-> @author: ChangXing
->
-> @version: 1.2
->
-> @create: 2019.11.24
->
-> @revise: 2020.06.08
-
-使用Selenium模拟浏览器，采集Bilibili直播间中的弹幕。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
-
-| 字段名     | 字段内容                                               |
-| ---------- | ------------------------------------------------------ |
-| bid        | 弹幕ID                                                 |
-| type       | 弹幕类型                                               |
-| fetch_time | 弹幕采集时间（因实时采集，因此也可以视为弹幕发布时间） |
-| user_name  | 弹幕发布者名称                                         |
-| user_id    | 弹幕发布者ID                                           |
-| content    | 弹幕内容                                               |
-
-### 
+**修改时间**：2020.12.28
 
 
 

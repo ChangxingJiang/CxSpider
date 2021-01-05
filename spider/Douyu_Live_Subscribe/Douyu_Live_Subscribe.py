@@ -25,8 +25,8 @@ class SpiderDouyuLiveSubscribe(tool.abc.SingleSpider):
     def __init__(self, driver):
         self.driver = driver
 
-    def running(self, account_url):
-        self.driver.get(account_url)
+    def running(self, live_url):
+        self.driver.get(live_url)
 
         time.sleep(3)
 
@@ -43,7 +43,7 @@ class SpiderDouyuLiveSubscribe(tool.abc.SingleSpider):
                 time.sleep(1)
 
         return [{
-            "account_url": account_url,
+            "account_url": live_url,
             "text_subscribe": text_subscribe
         }]
 

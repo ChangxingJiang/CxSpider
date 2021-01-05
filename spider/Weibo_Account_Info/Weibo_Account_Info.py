@@ -1,11 +1,5 @@
 # coding:utf-8
 
-"""
-微博账号信息爬虫
-
-@Update: 2020.10.23
-"""
-
 import json
 from typing import List, Dict
 
@@ -13,9 +7,7 @@ import crawlertool as tool
 
 
 class SpiderWeiboAccountInfo(tool.abc.SingleSpider):
-    """
-    微博账号信息爬虫
-    """
+    """微博账号信息爬虫"""
 
     def __init__(self):
         # 爬虫实例的变量

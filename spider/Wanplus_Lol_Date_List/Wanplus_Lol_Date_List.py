@@ -1,12 +1,3 @@
-"""
-WanPlus英雄联盟每日比赛列表爬虫
-
-@author: ChangXing
-@version: 1.1
-@create: 2020.04.20
-@revise: 2020.06.08
-"""
-
 import datetime
 import json
 import time
@@ -16,9 +7,7 @@ import crawlertool as tool
 
 
 class SpiderWanplusLolDateList(tool.abc.SingleSpider):
-    """
-    WanPlus英雄联盟每日比赛列表爬虫
-    """
+    """WanPlus英雄联盟每日比赛列表爬虫"""
 
     # 列表请求的url
     _DATE_LIST_URL = "https://www.wanplus.com/ajax/schedule/list"

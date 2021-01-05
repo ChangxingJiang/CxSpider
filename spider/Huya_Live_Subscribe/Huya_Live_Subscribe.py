@@ -1,31 +1,15 @@
-"""
-虎牙直播间订阅数爬虫
-依据直播间Url列表，采集列表中直播间的订阅数(输出到控制台)
-列表文件中一行一个Url
-
-需要第三方模块：
-Selenium4R >= 0.0.3
-
-@author: ChangXing
-@version: 1.2
-@create: 2019.11.24
-@revise: 2020.06.09
-"""
-
 import crawlertool as tool
 from Selenium4R import Chrome
 
 
 class SpiderHuyaLiveSubscribe(tool.abc.SingleSpider):
-    """
-    虎牙直播间订阅数爬虫
-    """
+    """虎牙直播间订阅数爬虫"""
 
     def __init__(self, driver):
         self.driver = driver
 
-    def running(self, account_url):
-        self.driver.get(account_url)
+    def running(self, live_url):
+        self.driver.get(live_url)
 
         item = {
             "text_id": "",

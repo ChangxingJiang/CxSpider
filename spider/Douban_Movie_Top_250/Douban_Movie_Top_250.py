@@ -1,12 +1,3 @@
-"""
-豆瓣TOP250电影采集
-
-@author: ChangXing
-@version: 1.0
-@create: 2020.05.28
-@revise: -
-"""
-
 import re
 import time
 
@@ -15,9 +6,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
-    """
-    豆瓣TOP250电影采集
-    """
+    """豆瓣TOP250电影采集"""
 
     _HEADERS = {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -48,8 +37,7 @@ class SpiderDoubanMovieTop250(tool.abc.SingleSpider):
                 url = movie_label.select_one("li > div > div.pic > a")["href"]
 
                 # 解析标题行
-                title_text = movie_label.select_one("li > div > div.info > div.hd > a").text.replace("\n",
-                                                                                                     "")  # 提取标题行内容+清除换行符
+                title_text = movie_label.select_one("li > div > div.info > div.hd > a").text.replace("\n", "")  # 提取标题行内容+清除换行符
                 title_chinese = title_text.split("/")[0].strip()  # 提取中文标题+清除前后空格
                 title_other = [title.strip() for title in title_text.split("/")[1:]]  # 提取其他标题+清除前后空格
 

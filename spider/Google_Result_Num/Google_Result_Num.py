@@ -1,11 +1,5 @@
 # coding:utf-8
 
-"""
-Google搜索引擎收录增量爬虫
-
-@Update: 2020.10.22
-"""
-
 import calendar
 import re
 import time
@@ -17,6 +11,8 @@ from Selenium4R import Chrome
 
 
 class SpiderGoogleResultNum(tool.abc.SingleSpider):
+    """Google搜索引擎收录增量爬虫"""
+
     def __init__(self, driver):
         self.driver = driver
 

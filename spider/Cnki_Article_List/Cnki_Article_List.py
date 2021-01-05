@@ -1,10 +1,3 @@
-"""
-CNKI(中国知网)刊期包含论文列表爬虫
-
-@Author: 长行
-@Update: 2020.06.08
-"""
-
 import re
 
 import crawlertool as tool
@@ -12,8 +5,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderCnkiArticleList(tool.abc.SingleSpider):
-    """CNKI(中国知网)刊期包含论文列表爬虫
-    """
+    """CNKI(中国知网)刊期包含论文列表爬虫"""
 
     def running(self, journal, pcode, pykm, year, issue):
         """采集指定刊期的论文列表

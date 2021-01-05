@@ -1,11 +1,5 @@
 # coding:utf-8
 
-"""
-微博账号推文爬虫
-
-@Update: 2020.10.23
-"""
-
 import json
 import re
 import time

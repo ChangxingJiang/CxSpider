@@ -1,8 +1,3 @@
-"""
-@Author: 长行
-@Update: 2020.10.18
-"""
-
 import re
 from typing import List, Dict
 
@@ -10,9 +5,7 @@ import crawlertool as tool
 
 
 class SpiderAcfunVideo(tool.abc.SingleSpider):
-    """
-    AcFun视频信息爬虫（包括下载地址）
-    """
+    """AcFun视频信息爬虫"""
 
     # 执行请求的请求头
     _HEADERS = {

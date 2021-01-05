@@ -1,31 +1,45 @@
-### Facebook用户推文爬虫(facebook.user_tweet)
+# Facebook账号推文爬虫文档
 
-> **@author** ChangXing
->
-> **@version** 4.1
->
-> **@create** 2017.12.30
->
-> **@revise** 2020.06.08
+> 最新有效性检查时间：2020.12.28
 
-采集指定Facebook用户在指定时间范围内的推文列表。
+**爬虫类型**：单次运行爬虫
 
-* 采集信息：使用Twitter搜索页面进行采集，单一用户的单次采集可追溯数量有限，不宜单次采集过长的时间跨度，可分为多次采集
-* 目标Url：https://www.facebook.com/pg/news.ebc/posts/?ref=page_internal
-* 推文Url：https://www.facebook.com/news.ebc/posts/2983092458392492
-* 应用配置：无需使用代理IP，无需使用Selenium
+**爬虫依赖第三方模块**：crawlertool、Selenium4R
 
-| 字段名    | 字段内容                   |
-| --------- | -------------------------- |
-| tweet_id  | 推文ID                     |
-| tweet_url | 推文Url                    |
-| is_sticky | 推文是否为置顶状态         |
-| is_share  | 推文是否为分享             |
-| author    | 推文发布者名称             |
-| time      | 推文发布时间戳（单位：秒） |
-| content   | 推文内容                   |
-| reaction  | 推文互动数（即点赞数）     |
-| comment   | 推文评论数                 |
-| share     | 推文分享数                 |
+**爬虫功能**：采集Facebook账号的基本信息
 
-### 
+* 适用于Facebook老版本UI(FB4)的Facebook账号发布帖子爬虫；
+* 爬虫逻辑为在账号帖子页面中不断下拉刷新，以获取更多的推文；
+* 帖子首页加载20条推文，通过请求帖子首页获得，而后每次下拉加载8条推文，通过请求下拉刷新的Ajax请求获得；
+* 根据观察，Facebook对于间隔时间较长、或间隔推文较多的过早的推文，会选择性地显示，因此时间过早的推文并不能完整抓取，这个损失可能会非常大。
+
+**爬虫参数**：
+
+| 参数名          | 参数功能                                                     |
+| --------------- | ------------------------------------------------------------ |
+| proxy_port      | 代理端口（如果本地不是全局代理，则需要填写代理端口）         |
+| user_name       | Facebook账号名称（可使用静态方法get_facebook_user_name从Facebook账号主页Url中提取账号名称） |
+| since_timestamp | 抓取时间范围的左侧边界（最早时间戳）                         |
+| until_timestamp | 抓取时间范围的右侧边界（最晚时间戳）                         |
+
+**爬虫返回结果数据**：
+
+| 字段名          | 字段内容                                                    |
+| --------------- | ----------------------------------------------------------- |
+| if_share        | 推文是否为分享                                              |
+| if_sticky       | 推文是否为置顶状态                                          |
+| author          | 推文发布者名称（如果为分享推文则账号发布者与user_name不同） |
+| tweet_id        | 推文ID                                                      |
+| tweet_timestamp | 推文发布时间戳                                              |
+| tweet_date      | 推文发布日期                                                |
+| tweet_time      | 推文发布时间                                                |
+| img_url         | 推文配图的Url                                               |
+| text            | 推文内容                                                    |
+| tweet_url       | 推文Url                                                     |
+| reaction        | 推文互动数                                                  |
+| comment         | 推文评论数                                                  |
+| share           | 推文转发数                                                  |
+
+**创建时间**：2017.12.30
+
+**修改时间**：2020.12.28

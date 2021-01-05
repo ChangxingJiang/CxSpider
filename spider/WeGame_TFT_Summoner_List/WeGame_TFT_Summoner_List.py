@@ -1,29 +1,15 @@
-"""
-WeGame云顶之弈比赛记录爬虫：召唤师列表
-
-需要第三方模块：
-Utils4R >= 0.0.2
-
-@author: ChangXing
-@version: 2.1
-@create: 2019.12.10
-@revise: 2020.06.09
-"""
-
 import os
 
 import crawlertool as tool
 
 
 class SpiderTftSummonerList(tool.abc.SingleSpider):
-    """
-    WeGame云顶之弈比赛记录爬虫：召唤师列表
-    """
+    """WeGame云顶之弈比赛记录爬虫：召唤师列表"""
 
-    def running(self, params_item):
+    def running(self, area_id, offset, sign):
         response = tool.do_request(
             url="https://qt.qq.com/lua/mlol_battle_info/get_total_tier_rank_list",
-            params={"area_id": str(params_item[0]), "offset": str(params_item[1]), "sign": str(params_item[2])},
+            params={"area_id": str(area_id), "offset": str(offset), "sign": sign},
             verify=False)
         summoner_json = response.json()
 
@@ -71,4 +57,4 @@ if __name__ == "__main__":
         [14, 0, "c18788e78d9b059a556de576c78a334c"],  # 黑色玫瑰:第1页
         [14, 20, "46b6c711db7d80a34b9278704583006d"]  # 黑色玫瑰:第2页
     ]:
-        print(SpiderTftSummonerList().running(params_item))
+        print(SpiderTftSummonerList().running(params_item[0], params_item[1], params_item[2]))

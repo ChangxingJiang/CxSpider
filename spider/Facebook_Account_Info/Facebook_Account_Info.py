@@ -1,6 +1,5 @@
 # coding:utf-8
 
-
 import re
 import time
 
@@ -9,12 +8,7 @@ from Selenium4R import Chrome
 
 
 class SpiderFacebookAccountInfo(tool.abc.SingleSpider):
-    """Facebook账号信息爬虫
-
-    适用于Facebook老版本UI(FB4)的Facebook账号信息爬虫
-
-    @Update 2020.10.22
-    """
+    """Facebook账号信息爬虫"""
 
     def __init__(self, driver):
         # 爬虫实例的变量

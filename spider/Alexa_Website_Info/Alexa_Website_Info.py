@@ -7,13 +7,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderAlexaWebsiteInfo(tool.abc.SingleSpider):
-    """Alexa网站信息爬虫
-
-    爬虫逻辑为直接请求Alexa的包含指定网站数据的页面以获取数据；
-    Alexa对于浏览量较小的网站，仅收录部分数据，因此对于这些我们网站我们也仅能采集到部分数据
-
-    @Update: 2020.10.23
-    """
+    """Alexa网站信息爬虫"""
 
     def __init__(self):
         # 爬虫实例的变量

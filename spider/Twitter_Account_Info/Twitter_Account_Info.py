@@ -1,11 +1,5 @@
 # coding:utf-8
 
-"""
-Twitter账号信息爬虫
-
-@Update: 2020.10.23
-"""
-
 import re
 import time
 from typing import List, Dict
@@ -71,7 +65,7 @@ class SpiderTwitterAccountInfo(tool.abc.SingleSpider):
             item["followers"] = tool.extract.number(label.text)
         else:
             self.log("Twitter账号:" + user_name + "|账号粉丝数抓取异常")
-            item["following"] = 0
+            item["followers"] = 0
 
         return [item]
 

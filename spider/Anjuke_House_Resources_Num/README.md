@@ -1,51 +1,26 @@
-# 安居客各地房源数量爬虫
+# 安居客各地房源数量爬虫文档
 
-> 最新有效性检查时间：2020.10.18
+> 最新有效性检查时间：2020.12.28
 
-#### 所需第三方包
+**爬虫类型**：单次运行爬虫
 
-* Selenium4R >= 0.0.3
-* Utils4R >= 0.0.6
+**爬虫依赖第三方模块**：crawlertool、Selenium4R
 
-#### 运行说明
+**爬虫功能**：采集安居客各个城市的房源数量
 
-先采集城市编码列表，生成城市名称和城市编码的对应表；然后再使用这个对应表逐个采集各个城市的房源你数量。
+**爬虫参数**：
 
-#### 调用Demo
+| 参数名    | 参数功能                                                     |
+| --------- | ------------------------------------------------------------ |
+| city_code | 城市编码，可以通过安居客城市编码列表爬虫（Anjuke_City_Code_List）采集 |
 
-```python
-driver = Chrome(cache_path=r"E:\Temp")
+**爬虫返回结果数据**：
 
-# 采集城市编码列表
-spider_city_code = SpiderCityCode(driver)
-result1 = spider_city_code.run()
-Utils.io.write_json("anjuke_city_code.json", result1)
+| 字段名    | 字段内容     |
+| --------- | ------------ |
+| city_code | 城市编码     |
+| city_num  | 城市房源数量 |
 
-# 采集城市房源数量
-city_code_list = Utils.io.load_json("anjuke_city_code.json")
-city_info_list = Utils.io.load_json("anjuke_city_infor.json", default={})
-spider_city_info = SpiderCityInfo(driver)
-for city_name, city_code in city_code_list.items():
-    if city_name not in city_info_list:
-        city_info_list[city_name] = spider_city_info.run(city_code=city_code)
-        Utils.io.write_json("anjuke_city_info.json", city_info_list)
-        time.sleep(2)
+**创建时间**：2019.12.17
 
-driver.quit()
-```
-
-
-
-### 安居客各地房源数量爬虫(anjuke.housing_resources_num)
-
-> @author: ChangXing
->
-> @version: 1.1
->
-> @create: 2019.12.17
->
-> @revise: 2020.06.09
-
-先采集城市编码列表(crawler_city_list)，再依据城市编码采集城市房源数量(crawler_city_resources)。
-
-* 应用配置：无需使用代理IP，需要使用Selenium
+**修改时间**：2020.12.28

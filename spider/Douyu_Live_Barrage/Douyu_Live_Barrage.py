@@ -1,21 +1,3 @@
-"""
-斗鱼弹幕爬虫
-
-需要第三方模块：
-BeautifulSoup4 >= 4.9.0
-Selenium4R >= 0.0.3
-Utils4R >= 0.0.2
-
-@author: ChangXing
-@version: 1.2
-@create: 2019.11.24
-@revise: 2020.06.08
-
-功能: 抓取直播间中所有弹幕，依据不同类型的弹幕提取不同信息，并存储于文件中
-说明: 使用Selenium打开斗鱼直播间，通过浏览器不断将Js渲染后的网页源代码传给BeautifulSoup解析弹幕
-目标Url: https://www.douyu.com/topic/s9lol?rid=288016
-"""
-
 import collections
 import re
 import time

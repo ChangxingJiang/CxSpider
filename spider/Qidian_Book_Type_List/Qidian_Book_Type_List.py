@@ -1,20 +1,9 @@
-"""
-起点中文网小说列表爬虫
-
-@author: ChangXing
-@version: 1.0
-@create: 2020.08.09
-@revise: -
-"""
-
 import crawlertool as tool
 from bs4 import BeautifulSoup
 
 
 class SpiderQidianBookTypeList(tool.abc.SingleSpider):
-    """
-    起点中文网小说列表爬虫
-    """
+    """起点中文网小说列表爬虫"""
     _HEADERS = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Accept-Encoding": "gzip, deflate, br",
@@ -32,8 +21,8 @@ class SpiderQidianBookTypeList(tool.abc.SingleSpider):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"
     }
 
-    def running(self):
-        response = tool.do_request("https://www.qidian.com/rank/collect?style=2&chn=-1&page=1", headers=self._HEADERS)
+    def running(self, style):
+        response = tool.do_request("https://www.qidian.com/rank/collect?style=" + str(style) + "&chn=-1&page=1", headers=self._HEADERS)
 
         # 解析答案
         bs = BeautifulSoup(response.content.decode(), "lxml")
@@ -49,4 +38,4 @@ class SpiderQidianBookTypeList(tool.abc.SingleSpider):
 
 # ------------------- 单元测试 -------------------
 if __name__ == "__main__":
-    print(SpiderQidianBookTypeList().running())
+    print(SpiderQidianBookTypeList().running(2))
