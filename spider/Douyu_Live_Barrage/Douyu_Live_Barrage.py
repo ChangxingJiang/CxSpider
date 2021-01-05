@@ -19,6 +19,7 @@ Utils4R >= 0.0.2
 import collections
 import re
 import time
+from datetime import datetime
 
 import crawlertool as tool
 from Selenium4R import Chrome
@@ -26,8 +27,7 @@ from bs4 import BeautifulSoup
 
 
 class SpiderDouyuLiveBarrage(tool.abc.LoopSpider):
-    """斗鱼弹幕爬虫
-    """
+    """斗鱼弹幕爬虫"""
 
     def __init__(self, driver, live_url, interval):
         super().__init__(interval)
@@ -64,7 +64,8 @@ class SpiderDouyuLiveBarrage(tool.abc.LoopSpider):
                 "user_name": "",  # 弹幕发布者名称
                 "user_level": 0,  # 弹幕发布者等级
                 "content": "",  # 弹幕内容
-                "text": ""  # 其他信息
+                "text": "",  # 其他信息,
+                "fetch_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 弹幕采集时间
             }
 
             type_class = label.select_one("li > div")["class"]
