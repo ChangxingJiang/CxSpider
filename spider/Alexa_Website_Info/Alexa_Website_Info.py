@@ -1,5 +1,3 @@
-# coding:utf-8
-
 from typing import List, Dict
 
 import crawlertool as tool
@@ -8,6 +6,9 @@ from bs4 import BeautifulSoup
 
 class SpiderAlexaWebsiteInfo(tool.abc.SingleSpider):
     """Alexa网站信息爬虫"""
+
+    _COLUMNS = ["alexa_rank", "pageviews", "daily_time", "bounce_rate", "avg_bounce_rate", "country_list", "links", "search_treffic",
+                "avg_search_traffic", "keyword_list"]
 
     def __init__(self):
         # 爬虫实例的变量
