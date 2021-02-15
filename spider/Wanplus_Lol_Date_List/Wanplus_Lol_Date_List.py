@@ -41,7 +41,7 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
 
         # 统计需要抓取的日期列表
         all_date_list = list()  # 需要获取的日期列表
-        curr_date = datetime.datetime.now() + datetime.timedelta(days=-1)
+        curr_date = end_date
         while curr_date >= start_date:
             all_date_list.append(curr_date.strftime("%Y%m%d"))
             curr_date += datetime.timedelta(days=-1)
@@ -59,6 +59,10 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
         need_date_list.append(all_date_list[-1])  # 添加最早的一天
         # print("需要抓取的时间戳总数:", len(need_date_list))
 
+        # 格式化日期，方便比较
+        end_date = end_date.strftime("%Y%m%d")
+        start_date = start_date.strftime("%Y%m%d")
+
         # 依据时间戳抓取比赛数据
         for i in range(len(need_date_list)):
             curr_date_str = need_date_list[i]
@@ -66,10 +70,12 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
             curr_date_timestamp = str((datetime.datetime.strptime(curr_date_str, "%Y%m%d") - datetime.datetime(1970, 1, 1)).total_seconds())
             self._DATE_LIST_DATA["time"] = curr_date_timestamp  # 列表请求的表单数据
             response = tool.do_request(self._DATE_LIST_URL, method="post", headers=self._DATE_LIST_HEADERS, data=self._DATE_LIST_DATA)
+            # print(response.content)
             if response.status_code == 200:
                 response_json = json.loads(response.content.decode())
+                # print(response_json)
                 for curr_date_str, date_info in response_json["data"]["scheduleList"].items():
-                    if int(curr_date_str) <= int(end_date):
+                    if int(end_date) >= int(curr_date_str) >= int(start_date):
                         if date_info["list"]:
                             for match in date_info["list"]:
                                 result.append({
@@ -93,6 +99,6 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
 # ------------------- 单元测试 -------------------
 if __name__ == "__main__":
     print(SpiderWanplusLolDateList().running(
-        start_date=datetime.datetime.today() + datetime.timedelta(days=-365),  # 抓取开始日期
-        end_date=(datetime.datetime.today() + datetime.timedelta(days=-1)).strftime("%Y%m%d")  # 抓取结束日期
+        start_date=datetime.datetime.today() + datetime.timedelta(days=-7),  # 抓取开始日期
+        end_date=(datetime.datetime.today() + datetime.timedelta(days=7))  # 抓取结束日期
     ))
