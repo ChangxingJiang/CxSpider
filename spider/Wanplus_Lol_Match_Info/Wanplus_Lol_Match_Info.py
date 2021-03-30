@@ -13,9 +13,7 @@ import crawlertool as tool
 
 
 class SpiderWanplusLolMatchInfo(tool.abc.SingleSpider):
-    """
-    WanPlus英雄联盟场次详细信息爬虫
-    """
+    """WanPlus英雄联盟场次详细信息爬虫"""
 
     # 场次请求的url
     _MATCH_LIST_URL = "https://www.wanplus.com/ajax/matchdetail/%s?_gtk=345357323"

@@ -12,9 +12,8 @@ from bs4 import BeautifulSoup
 
 
 class SpiderWanplusLolMatchList(tool.abc.SingleSpider):
-    """
-    WanPlus英雄联盟比赛包含场次列表爬虫
-    """
+    """WanPlus英雄联盟比赛包含场次列表爬虫"""
+
     # 比赛请求的url
     _RACE_LIST_URL = "https://www.wanplus.com/schedule/%s.html"
 

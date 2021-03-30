@@ -8,7 +8,11 @@ import crawlertool as tool
 
 
 class SpiderWanplusLolDateList(tool.abc.SingleSpider):
-    """WanPlus英雄联盟每日比赛列表爬虫"""
+    """WanPlus英雄联盟每日比赛列表爬虫（最多追溯365天）"""
+
+    _COLUMNS = ["schedule_id", "date", "time", "event_id", "event_name", "event_group_name", "stage_id", "bo_num",
+                "team_a_id", "team_a_name", "team_b_id", "team_b_name",
+                "team_a_win", "team_b_win", "team_a_score", "team_b_score"]
 
     # 列表请求的url
     _DATE_LIST_URL = "https://www.wanplus.com/ajax/schedule/list"
@@ -79,31 +83,37 @@ class SpiderWanplusLolDateList(tool.abc.SingleSpider):
                 headers=self._DATE_LIST_HEADERS, data=self._DATE_LIST_DATA
             )
 
+            if response.status_code != 200:
+                print("请求失败!")
+                continue
+
             # 解析请求的返回结果
-            if response.status_code == 200:
-                response_json = json.loads(response.content.decode())
-                for curr_date, date_info in response_json["data"]["scheduleList"].items():
-                    if int(start_date.strftime("%Y%m%d")) <= int(curr_date) <= int(end_date.strftime("%Y%m%d")):
-                        for match in date_info["list"]:
-                            print(self.format_date(curr_date), match)
+            response_json = json.loads(response.content.decode())
+            for curr_date, date_info in response_json["data"]["scheduleList"].items():  # 遍历该周的每一天
+                print("当前抓取日期:", self.format_date(curr_date))
+                if int(start_date.strftime("%Y%m%d")) <= int(curr_date) <= int(end_date.strftime("%Y%m%d")):
+                    if date_info["list"]:  # 检查当日是否有比赛
+                        for match in date_info["list"]:  # 遍历该日的每一场比赛
                             result.append({
-                                "schedule_id": match["scheduleid"],  # 比赛ID(一场完整的BO1/BO3/BO5的比赛称为比赛)
+                                "schedule_id": int(match["scheduleid"]),  # 比赛ID(一场完整的BO1/BO3/BO5的比赛称为比赛)
                                 "date": self.format_date(curr_date),  # 比赛日期
                                 "time": match["starttime"],  # 比赛时间:比赛开始时间
-                                "event_id": match["eid"],  # 赛事ID
+                                "event_id": int(match["eid"]),  # 赛事ID
                                 "event_name": match["ename"],  # 赛事名称
                                 "event_group_name": match["groupname"],  # 赛事赛段
-                                "stageid": match["stageid"],  # 疑似赛事ID
-                                "bo_num": match["bonum"],  # 比赛场次:BO1=1,BO3=3,BO5=5
-                                "team_a_id": match["oneseedid"],  # 队伍A的ID
+                                "stage_id": int(match["stageid"]),  # 疑似赛事ID
+                                "bo_num": int(match["bonum"]),  # 比赛场次:BO1=1,BO3=3,BO5=5
+                                "team_a_id": int(match["oneseedid"]),  # 队伍A的ID
                                 "team_a_name": match["oneseedname"],  # 队伍A的名称
-                                "team_b_id": match["twoseedid"],  # 队伍B的ID
+                                "team_b_id": int(match["twoseedid"]),  # 队伍B的ID
                                 "team_b_name": match["twoseedname"],  # 队伍B的名称
-                                "team_a_win": match["onewin"],  # 队伍A的获胜小场数
-                                "team_b_win": match["twowin"],  # 队伍B的获胜小场数
+                                "team_a_win": int(match["onewin"]),  # 队伍A的获胜小场数
+                                "team_b_win": int(match["twowin"]),  # 队伍B的获胜小场数
                                 "team_a_score": str(match["oneScore"]),  # 队伍A的每小场得分
                                 "team_b_score": str(match["twoScore"]),  # 队伍B的每小场得分
                             })
+
+            # 执行延迟
             time.sleep(5)
 
         return result
