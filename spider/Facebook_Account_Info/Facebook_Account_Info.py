@@ -36,7 +36,8 @@ class SpiderFacebookAccountInfo(tool.abc.SingleSpider):
         time.sleep(1)
 
         # 抓取账号唯一ID
-        if label := self.driver.find_element_by_css_selector("#entity_sidebar > div:nth-child(1) > div > div > div > a "):
+        if label := self.driver.find_element_by_css_selector(
+                "#entity_sidebar > div:nth-child(1) > div > div > div > a "):
             if pattern := re.search(r"(?<=com/)\d+(?=/)", label.get_attribute('href')):
                 item["account_id"] = pattern.group()
         if "account_id" not in item:
@@ -44,12 +45,21 @@ class SpiderFacebookAccountInfo(tool.abc.SingleSpider):
 
         # 抓取账户关注数和点赞数
         if label := self.driver.find_element_by_css_selector("#PagesProfileHomeSecondaryColumnPagelet"):
-            if pattern := re.search(r"[\d, ]+(?= 位用户关注了)", label.text):
-                item["follow"] = int(pattern.group().replace(",", "").replace(" ", ""))
+            if "位用户关注了" in label.text:
+                if pattern := re.search(r"[\d, ]+(?= 位用户关注了)", label.text):
+                    item["follow"] = int(pattern.group().replace(",", "").replace(" ", ""))
+            elif "people follow this" in label.text:
+                if pattern := re.search(r"[\d, ]+(?= people follow this)", label.text):
+                    item["follow"] = int(pattern.group().replace(",", "").replace(" ", ""))
             else:
                 item["follow"] = 0
-            if pattern := re.search(r"[\d, ]+(?= 位用户赞了)", label.text):
-                item["favor"] = int(pattern.group().replace(",", "").replace(" ", ""))
+
+            if "位用户赞了" in label.text:
+                if pattern := re.search(r"[\d, ]+(?= 位用户赞了)", label.text):
+                    item["favor"] = int(pattern.group().replace(",", "").replace(" ", ""))
+            elif "people like this" in label.text:
+                if pattern := re.search(r"[\d, ]+(?= people like this)", label.text):
+                    item["favor"] = int(pattern.group().replace(",", "").replace(" ", ""))
             else:
                 item["favor"] = 0
         else:
